@@ -1,0 +1,4 @@
+include LICENSE
+
+recursive-include documentation *
+prune documentation/_build
