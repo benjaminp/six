@@ -70,14 +70,19 @@ def test_lazy():
 def pytest_generate_tests(metafunc):
     if "item_name" in metafunc.funcargnames:
         for value in six._moved_attributes:
-            if value.name == "winreg" and not sys.platform.startswith("win"):
-                continue
             metafunc.addcall({"item_name" : value.name})
 
 
 def test_move_items(item_name):
     """Ensure that everything loads correctly."""
-    getattr(six.moves, item_name)
+    try:
+        getattr(six.moves, item_name)
+    except ImportError:
+        if item_name == "winreg" and not sys.platform.startswith("win"):
+            py.test.skip("Windows only module")
+        if "_tkinter" in str(sys.exc_info()[1]):
+            py.test.skip("requires tkinter")
+        raise
 
 
 def test_get_unbound_function():
