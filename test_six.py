@@ -53,6 +53,12 @@ def test_binary_type():
 
 
 def test_MAXSIZE():
+    try:
+        # This shouldn't raise an overflow error.
+        six.MAXSIZE.__index__()
+    except AttributeError:
+        # Before Python 2.6.
+        pass
     py.test.raises(OverflowError, operator.mul, [None], six.MAXSIZE + 1)
 
 
