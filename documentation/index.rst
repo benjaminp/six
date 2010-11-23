@@ -238,8 +238,9 @@ Renamed modules and attributes compatibility
    :synopsis: Renamed modules and attributes compatibility
 
 Python 3 reorganized the standard library and moved several functions to
-different modules.  This module provides a consistent interface to them.  For
-example, to load the module for parsing HTML on Python 2 or 3, write::
+different modules.  Six provides a consistent interface to them through the fake
+:mod:`six.moves` module.  For example, to load the module for parsing HTML on
+Python 2 or 3, write::
 
    from six.moves import html_parser
 
