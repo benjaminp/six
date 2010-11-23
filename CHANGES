@@ -1,0 +1,17 @@
+Changelog for Six
+-----------------
+
+This file lists the changes in each six version.
+
+
+Development version
+-------------------
+
+- Nothing yet.
+
+
+1.0 beta 1
+----------
+
+- Reworked six into one .py file.  This breaks imports.  Please tell me if you
+  are interested in an import compatibility layer.
