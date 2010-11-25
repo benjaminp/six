@@ -7,7 +7,7 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
-- Nothing yet.
+- Expose an API for adding mappings to six.moves.
 
 
 1.0 beta 1

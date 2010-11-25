@@ -345,3 +345,42 @@ Supported renames:
 +------------------------------+-------------------------------------+---------------------------------+
 | ``xrange``                   | :func:`py2:xrange`                  | :func:`py3:range`               |
 +------------------------------+-------------------------------------+---------------------------------+
+
+
+Advanced - Customizing renames
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+.. currentmodule:: six
+
+It is possible to add additional names to the :mod:`six.moves` namespace.
+
+
+.. function:: add_move(item)
+
+   Add *item* to the :mod:`six.moves` mapping.  *item* should be a
+   :class:`MovedAttribute` or :class:`MovedModule` instance.
+
+
+.. function:: remove_move(name)
+
+   Remove the :mod:`six.moves` mapping called *name*.  *name* should be a
+   string.
+
+
+Instances of the following classes can be passed to :func:`add_move`.  Neither
+have any public members.
+
+
+.. class:: MovedModule(name, old_mod, new_mod)
+
+   Create a mapping for :mod:`six.moves` called *name* that references different
+   modules in Python 2 and 3.  *old_mod* is the name of the Python 2 module.
+   *new_mod* is the name of the Python 3 module.
+
+
+.. class:: MovedAttribute(name, old_mod, new_mod, old_attr=None, new_attr=None)
+
+   Create a mapping for :mod:`six.moves` called *name* that references different
+   attributes in Python 2 and 3.  *old_mod* is the name of the Python 2 module.
+   *new_mod* is the name of the Python 3 module.  If *new_attr* is not given, it
+   defaults to *old_attr*.  If neither is given, they both default to *name*.
