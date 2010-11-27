@@ -11,8 +11,11 @@ six_classifiers = [
     "Topic :: Utilities",
 ]
 
-with open("README", "r") as fp:
+fp = open("README", "r")
+try:
     six_long_description = fp.read()
+finally:
+    fp.close()
 
 
 setup(name="six",
