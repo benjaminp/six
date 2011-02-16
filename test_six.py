@@ -255,6 +255,11 @@ else:
         assert s == "hi"
 
 
+def test_u_escapes():
+    s = six.u("\u1234")
+    assert len(s) == 1
+
+
 def test_StringIO():
     fp = six.StringIO()
     fp.write(six.u("hello"))

@@ -7,6 +7,8 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Issue #2: u() on Python 2.x now resolves unicode escapes.
+
 - Expose an API for adding mappings to six.moves.
 
 
