@@ -4,8 +4,8 @@ Changelog for Six
 This file lists the changes in each six version.
 
 
-1.0
----
+1.0.0
+-----
 
 - Issue #2: u() on Python 2.x now resolves unicode escapes.
 
