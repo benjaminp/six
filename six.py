@@ -4,7 +4,7 @@ import sys
 import types
 
 __author__ = "Benjamin Peterson <benjamin@python.org>"
-__version__ = "1.0b1"
+__version__ = "1.0"
 
 
 # True if we are running on Python 3.
