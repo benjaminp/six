@@ -91,6 +91,22 @@ def test_move_items(item_name):
         raise
 
 
+def test_filter():
+    from six.moves import filter
+    f = filter(lambda x: x % 2, range(10))
+    assert six.advance_iterator(f) == 1
+
+
+def test_map():
+    from six.moves import map
+    assert six.advance_iterator(map(lambda x: x + 1, range(2))) == 1
+
+
+def test_zip():
+    from six.moves import zip
+    assert six.advance_iterator(zip(range(2), range(2))) == (0, 0)
+
+
 class TestCustomizedMoves:
 
     def teardown_method(self, meth):

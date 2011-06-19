@@ -99,10 +99,13 @@ class _MovedItems(types.ModuleType):
 
 _moved_attributes = [
     MovedAttribute("cStringIO", "cStringIO", "io", "StringIO"),
+    MovedAttribute("filter", "itertools", "builtins", "ifilter", "filter"),
+    MovedAttribute("map", "itertools", "builtins", "imap", "map"),
     MovedAttribute("reload_module", "__builtin__", "imp", "reload"),
     MovedAttribute("reduce", "__builtin__", "functools"),
     MovedAttribute("StringIO", "StringIO", "io"),
     MovedAttribute("xrange", "__builtin__", "builtins", "xrange", "range"),
+    MovedAttribute("zip", "itertools", "builtins", "izip", "zip"),
 
     MovedModule("builtins", "__builtin__"),
     MovedModule("configparser", "ConfigParser"),

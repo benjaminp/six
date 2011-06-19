@@ -3,6 +3,11 @@ Changelog for Six
 
 This file lists the changes in each six version.
 
+1.1
+---
+
+- Issue #3: Add six.moves mappings for filter, map, and zip.
+
 
 1.0.0
 -----
