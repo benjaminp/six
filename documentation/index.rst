@@ -62,8 +62,8 @@ Six provides constants that may differ between Python versions.  Ones ending
 
 .. data:: text_type
 
-   Type for representing textual data in Unicode.  This is :func:`py2:unicode`
-   in Python 2 and :func:`py3:str` in Python 3.
+   Type for representing (Unicode) textual data.  This is :func:`py2:unicode` in
+   Python 2 and :func:`py3:str` in Python 3.
 
 
 .. data:: binary_type
@@ -154,7 +154,7 @@ Python 2 and 3.
 .. function:: exec_(code, globals=None, locals=None)
 
    Execute *code* in the scope of *globals* and *locals*.  *code* can be a
-   string or a code object.  If *globals* or *locals* is not given, they will
+   string or a code object.  If *globals* or *locals* are not given, they will
    default to the scope of the caller.  If just *globals* is given, it will also
    be used as *locals*.
 
@@ -201,7 +201,7 @@ Binary and text data
 
 Python 3 enforces the distinction between byte strings and text strings far more
 rigoriously than Python 2 does; binary data cannot be automatically coerced to
-or from text data.  six provides the several functions to assist in classifying
+or from text data.  six provides several functions to assist in classifying
 string data in all Python versions.
 
 
@@ -259,7 +259,7 @@ running on Python 2.  For example, ``BaseHTTPServer`` which is in
 ``http.server`` in Python 3 is aliased as ``BaseHTTPServer``.
 
 Some modules which had two implementations have been merged in Python 3.  For
-example, ``cPickle`` no longer exists in Python 3.  It's been merged with
+example, ``cPickle`` no longer exists in Python 3; it was merged with
 ``pickle``.  In these cases, fetching the fast version will load the fast one on
 Python 2 and the merged module in Python 3.
 
