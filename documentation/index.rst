@@ -199,9 +199,10 @@ Python 2 and 3.
 Binary and text data
 >>>>>>>>>>>>>>>>>>>>
 
-Python 3 enforces the distinction between far more rigoriously than does Python
-2; binary data cannot be automatically coerced text data.  six provides the
-several functions to assist in classifying string data in all Python versions.
+Python 3 enforces the distinction between byte strings and text strings far more
+rigoriously than Python 2 does; binary data cannot be automatically coerced to
+or from text data.  six provides the several functions to assist in classifying
+string data in all Python versions.
 
 
 .. function:: b(data)
