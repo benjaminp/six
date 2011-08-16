@@ -252,7 +252,7 @@ if PY3:
 
 
     print_ = getattr(builtins, "print")
-
+    del builtins
 
 else:
     def exec_(code, globs=None, locs=None):
