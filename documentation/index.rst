@@ -220,7 +220,9 @@ string data in all Python versions.
 .. function:: u(text)
 
    A "fake" unicode literal.  *text* should always be a normal string literal.
-   In Python 2, :func:`u` returns unicode, and in Python 3, a string.
+   In Python 2, :func:`u` returns unicode, and in Python 3, a string.  Also, in
+   Python 2, the string is decoded with the ``unicode-escape`` codec, which
+   allows unicode escapes to be used in it.
 
 
 .. data:: StringIO
