@@ -141,7 +141,8 @@ functions and methods is the stdlib :mod:`py3:inspect` module.
 
 .. function:: callable(obj)
 
-   Check if *obj* can be called.
+   Check if *obj* can be called.  Note ``callable`` has returned in Python 3.2,
+   so using six's version is only necessary when supporting Python 3.0 or 3.1.
 
 
 Syntax compatibility
