@@ -241,7 +241,8 @@ _add_doc(u, """Text literal""")
 
 
 if PY3:
-    exec_ = eval("exec")
+    import builtins
+    exec_ = getattr(builtins, "exec")
 
 
     def reraise(tp, value, tb=None):
@@ -250,14 +251,7 @@ if PY3:
         raise value
 
 
-    print_ = eval("print")
-
-
-    def with_metaclass(meta, base=object):
-        ns = dict(base=base, meta=meta)
-        exec_("""class NewBase(base, metaclass=meta):
-    pass""", ns)
-        return ns["NewBase"]
+    print_ = getattr(builtins, "print")
 
 
 else:
@@ -324,12 +318,9 @@ else:
             write(arg)
         write(end)
 
-
-    def with_metaclass(meta, base=object):
-        class NewBase(base):
-            __metaclass__ = meta
-        return NewBase
-
-
 _add_doc(reraise, """Reraise an exception.""")
-_add_doc(with_metaclass, """Create a base class with a metaclass""")
+
+
+def with_metaclass(meta, base=object):
+    """Create a base class with a metaclass."""
+    return meta("NewBase", (base,), {})
