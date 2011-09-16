@@ -6,6 +6,9 @@ This file lists the changes in each six version.
 1.1
 ---
 
+- Add compatibility mappings for iterators over the keys, values, and items of a
+  dictionary.
+
 - Fix six.MAXSIZE on platforms where sizeof(long) != sizeof(Py_ssize_t).
 
 - Issue #3: Add six.moves mappings for filter, map, and zip.

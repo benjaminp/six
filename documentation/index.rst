@@ -149,6 +149,26 @@ functions and methods is the stdlib :mod:`py3:inspect` module.
    so using six's version is only necessary when supporting Python 3.0 or 3.1.
 
 
+.. function:: iterkeys(dictionary)
+
+   Returns an iterator over *dictionary*\'s keys. This replaces
+   ``dictionary.iterkeys()`` on Python 2 and ``dictionary.keys()`` on Python 3.
+
+
+.. function:: itervalues(dictionary)
+
+   Returns an iterator over *dictionary*\'s values. This replaces
+   ``dictionary.itervalues()`` on Python 2 and ``dictionary.values()`` on
+   Python 3.
+
+
+.. function:: iteritems(dictionary)
+
+   Returns an iterator over *dictionary*\'s items. This replaces
+   ``dictionary.iteritems()`` on Python 2 and ``dictionary.items()`` on
+   Python 3.
+
+
 Syntax compatibility
 >>>>>>>>>>>>>>>>>>>>
 

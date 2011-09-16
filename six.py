@@ -184,12 +184,20 @@ if PY3:
 
     _func_code = "__code__"
     _func_defaults = "__defaults__"
+
+    _iterkeys = "keys"
+    _itervalues = "values"
+    _iteritems = "items"
 else:
     _meth_func = "im_func"
     _meth_self = "im_self"
 
     _func_code = "func_code"
     _func_defaults = "func_defaults"
+
+    _iterkeys = "iterkeys"
+    _itervalues = "itervalues"
+    _iteritems = "iteritems"
 
 
 if PY3:
@@ -218,6 +226,19 @@ get_method_function = operator.attrgetter(_meth_func)
 get_method_self = operator.attrgetter(_meth_self)
 get_function_code = operator.attrgetter(_func_code)
 get_function_defaults = operator.attrgetter(_func_defaults)
+
+
+def iterkeys(d):
+    """Return an iterator over the keys of a dictionary."""
+    return getattr(d, _iterkeys)()
+
+def itervalues(d):
+    """Return an iterator over the values of a dictionary."""
+    return getattr(d, _itervalues)()
+
+def iteritems(d):
+    """Return an iterator over the (key, value) pairs of a dictionary."""
+    return getattr(d, _iteritems)()
 
 
 if PY3:

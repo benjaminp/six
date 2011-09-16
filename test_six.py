@@ -217,6 +217,14 @@ def test_get_function_defaults():
     assert six.get_function_defaults(f) == (3, 4)
 
 
+def test_dictionary_iterators():
+    d = dict(zip(range(10), reversed(range(10))))
+    for name in "keys", "values", "items":
+        it = getattr(six, "iter" + name)(d)
+        assert not isinstance(it, list)
+        assert list(it) == list(getattr(d, name)())
+
+
 def test_advance_iterator():
     l = [1, 2]
     it = iter(l)
