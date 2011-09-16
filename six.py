@@ -1,5 +1,6 @@
 """Utilities for writing code that runs on Python 2 and 3"""
 
+import operator
 import sys
 import types
 
@@ -213,24 +214,10 @@ _add_doc(get_unbound_function,
          """Get the function out of a possibly unbound function""")
 
 
-def get_method_function(meth):
-    """Get the underlying function of a bound method."""
-    return getattr(meth, _meth_func)
-
-
-def get_method_self(meth):
-    """Get the self of a bound method."""
-    return getattr(meth, _meth_self)
-
-
-def get_function_code(func):
-    """Get code object of a function."""
-    return getattr(func, _func_code)
-
-
-def get_function_defaults(func):
-    """Get defaults of a function."""
-    return getattr(func, _func_defaults)
+get_method_function = operator.attrgetter(_meth_func)
+get_method_self = operator.attrgetter(_meth_self)
+get_function_code = operator.attrgetter(_func_code)
+get_function_defaults = operator.attrgetter(_func_defaults)
 
 
 if PY3:
