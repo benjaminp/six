@@ -284,6 +284,11 @@ def test_u_escapes():
     assert len(s) == 1
 
 
+def test_int2byte():
+    assert six.int2byte(3) == six.b("\x03")
+    py.test.raises((OverflowError, ValueError), six.int2byte, 256)
+
+
 def test_StringIO():
     fp = six.StringIO()
     fp.write(six.u("hello"))

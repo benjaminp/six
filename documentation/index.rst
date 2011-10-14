@@ -245,6 +245,12 @@ string data in all Python versions.
    allows unicode escapes to be used in it.
 
 
+.. function:: int2byte(i)
+
+   Converts *i* to a byte.  *i* must be in ``range(0, 256)``.  This is
+   equivalent to :class:`py2:chr` in Python 2 and ``bytes((i,))`` in Python 3.
+
+
 .. data:: StringIO
 
    This is an fake file object for textual data.  It's an alias for

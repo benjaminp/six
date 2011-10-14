@@ -6,6 +6,8 @@ This file lists the changes in each six version.
 1.1
 ---
 
+- Add the int2byte function.
+
 - Add compatibility mappings for iterators over the keys, values, and items of a
   dictionary.
 

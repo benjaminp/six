@@ -246,6 +246,12 @@ if PY3:
         return s.encode("latin-1")
     def u(s):
         return s
+    if sys.version_info[1] <= 1:
+        def int2byte(i):
+            return bytes((i,))
+    else:
+        # This is about 2x faster than the implementation above on 3.2+
+        int2byte = operator.methodcaller("to_bytes", 1, "big")
     import io
     StringIO = io.StringIO
     BytesIO = io.BytesIO
@@ -254,6 +260,7 @@ else:
         return s
     def u(s):
         return unicode(s, "unicode_escape")
+    int2byte = chr
     import StringIO
     StringIO = BytesIO = StringIO.StringIO
 _add_doc(b, """Byte literal""")
