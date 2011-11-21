@@ -73,12 +73,8 @@ def test_lazy():
     assert "htmlparser" not in six._MovedItems.__dict__
 
 
-def pytest_generate_tests(metafunc):
-    if "item_name" in metafunc.funcargnames:
-        for value in six._moved_attributes:
-            metafunc.addcall({"item_name" : value.name})
-
-
+@py.test.mark.parametrize("item_name",
+                          [item.name for item in six._moved_attributes])
 def test_move_items(item_name):
     """Ensure that everything loads correctly."""
     try:
