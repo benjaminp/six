@@ -3,8 +3,8 @@ Changelog for Six
 
 This file lists the changes in each six version.
 
-1.1
----
+1.1.0
+-----
 
 - Add the int2byte function.
 
