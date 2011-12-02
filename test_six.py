@@ -16,9 +16,9 @@ def test_add_doc():
 
 
 def test_import_module():
-    from email import errors
-    m = six._import_module("email.errors")
-    assert m is errors
+    from logging import handlers
+    m = six._import_module("logging.handlers")
+    assert m is handlers
 
 
 def test_integer_types():
