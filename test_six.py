@@ -63,7 +63,7 @@ def test_MAXSIZE():
         exc = ValueError
     else:
         exc = OverflowError
-    py.test.raises(OverflowError, operator.mul, [None], six.MAXSIZE + 1)
+    py.test.raises(exc, operator.mul, [None], six.MAXSIZE + 1)
 
 
 def test_lazy():
