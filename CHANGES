@@ -6,6 +6,9 @@ This file lists the changes in each six version.
 1.2.0
 -----
 
+- Use the builtin next() function for advance_iterator() where is available
+  (2.6+), not just Python 3.
+
 - Add the Iterator class for writing portable iterators.
 
 1.1.0

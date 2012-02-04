@@ -200,10 +200,16 @@ else:
     _iteritems = "iteritems"
 
 
+try:
+    advance_iterator = next
+except NameError:
+    def advance_iterator(it):
+        return it.next()
+
+
 if PY3:
     def get_unbound_function(unbound):
         return unbound
-
 
     advance_iterator = next
     Iterator = object
@@ -213,10 +219,6 @@ if PY3:
 else:
     def get_unbound_function(unbound):
         return unbound.im_func
-
-
-    def advance_iterator(it):
-        return it.next()
 
     class Iterator(object):
 
