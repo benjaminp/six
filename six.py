@@ -206,6 +206,7 @@ if PY3:
 
 
     advance_iterator = next
+    Iterator = object
 
     def callable(obj):
         return any("__call__" in klass.__dict__ for klass in type(obj).__mro__)
@@ -216,6 +217,11 @@ else:
 
     def advance_iterator(it):
         return it.next()
+
+    class Iterator(object):
+
+        def next(self):
+            return type(self).__next__(self)
 
     callable = callable
 _add_doc(get_unbound_function,

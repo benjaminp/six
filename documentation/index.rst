@@ -169,6 +169,17 @@ functions and methods is the stdlib :mod:`py3:inspect` module.
    Python 3.
 
 
+.. class:: Iterator
+
+   A class for making portable iterators. The intention is that it be subclassed
+   and subclasses provide a ``__next__`` method. In Python 2, :class:`Iterator`
+   has one method: ``next``. It simply delegates to ``__next__``. An alternate
+   way to do this would be to simply alias ``next`` to ``__next__``. However,
+   this interacts badly with subclasses that override
+   ``__next__``. :class:`Iterator` is empty on Python 3. (In fact, it is just
+   aliased to :class:`py3:object`.)
+
+
 Syntax compatibility
 >>>>>>>>>>>>>>>>>>>>
 

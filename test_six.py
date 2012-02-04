@@ -234,6 +234,17 @@ def test_advance_iterator():
     py.test.raises(StopIteration, six.advance_iterator, it)
 
 
+def test_iterator():
+    class myiter(six.Iterator):
+        def __next__(self):
+            return 13
+    assert six.advance_iterator(myiter()) == 13
+    class myitersub(myiter):
+        def __next__(self):
+            return 14
+    assert six.advance_iterator(myitersub()) == 14
+
+
 def test_callable():
     class X:
         def __call__(self):

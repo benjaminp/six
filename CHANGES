@@ -3,6 +3,11 @@ Changelog for Six
 
 This file lists the changes in each six version.
 
+1.2.0
+-----
+
+- Add the Iterator class for writing portable iterators.
+
 1.1.0
 -----
 
