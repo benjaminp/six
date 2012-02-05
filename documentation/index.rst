@@ -136,6 +136,7 @@ functions and methods is the stdlib :mod:`py3:inspect` module.
    Get the defaults tuple associated with *func*.
 
 
+.. function:: next(it)
 .. function:: advance_iterator(it)
 
    Get the next item of iterator *it*.  :exc:`py3:StopIteration` is raised if

@@ -205,13 +205,13 @@ try:
 except NameError:
     def advance_iterator(it):
         return it.next()
+next = advance_iterator
 
 
 if PY3:
     def get_unbound_function(unbound):
         return unbound
 
-    advance_iterator = next
     Iterator = object
 
     def callable(obj):

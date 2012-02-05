@@ -226,12 +226,13 @@ def test_dictionary_iterators():
 
 
 def test_advance_iterator():
+    assert six.next is six.advance_iterator
     l = [1, 2]
     it = iter(l)
-    assert six.advance_iterator(it) == 1
-    assert six.advance_iterator(it) == 2
-    py.test.raises(StopIteration, six.advance_iterator, it)
-    py.test.raises(StopIteration, six.advance_iterator, it)
+    assert six.next(it) == 1
+    assert six.next(it) == 2
+    py.test.raises(StopIteration, six.next, it)
+    py.test.raises(StopIteration, six.next, it)
 
 
 def test_iterator():
