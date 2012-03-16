@@ -9,7 +9,8 @@ Six: Python 2 and 3 Compatibility Library
 
 
 Six provides simple utilities for wrapping over differences between Python 2 and
-Python 3.
+Python 3.  It is intended to support codebases that work on both Python 2 and 3
+without modification.
 
 Six can be downloaded on `PyPi <http://pypi.python.org/pypi/six/>`_.  Its bug
 tracker and code hosting is on `BitBucket <http://bitbucket.org/gutworth/six>`_.
