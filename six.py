@@ -243,15 +243,15 @@ get_function_defaults = operator.attrgetter(_func_defaults)
 
 def iterkeys(d):
     """Return an iterator over the keys of a dictionary."""
-    return getattr(d, _iterkeys)()
+    return iter(getattr(d, _iterkeys)())
 
 def itervalues(d):
     """Return an iterator over the values of a dictionary."""
-    return getattr(d, _itervalues)()
+    return iter(getattr(d, _itervalues)())
 
 def iteritems(d):
     """Return an iterator over the (key, value) pairs of a dictionary."""
-    return getattr(d, _iteritems)()
+    return iter(getattr(d, _iteritems)())
 
 
 if PY3:

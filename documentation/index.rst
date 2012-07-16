@@ -258,6 +258,15 @@ string data in all Python versions.
    allows unicode escapes to be used in it.
 
 
+   .. note::
+
+      In Python 3.3, the ``u`` prefix has been reintroduced. Code that only
+      supports Python 3 versions greater than 3.3 thus does not need
+      :func:`u`. Additionally, since all Python versions 2.6 and after support
+      the ``b`` prefix, :func:`b`, code without 2.5 support doesn't need
+      :func:`b`.
+
+
 .. function:: int2byte(i)
 
    Converts *i* to a byte.  *i* must be in ``range(0, 256)``.  This is

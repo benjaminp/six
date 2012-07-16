@@ -223,6 +223,7 @@ def test_dictionary_iterators():
         it = getattr(six, "iter" + name)(d)
         assert not isinstance(it, list)
         assert list(it) == list(getattr(d, name)())
+        py.test.raises(StopIteration, six.advance_iterator, it)
 
 
 def test_advance_iterator():
