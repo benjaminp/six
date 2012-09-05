@@ -26,7 +26,7 @@ else:
     text_type = unicode
     binary_type = str
 
-    if sys.platform == "java":
+    if sys.platform.startswith("java"):
         # Jython always uses 32 bits.
         MAXSIZE = int((1 << 31) - 1)
     else:
