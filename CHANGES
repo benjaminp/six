@@ -3,6 +3,12 @@ Changelog for Six
 
 This file lists the changes in each six version.
 
+Development version
+-------------------
+
+- Issue #14: Put the six.moves package in sys.modules based on the name six is
+  imported under.
+
 1.2.0
 -----
 
