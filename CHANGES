@@ -9,6 +9,8 @@ Development version
 - Issue #14: Put the six.moves package in sys.modules based on the name six is
   imported under.
 
+- Fix Jython detection.
+
 1.2.0
 -----
 
