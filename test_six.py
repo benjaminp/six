@@ -208,7 +208,8 @@ def test_get_function_code():
     def f():
         pass
     assert isinstance(six.get_function_code(f), types.CodeType)
-    py.test.raises(AttributeError, six.get_function_code, hasattr)
+    if not hasattr(sys, "pypy_version_info"):
+        py.test.raises(AttributeError, six.get_function_code, hasattr)
 
 
 def test_get_function_defaults():
