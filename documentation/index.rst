@@ -250,6 +250,12 @@ string data in all Python versions.
    with the latin-1 encoding to bytes.
 
 
+.. note::
+
+      Since all Python versions 2.6 and after support the ``b`` prefix,
+      :func:`b`, code without 2.5 support doesn't need :func:`b`.
+
+
 .. function:: u(text)
 
    A "fake" unicode literal.  *text* should always be a normal string literal.
@@ -262,9 +268,7 @@ string data in all Python versions.
 
       In Python 3.3, the ``u`` prefix has been reintroduced. Code that only
       supports Python 3 versions greater than 3.3 thus does not need
-      :func:`u`. Additionally, since all Python versions 2.6 and after support
-      the ``b`` prefix, :func:`b`, code without 2.5 support doesn't need
-      :func:`b`.
+      :func:`u`.
 
 
 .. function:: int2byte(i)
