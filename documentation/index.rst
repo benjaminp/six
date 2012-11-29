@@ -270,6 +270,13 @@ string data in all Python versions.
       supports Python 3 versions greater than 3.3 thus does not need
       :func:`u`.
 
+   .. note::
+
+      On Python 2, :func:`u` doesn't know what the encoding of the literal
+      is. Each byte is converted directly to the unicode codepoint of the same
+      value. Because of this, it's only safe to use :func:`u` with strings of
+      ASCII data.
+
 
 .. function:: int2byte(i)
 
