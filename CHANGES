@@ -14,6 +14,9 @@ Development version
 
 - Fix Jython detection.
 
+- Pull request #4: Add email_mime_multipart, email_mime_text, and
+  email_mime_base to six.moves.
+
 1.2.0
 -----
 
