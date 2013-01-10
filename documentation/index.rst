@@ -196,6 +196,11 @@ Python 2 and 3.
    default to the scope of the caller.  If just *globals* is given, it will also
    be used as *locals*.
 
+   .. note::
+
+      Python 3's :func:`py3:exec` doesn't take keyword arguments, so calling
+      :func:`exec` with them should be avoided.
+
 
 .. function:: print_(*args, *, file=sys.stdout, end="\n", sep=" ")
 

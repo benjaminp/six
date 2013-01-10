@@ -6,6 +6,9 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Issue #16: Rename Python 2 exec_'s arguments, so casually calling exec_ with
+  keyword arguments will raise.
+
 - Issue #14: Put the six.moves package in sys.modules based on the name six is
   imported under.
 
