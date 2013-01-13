@@ -6,6 +6,9 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Issue #17: Define callable to be builtin callable when it is available again
+  in Python 3.2+.
+
 - Issue #16: Rename Python 2 exec_'s arguments, so casually calling exec_ with
   keyword arguments will raise.
 

@@ -235,14 +235,18 @@ except NameError:
 next = advance_iterator
 
 
+try:
+    callable = callable
+except NameError:
+    def callable(obj):
+        return any("__call__" in klass.__dict__ for klass in type(obj).__mro__)
+
+
 if PY3:
     def get_unbound_function(unbound):
         return unbound
 
     Iterator = object
-
-    def callable(obj):
-        return any("__call__" in klass.__dict__ for klass in type(obj).__mro__)
 else:
     def get_unbound_function(unbound):
         return unbound.im_func
