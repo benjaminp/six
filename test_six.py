@@ -77,6 +77,13 @@ def test_lazy():
     assert "htmlparser" not in six._MovedItems.__dict__
 
 
+try:
+    import _tkinter
+except ImportError:
+    have_tkinter = False
+else:
+    have_tkinter = True
+
 @py.test.mark.parametrize("item_name",
                           [item.name for item in six._moved_attributes])
 def test_move_items(item_name):
@@ -86,7 +93,7 @@ def test_move_items(item_name):
     except ImportError:
         if item_name == "winreg" and not sys.platform.startswith("win"):
             py.test.skip("Windows only module")
-        if "_tkinter" in str(sys.exc_info()[1]):
+        if item_name.startswith("tkinter") and not have_tkinter:
             py.test.skip("requires tkinter")
         raise
 
