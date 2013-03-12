@@ -225,22 +225,32 @@ def test_get_function_defaults():
     assert six.get_function_defaults(f) == (3, 4)
 
 
-def test_dictionary_iterators():
+def test_dictionary_iterators(monkeypatch):
     class MyDict(dict):
         if not six.PY3:
-            def lists(self):
+            def lists(self, **kw):
                 return [1, 2, 3]
-        def iterlists(self):
+        def iterlists(self, **kw):
             return iter([1, 2, 3])
     f = MyDict.iterlists
     del MyDict.iterlists
     setattr(MyDict, six._iterlists, f)
     d = MyDict(zip(range(10), reversed(range(10))))
     for name in "keys", "values", "items", "lists":
-        it = getattr(six, "iter" + name)(d)
+        meth = getattr(six, "iter" + name)
+        it = meth(d)
         assert not isinstance(it, list)
         assert list(it) == list(getattr(d, name)())
         py.test.raises(StopIteration, six.advance_iterator, it)
+        record = []
+        def with_kw(*args, **kw):
+            record.append(kw["kw"])
+            return old(*args)
+        old = getattr(MyDict, getattr(six, "_iter" + name))
+        monkeypatch.setattr(MyDict, getattr(six, "_iter" + name), with_kw)
+        meth(d, kw=42)
+        assert record == [42]
+        monkeypatch.undo()
 
 
 def test_advance_iterator():

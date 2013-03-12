@@ -151,32 +151,34 @@ functions and methods is the stdlib :mod:`py3:inspect` module.
    so using six's version is only necessary when supporting Python 3.0 or 3.1.
 
 
-.. function:: iterkeys(dictionary)
+.. function:: iterkeys(dictionary, **kwargs)
 
    Returns an iterator over *dictionary*\'s keys. This replaces
-   ``dictionary.iterkeys()`` on Python 2 and ``dictionary.keys()`` on Python 3.
+   ``dictionary.iterkeys()`` on Python 2 and ``dictionary.keys()`` on
+   Python 3.  *kwargs* are passed through to the underlying method.
 
 
-.. function:: itervalues(dictionary)
+.. function:: itervalues(dictionary, **kwargs)
 
    Returns an iterator over *dictionary*\'s values. This replaces
    ``dictionary.itervalues()`` on Python 2 and ``dictionary.values()`` on
-   Python 3.
+   Python 3.  *kwargs* are passed through to the underlying method.
 
 
-.. function:: iteritems(dictionary)
+.. function:: iteritems(dictionary, **kwargs)
 
    Returns an iterator over *dictionary*\'s items. This replaces
    ``dictionary.iteritems()`` on Python 2 and ``dictionary.items()`` on
-   Python 3.
+   Python 3.  *kwargs* are passed through to the underlying method.
 
 
-.. function:: iterlists(dictionary)
+.. function:: iterlists(dictionary, **kwargs)
 
    Calls ``dictionary.iterlists()`` on Python 2 and ``dictionary.lists()`` on
    Python 3.  No builtin Python mapping type has such a method; this method is
    intended for use with multi-valued dictionaries like `Werkzeug's
    <http://werkzeug.pocoo.org/docs/datastructures/#werkzeug.datastructures.MultiDict>`_.
+   *kwargs* are passed through to the underlying method.
 
 
 .. class:: Iterator

@@ -6,6 +6,9 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- In six.iter(items/keys/values/lists), passed keyword arguments through to the
+  underlying method.
+
 - Add six.iterlists().
 
 - Issue #20: Fix tests if tkinter is not available.

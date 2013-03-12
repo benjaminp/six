@@ -269,21 +269,21 @@ get_function_code = operator.attrgetter(_func_code)
 get_function_defaults = operator.attrgetter(_func_defaults)
 
 
-def iterkeys(d):
+def iterkeys(d, **kw):
     """Return an iterator over the keys of a dictionary."""
-    return iter(getattr(d, _iterkeys)())
+    return iter(getattr(d, _iterkeys)(**kw))
 
-def itervalues(d):
+def itervalues(d, **kw):
     """Return an iterator over the values of a dictionary."""
-    return iter(getattr(d, _itervalues)())
+    return iter(getattr(d, _itervalues)(**kw))
 
-def iteritems(d):
+def iteritems(d, **kw):
     """Return an iterator over the (key, value) pairs of a dictionary."""
-    return iter(getattr(d, _iteritems)())
+    return iter(getattr(d, _iteritems)(**kw))
 
-def iterlists(d):
+def iterlists(d, **kw):
     """Return an iterator over the (key, [values]) pairs of a dictionary."""
-    return iter(getattr(d, _iterlists)())
+    return iter(getattr(d, _iterlists)(**kw))
 
 
 if PY3:
