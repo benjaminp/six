@@ -171,6 +171,14 @@ functions and methods is the stdlib :mod:`py3:inspect` module.
    Python 3.
 
 
+.. function:: iterlists(dictionary)
+
+   Calls ``dictionary.iterlists()`` on Python 2 and ``dictionary.lists()`` on
+   Python 3.  No builtin Python mapping type has such a method; this method is
+   intended for use with multi-valued dictionaries like `Werkzeug's
+   <http://werkzeug.pocoo.org/docs/datastructures/#werkzeug.datastructures.MultiDict>`_.
+
+
 .. class:: Iterator
 
    A class for making portable iterators. The intention is that it be subclassed

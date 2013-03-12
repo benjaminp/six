@@ -215,6 +215,7 @@ if PY3:
     _iterkeys = "keys"
     _itervalues = "values"
     _iteritems = "items"
+    _iterlists = "lists"
 else:
     _meth_func = "im_func"
     _meth_self = "im_self"
@@ -225,6 +226,7 @@ else:
     _iterkeys = "iterkeys"
     _itervalues = "itervalues"
     _iteritems = "iteritems"
+    _iterlists = "iterlists"
 
 
 try:
@@ -278,6 +280,10 @@ def itervalues(d):
 def iteritems(d):
     """Return an iterator over the (key, value) pairs of a dictionary."""
     return iter(getattr(d, _iteritems)())
+
+def iterlists(d):
+    """Return an iterator over the (key, [values]) pairs of a dictionary."""
+    return iter(getattr(d, _iterlists)())
 
 
 if PY3:
