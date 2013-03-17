@@ -209,8 +209,10 @@ if PY3:
     _meth_func = "__func__"
     _meth_self = "__self__"
 
+    _func_closure = "__closure__"
     _func_code = "__code__"
     _func_defaults = "__defaults__"
+    _func_globals = "__globals__"
 
     _iterkeys = "keys"
     _itervalues = "values"
@@ -220,8 +222,10 @@ else:
     _meth_func = "im_func"
     _meth_self = "im_self"
 
+    _func_closure = "func_closure"
     _func_code = "func_code"
     _func_defaults = "func_defaults"
+    _func_globals = "func_globals"
 
     _iterkeys = "iterkeys"
     _itervalues = "itervalues"
@@ -265,8 +269,10 @@ _add_doc(get_unbound_function,
 
 get_method_function = operator.attrgetter(_meth_func)
 get_method_self = operator.attrgetter(_meth_self)
+get_function_closure = operator.attrgetter(_func_closure)
 get_function_code = operator.attrgetter(_func_code)
 get_function_defaults = operator.attrgetter(_func_defaults)
+get_function_globals = operator.attrgetter(_func_globals)
 
 
 def iterkeys(d, **kw):

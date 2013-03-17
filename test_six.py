@@ -211,6 +211,16 @@ def test_get_method_function():
     py.test.raises(AttributeError, six.get_method_function, hasattr)
 
 
+def test_get_function_closure():
+    def f():
+        x = 42
+        def g():
+            return x
+        return g
+    cell = six.get_function_closure(f())[0]
+    assert type(cell).__name__ == "cell"
+
+
 def test_get_function_code():
     def f():
         pass
@@ -223,6 +233,12 @@ def test_get_function_defaults():
     def f(x, y=3, b=4):
         pass
     assert six.get_function_defaults(f) == (3, 4)
+
+
+def test_get_function_globals():
+    def f():
+        pass
+    assert six.get_function_globals(f) is globals()
 
 
 def test_dictionary_iterators(monkeypatch):

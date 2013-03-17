@@ -6,6 +6,8 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Issue #21: Add methods to access the closure and globals of a function.
+
 - In six.iter(items/keys/values/lists), passed keyword arguments through to the
   underlying method.
 

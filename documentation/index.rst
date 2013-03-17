@@ -127,6 +127,11 @@ functions and methods is the stdlib :mod:`py3:inspect` module.
    Get the ``self`` of bound method *meth*.
 
 
+.. function:: get_function_closure(func)
+
+   Get the closure (list of cells) associated with *func*.
+
+
 .. function:: get_function_code(func)
 
    Get the code object associated with *func*.
@@ -135,6 +140,11 @@ functions and methods is the stdlib :mod:`py3:inspect` module.
 .. function:: get_function_defaults(func)
 
    Get the defaults tuple associated with *func*.
+
+
+.. function:: get_function_globals(func)
+
+   Get the globals of *func*.
 
 
 .. function:: next(it)
