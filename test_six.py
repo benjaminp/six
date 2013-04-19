@@ -306,6 +306,17 @@ def test_callable():
     assert not six.callable("string")
 
 
+def test_create_bound_method():
+    class X(object):
+        pass
+    def f(self):
+        return self
+    x = X()
+    b = six.create_bound_method(f, x)
+    assert isinstance(b, types.MethodType)
+    assert b() is x
+
+
 if six.PY3:
 
     def test_b():

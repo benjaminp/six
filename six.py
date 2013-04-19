@@ -253,10 +253,15 @@ if PY3:
     def get_unbound_function(unbound):
         return unbound
 
+    create_bound_method = types.MethodType
+
     Iterator = object
 else:
     def get_unbound_function(unbound):
         return unbound.im_func
+
+    def create_bound_method(func, obj):
+        return types.MethodType(func, obj, obj.__class__)
 
     class Iterator(object):
 

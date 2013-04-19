@@ -199,6 +199,14 @@ functions and methods is the stdlib :mod:`py3:inspect` module.
    *kwargs* are passed through to the underlying method.
 
 
+.. function:: create_bound_method(func, obj)
+
+   Return a method object wrapping *func* and bound to *obj*.  On both Python 2
+   and 3, this will return a :func:`py3:types.MethodType` object.  The reason
+   this wrapper exists is that on Python 2, the ``MethodType`` constructor
+   requires the *obj*'s class to be passed.
+
+
 .. class:: Iterator
 
    A class for making portable iterators. The intention is that it be subclassed
