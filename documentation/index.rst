@@ -322,7 +322,7 @@ string data in all Python versions.
 .. function:: int2byte(i)
 
    Converts *i* to a byte.  *i* must be in ``range(0, 256)``.  This is
-   equivalent to :class:`py2:chr` in Python 2 and ``bytes((i,))`` in Python 3.
+   equivalent to :func:`py2:chr` in Python 2 and ``bytes((i,))`` in Python 3.
 
 
 .. function:: indexbytes(buf, i)
