@@ -356,6 +356,17 @@ def test_int2byte():
     py.test.raises((OverflowError, ValueError), six.int2byte, 256)
 
 
+def test_bytesindex():
+    assert six.indexbytes(six.b("hello"), 3) == ord("l")
+
+
+def test_bytesiter():
+    it = six.iterbytes(six.b("hi"))
+    assert six.next(it) == ord("h")
+    assert six.next(it) == ord("i")
+    py.test.raises(StopIteration, six.next, it)
+
+
 def test_StringIO():
     fp = six.StringIO()
     fp.write(six.u("hello"))

@@ -6,6 +6,8 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Add helpers for indexing and iterating over bytes: iterbytes and indexbytes.
+
 - Add create_bound_method() wrapper.
 
 - Issue #23: Allow multiple base classes to be passed to with_metaclass.

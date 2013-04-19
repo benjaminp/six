@@ -325,6 +325,18 @@ string data in all Python versions.
    equivalent to :class:`py2:chr` in Python 2 and ``bytes((i,))`` in Python 3.
 
 
+.. function:: indexbytes(buf, i)
+
+   Return the byte at index *i* of *buf* as an integer.  This is equivalent to
+   indexing a bytes object in Python 3.
+
+
+.. function:: iterbytes(buf)
+
+   Return an iterator over bytes in *buf* as integers.  This is equivalent to
+   a bytes object iterator in Python 3.
+
+
 .. data:: StringIO
 
    This is an fake file object for textual data.  It's an alias for

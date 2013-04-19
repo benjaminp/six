@@ -309,6 +309,8 @@ if PY3:
     else:
         # This is about 2x faster than the implementation above on 3.2+
         int2byte = operator.methodcaller("to_bytes", 1, "big")
+    indexbytes = operator.getitem
+    iterbytes = iter
     import io
     StringIO = io.StringIO
     BytesIO = io.BytesIO
@@ -318,6 +320,10 @@ else:
     def u(s):
         return unicode(s, "unicode_escape")
     int2byte = chr
+    def indexbytes(buf, i):
+        return ord(buf[i])
+    def iterbytes(buf):
+        return (ord(byte) for byte in buf)
     import StringIO
     StringIO = BytesIO = StringIO.StringIO
 _add_doc(b, """Byte literal""")
