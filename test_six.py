@@ -456,3 +456,10 @@ def test_with_metaclass():
         pass
     assert type(X) is Meta
     assert issubclass(X, Base)
+    class Base2(object):
+        pass
+    class X(six.with_metaclass(Meta, Base, Base2)):
+        pass
+    assert type(X) is Meta
+    assert issubclass(X, Base)
+    assert issubclass(X, Base2)

@@ -6,6 +6,8 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Issue #23: Allow multiple base classes to be passed to with_metaclass.
+
 - Issue #24: Add six.moves.range alias. This exactly the same as the current
   xrange alias.
 

@@ -250,10 +250,10 @@ Python 2 and 3.
    traceback can be specified with the *exc_traceback* parameter.
 
 
-.. function:: with_metaclass(metaclass, base=object)
+.. function:: with_metaclass(metaclass, *bases)
 
-   Create a new class with base class *base* and metaclass *metaclass*.  This is
-   designed to be used in class declarations like this: ::
+   Create a new class with base classes *bases* and metaclass *metaclass*.  This
+   is designed to be used in class declarations like this: ::
 
       from six import with_metaclass
 
