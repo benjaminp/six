@@ -114,6 +114,14 @@ def test_zip():
     assert six.advance_iterator(zip(range(2), range(2))) == (0, 0)
 
 
+def test_zip_longest():
+    from six.moves import zip_longest
+    it = zip_longest(range(2), range(1))
+
+    assert six.advance_iterator(it) == (0, 0)
+    assert six.advance_iterator(it) == (1, None)
+
+
 class TestCustomizedMoves:
 
     def teardown_method(self, meth):
