@@ -76,11 +76,12 @@ Six provides constants that may differ between Python versions.  Ones ending
 
 .. data:: MAXSIZE
 
-   The maximum size of a container.  This is equivalent to
-   :data:`py3:sys.maxsize` in Python 2.6 and later (including 3.x).  Note, this
-   is temptingly similar to, but not the same as :data:`py2:sys.maxint` in
-   Python 2.  There is no direct equivalent to :data:`py2:sys.maxint` in Python
-   3 because its integer type has no limits aside from memory.
+   The maximum  size of a  container like :func:`py3:list`  or :func:`py3:dict`.
+   This  is  equivalent  to  :data:`py3:sys.maxsize` in  Python  2.6  and  later
+   (including 3.x).   Note, this is temptingly  similar to, but not  the same as
+   :data:`py2:sys.maxint`  in  Python  2.   There is  no  direct  equivalent  to
+   :data:`py2:sys.maxint` in  Python 3  because its integer  type has  no limits
+   aside from memory.
 
 
 Here's example usage of the module::
