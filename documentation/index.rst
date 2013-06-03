@@ -292,7 +292,7 @@ string data in all Python versions.
    with the latin-1 encoding to bytes.
 
 
-.. note::
+   .. note::
 
       Since all Python versions 2.6 and after support the ``b`` prefix,
       :func:`b`, code without 2.5 support doesn't need :func:`b`.
