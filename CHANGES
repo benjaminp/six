@@ -9,7 +9,7 @@ Development version
 - Issue #25: Add the unichr function, which returns a string for a Unicode
   codepoint.
 
-- Issue #26: Add byte2int function which complements int2byte.
+- Issue #26: Add byte2int function, which complements int2byte.
 
 - Add a PY2 constant with obvious semantics.
 
