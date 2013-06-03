@@ -31,6 +31,10 @@ Indices and tables
 Package contents
 ----------------
 
+.. data:: PY2
+
+   A boolean indicating if the code is running on Python 2.
+
 .. data:: PY3
 
    A boolean indicating if the code is running on Python 3.
