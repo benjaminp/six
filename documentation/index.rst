@@ -330,6 +330,12 @@ string data in all Python versions.
    equivalent to :func:`py2:chr` in Python 2 and ``bytes((i,))`` in Python 3.
 
 
+.. function:: byte2int(bs)
+
+   Converts the first byte of *bs* to an integer.  This is equivalent to
+   ``ord(bs[0])`` on Python 2 and ``bs[0]`` on Python 3.
+
+
 .. function:: indexbytes(buf, i)
 
    Return the byte at index *i* of *buf* as an integer.  This is equivalent to

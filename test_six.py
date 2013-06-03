@@ -356,6 +356,12 @@ def test_int2byte():
     py.test.raises((OverflowError, ValueError), six.int2byte, 256)
 
 
+def test_byte2int():
+    assert six.byte2int(six.b("\x03")) == 3
+    assert six.byte2int(six.b("\x03\x04")) == 3
+    py.test.raises(IndexError, six.byte2int, six.b(""))
+
+
 def test_bytesindex():
     assert six.indexbytes(six.b("hello"), 3) == ord("l")
 

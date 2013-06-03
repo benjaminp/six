@@ -6,6 +6,8 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Issue #26: Add byte2int function which complements int2byte.
+
 - Add a PY2 constant with obvious semantics.
 
 - Add helpers for indexing and iterating over bytes: iterbytes and indexbytes.

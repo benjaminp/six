@@ -311,6 +311,7 @@ if PY3:
     else:
         # This is about 2x faster than the implementation above on 3.2+
         int2byte = operator.methodcaller("to_bytes", 1, "big")
+    byte2int = operator.itemgetter(0)
     indexbytes = operator.getitem
     iterbytes = iter
     import io
@@ -322,6 +323,8 @@ else:
     def u(s):
         return unicode(s, "unicode_escape")
     int2byte = chr
+    def byte2int(bs):
+        return ord(bs[0])
     def indexbytes(buf, i):
         return ord(buf[i])
     def iterbytes(buf):
