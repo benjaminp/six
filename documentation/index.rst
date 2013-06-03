@@ -324,6 +324,12 @@ string data in all Python versions.
       ASCII data.
 
 
+.. function:: unichr(c)
+
+   Return the (Unicode) string representing the codepoint *c*.  This is
+   equivalent to :func:`py2:unichr` on Python 2 and :func:`py3:chr` on Python 3.
+
+
 .. function:: int2byte(i)
 
    Converts *i* to a byte.  *i* must be in ``range(0, 256)``.  This is

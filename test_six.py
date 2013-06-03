@@ -351,6 +351,11 @@ def test_u_escapes():
     assert len(s) == 1
 
 
+def test_unichr():
+    assert six.u("\u1234") == six.unichr(0x1234)
+    assert type(six.u("\u1234")) is type(six.unichr(0x1234))
+
+
 def test_int2byte():
     assert six.int2byte(3) == six.b("\x03")
     py.test.raises((OverflowError, ValueError), six.int2byte, 256)

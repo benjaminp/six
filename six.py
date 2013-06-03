@@ -305,6 +305,7 @@ if PY3:
         return s.encode("latin-1")
     def u(s):
         return s
+    unichr = chr
     if sys.version_info[1] <= 1:
         def int2byte(i):
             return bytes((i,))
@@ -322,6 +323,7 @@ else:
         return s
     def u(s):
         return unicode(s, "unicode_escape")
+    unichr = unichr
     int2byte = chr
     def byte2int(bs):
         return ord(bs[0])
