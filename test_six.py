@@ -104,6 +104,13 @@ def test_filter():
     assert six.advance_iterator(f) == 1
 
 
+def test_filter_false():
+    from six.moves import filterfalse
+    f = filterfalse(lambda x: x % 3, range(10))
+    assert six.advance_iterator(f) == 0
+    assert six.advance_iterator(f) == 3
+    assert six.advance_iterator(f) == 6
+
 def test_map():
     from six.moves import map
     assert six.advance_iterator(map(lambda x: x + 1, range(2))) == 1
