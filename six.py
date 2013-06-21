@@ -421,3 +421,36 @@ _add_doc(reraise, """Reraise an exception.""")
 def with_metaclass(meta, *bases):
     """Create a base class with a metaclass."""
     return meta("NewBase", bases, {})
+
+def patch_with_metaclass(metaclass):
+    """
+    Decorate a class to replace it with a metaclass-constructed version.
+
+    Usage:
+
+    @patch_with_metaclass(MyMeta)
+    class MyClass(object):
+        ...
+
+    That code produces a class equivalent to
+
+    class MyClass(object, metaclass=MyMeta):
+        ...
+
+    on Python 3 or
+
+    class MyClass(object):
+        __metaclass__ = MyMeta
+
+    on Python 2
+
+    Requires Python 2.6 or later (for class decoration). For use on Python
+    2.5 and earlier, use the legacy syntax:
+
+    class MyClass(object):
+        ...
+    MyClass = patch_with_metaclass(MyClass)
+    """
+    def wrapper(cls):
+        return metaclass(cls.__name__, cls.__bases__, dict(cls.__dict__))
+    return wrapper
