@@ -524,18 +524,21 @@ def test_patch_with_metaclass():
 
 def test_patch_with_metaclass_extra_meta():
     class Meta1(type):
-        pass
+        m1 = 'm1'
     class Meta2(Meta1):
-        pass
+        m2 = 'm2'
     @six.patch_with_metaclass(Meta1)
     class Base:
-        pass
+        b = 'b'
     @six.patch_with_metaclass(Meta2)
     class X(Base):
-        pass
+        x = 'x'
     assert type(X) is Meta2
     assert issubclass(X, Base)
     assert type(Base) is Meta1
     assert not '__dict__' in vars(X)
     instance = X()
-    vars(instance)
+    instance.attr = 'test'
+    assert vars(instance) == {'attr': 'test'}
+    assert instance.b == Base.b
+    assert instance.x == X.x
