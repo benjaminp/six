@@ -521,3 +521,19 @@ def test_patch_with_metaclass():
     assert type(X) is Meta
     assert issubclass(X, Base)
     assert issubclass(X, Base2)
+
+def test_patch_with_metaclass_extra_meta():
+    class Meta1(type):
+        pass
+    class Meta2(Meta1):
+        pass
+    @six.patch_with_metaclass(Meta1)
+    class Base:
+        pass
+    @six.patch_with_metaclass(Meta2)
+    class X(Base):
+        pass
+    assert type(X) is Meta2
+    assert issubclass(X, Base)
+    assert type(Base) is Meta1
+    assert not '__dict__' in vars(X)
