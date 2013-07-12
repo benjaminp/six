@@ -453,5 +453,7 @@ def patch_with_metaclass(metaclass):
     """
     def wrapper(cls):
         orig_vars = vars(cls).copy()
+        orig_vars.pop('__dict__', None)
+        orig_vars.pop('__weakref__', None)
         return metaclass(cls.__name__, cls.__bases__, orig_vars)
     return wrapper
