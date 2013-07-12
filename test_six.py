@@ -537,3 +537,5 @@ def test_patch_with_metaclass_extra_meta():
     assert issubclass(X, Base)
     assert type(Base) is Meta1
     assert not '__dict__' in vars(X)
+    instance = X()
+    vars(instance)
