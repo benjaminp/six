@@ -452,5 +452,6 @@ def patch_with_metaclass(metaclass):
     MyClass = patch_with_metaclass(MyClass)
     """
     def wrapper(cls):
-        return metaclass(cls.__name__, cls.__bases__, dict(cls.__dict__))
+        orig_vars = vars(cls).copy()
+        return metaclass(cls.__name__, cls.__bases__, orig_vars)
     return wrapper
