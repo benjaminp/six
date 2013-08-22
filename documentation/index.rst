@@ -280,6 +280,36 @@ Python 2 and 3.
           pass
 
 
+.. function:: add_metaclass(metaclass)
+
+   Decorate a class to replace it with a metaclass-constructed version.
+   Similar to :func:`with_metaclass`, but allows the resultant class to be
+   created without an intermediate class. For example::
+
+       @add_metaclass(MyMeta)
+       class MyClass(object):
+           ...
+
+   That code produces a class equivalent to ::
+
+       class MyClass(object, metaclass=MyMeta):
+           ...
+
+   on Python 3 or ::
+
+       class MyClass(object):
+           __metaclass__ = MyMeta
+
+   on Python 2.
+
+   Requires Python 2.6 or later (for class decoration). For use on Python
+   2.5 and earlier, use the legacy syntax::
+
+       class MyClass(object):
+           ...
+       MyClass = add_metaclass(MyClass)
+
+
 Binary and text data
 >>>>>>>>>>>>>>>>>>>>
 
