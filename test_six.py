@@ -542,3 +542,18 @@ def test_add_metaclass():
     assert vars(instance) == {"attr": "test"}
     assert instance.b == Base.b
     assert instance.x == X.x
+
+    # test a class with slots
+    class MySlots(object):
+        __slots__ = ["a", "b"]
+    MySlots = six.add_metaclass(Meta1)(MySlots)
+
+    assert MySlots.__slots__ == ["a", "b"]
+    instance = MySlots()
+    instance.a = "foo"
+    try:
+        instance.c = "baz"
+    except AttributeError:
+        pass
+    else:
+        raise RuntimeError("did not raise")
