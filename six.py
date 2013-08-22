@@ -425,34 +425,7 @@ def with_metaclass(meta, *bases):
     return meta("NewBase", bases, {})
 
 def add_metaclass(metaclass):
-    """
-    Decorate a class to replace it with a metaclass-constructed version.
-
-    Usage:
-
-    @add_metaclass(MyMeta)
-    class MyClass(object):
-        ...
-
-    That code produces a class equivalent to
-
-    class MyClass(object, metaclass=MyMeta):
-        ...
-
-    on Python 3 or
-
-    class MyClass(object):
-        __metaclass__ = MyMeta
-
-    on Python 2
-
-    Requires Python 2.6 or later (for class decoration). For use on Python
-    2.5 and earlier, use the legacy syntax:
-
-    class MyClass(object):
-        ...
-    MyClass = add_metaclass(Meta)(MyClass)
-    """
+    """Class decorator for creating a class with a metaclass."""
     def wrapper(cls):
         orig_vars = cls.__dict__.copy()
         orig_vars.pop('__dict__', None)
