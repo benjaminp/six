@@ -302,8 +302,8 @@ Python 2 and 3.
 
    on Python 2.
 
-   Requires Python 2.6 or later (for class decoration). For use on Python
-   2.5 and earlier, use the legacy syntax::
+   Note that class decorators require Python 2.6. However, the effect of the
+   decorator can be emulated on Python 2.4 and 2.5 like so::
 
        class MyClass(object):
            ...
