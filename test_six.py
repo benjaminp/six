@@ -522,7 +522,7 @@ def test_add_metaclass():
     assert issubclass(X, Base)
     assert issubclass(X, Base2)
 
-def test_add_metaclass_extra_meta():
+    # additionally test a second-generation subclass of a type
     class Meta1(type):
         m1 = "m1"
     class Meta2(Meta1):
