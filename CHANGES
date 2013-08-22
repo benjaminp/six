@@ -6,6 +6,9 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Pull request #12: Add six.add_metaclass, a decorator for adding a metaclass to
+  a class.
+
 - Add six.moves.zip_longest and six.moves.filterfalse, which correspond
   respectively to itertools.izip_longest and itertools.ifilterfalse on Python 2
   and itertools.zip_longest and itertools.filterfalse on Python 3.
