@@ -502,10 +502,12 @@ def test_add_metaclass():
     class Meta(type):
         pass
     class X:
-        pass
+        "success"
     X = six.add_metaclass(Meta)(X)
     assert type(X) is Meta
     assert issubclass(X, object)
+    assert X.__module__ is __name__
+    assert X.__doc__ == "success"
     class Base(object):
         pass
     class X(Base):
