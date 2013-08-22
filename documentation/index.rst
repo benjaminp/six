@@ -290,13 +290,13 @@ Python 2 and 3.
    :func:`add_metaclass` does not create an intermediate base class between the
    class being created and its bases. Example usage: ::
 
-       @add_metaclass(MyMeta)
+       @add_metaclass(Meta)
        class MyClass(object):
            pass
 
    That code produces a class equivalent to ::
 
-       class MyClass(object, metaclass=MyMeta):
+       class MyClass(object, metaclass=Meta):
            pass
 
    on Python 3 or ::
