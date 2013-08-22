@@ -521,7 +521,7 @@ def test_add_metaclass():
     X = six.add_metaclass(Meta)(X)
     assert type(X) is Meta
     assert issubclass(X, object)
-    assert X.__module__ is __name__
+    assert X.__module__ == __name__
     assert X.__doc__ == "success"
     class Base(object):
         pass
