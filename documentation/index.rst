@@ -292,12 +292,12 @@ Python 2 and 3.
 
        @add_metaclass(MyMeta)
        class MyClass(object):
-           ...
+           pass
 
    That code produces a class equivalent to ::
 
        class MyClass(object, metaclass=MyMeta):
-           ...
+           pass
 
    on Python 3 or ::
 
@@ -310,7 +310,7 @@ Python 2 and 3.
    decorator can be emulated on Python 2.4 and 2.5 like so::
 
        class MyClass(object):
-           ...
+           pass
        MyClass = add_metaclass(Meta)(MyClass)
 
 
