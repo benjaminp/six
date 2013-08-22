@@ -501,23 +501,23 @@ def test_with_metaclass():
 def test_patch_with_metaclass():
     class Meta(type):
         pass
-    @six.patch_with_metaclass(Meta)
     class X:
         pass
+    X = six.patch_with_metaclass(Meta)(X)
     assert type(X) is Meta
     assert issubclass(X, object)
     class Base(object):
         pass
-    @six.patch_with_metaclass(Meta)
     class X(Base):
         pass
+    X = six.patch_with_metaclass(Meta)(X)
     assert type(X) is Meta
     assert issubclass(X, Base)
     class Base2(object):
         pass
-    @six.patch_with_metaclass(Meta)
     class X(Base, Base2):
         pass
+    X = six.patch_with_metaclass(Meta)(X)
     assert type(X) is Meta
     assert issubclass(X, Base)
     assert issubclass(X, Base2)
@@ -527,12 +527,12 @@ def test_patch_with_metaclass_extra_meta():
         m1 = "m1"
     class Meta2(Meta1):
         m2 = "m2"
-    @six.patch_with_metaclass(Meta1)
     class Base:
         b = "b"
-    @six.patch_with_metaclass(Meta2)
+    Base = six.patch_with_metaclass(Meta1)(Base)
     class X(Base):
         x = "x"
+    X = six.patch_with_metaclass(Meta2)(X)
     assert type(X) is Meta2
     assert issubclass(X, Base)
     assert type(Base) is Meta1
