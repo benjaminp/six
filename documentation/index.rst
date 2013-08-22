@@ -279,6 +279,9 @@ Python 2 and 3.
       class MyClass(with_metaclass(Meta, Base)):
           pass
 
+   Another way to set a metaclass on a class is with the :func:`add_metaclass`
+   decorator.
+
 
 .. function:: add_metaclass(metaclass)
 
