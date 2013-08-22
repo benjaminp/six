@@ -451,7 +451,7 @@ def add_metaclass(metaclass):
 
     class MyClass(object):
         ...
-    MyClass = add_metaclass(MyClass)
+    MyClass = add_metaclass(Meta)(MyClass)
     """
     def wrapper(cls):
         orig_vars = cls.__dict__.copy()

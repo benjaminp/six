@@ -307,7 +307,7 @@ Python 2 and 3.
 
        class MyClass(object):
            ...
-       MyClass = add_metaclass(MyClass)
+       MyClass = add_metaclass(Meta)(MyClass)
 
 
 Binary and text data
