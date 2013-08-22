@@ -79,14 +79,12 @@ Development version
 
 - Issue #3: Add six.moves mappings for filter, map, and zip.
 
-
 1.0.0
 -----
 
 - Issue #2: u() on Python 2.x now resolves unicode escapes.
 
 - Expose an API for adding mappings to six.moves.
-
 
 1.0 beta 1
 ----------
