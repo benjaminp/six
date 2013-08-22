@@ -422,13 +422,13 @@ def with_metaclass(meta, *bases):
     """Create a base class with a metaclass."""
     return meta("NewBase", bases, {})
 
-def patch_with_metaclass(metaclass):
+def add_metaclass(metaclass):
     """
     Decorate a class to replace it with a metaclass-constructed version.
 
     Usage:
 
-    @patch_with_metaclass(MyMeta)
+    @add_metaclass(MyMeta)
     class MyClass(object):
         ...
 
@@ -449,7 +449,7 @@ def patch_with_metaclass(metaclass):
 
     class MyClass(object):
         ...
-    MyClass = patch_with_metaclass(MyClass)
+    MyClass = add_metaclass(MyClass)
     """
     def wrapper(cls):
         orig_vars = cls.__dict__.copy()
