@@ -536,7 +536,7 @@ def test_patch_with_metaclass_extra_meta():
     assert type(X) is Meta2
     assert issubclass(X, Base)
     assert type(Base) is Meta1
-    assert not "__dict__" in vars(X)
+    assert "__dict__" not in vars(X)
     instance = X()
     instance.attr = "test"
     assert vars(instance) == {"attr": "test"}
