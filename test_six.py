@@ -568,9 +568,4 @@ def test_add_metaclass():
     assert MySlots.__slots__ == ["a", "b"]
     instance = MySlots()
     instance.a = "foo"
-    try:
-        instance.c = "baz"
-    except AttributeError:
-        pass
-    else:
-        raise RuntimeError("did not raise")
+    py.test.raises(AttributeError, setattr, instance, "c", "baz")
