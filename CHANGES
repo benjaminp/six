@@ -6,6 +6,8 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Issue #31: Add six.moves mapping for UserString.
+
 - Pull request #12: Add six.add_metaclass, a decorator for adding a metaclass to
   a class.
 
