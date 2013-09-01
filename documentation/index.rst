@@ -549,8 +549,8 @@ Supported renames:
 | ``zip_longest``              | :func:`py2:itertools.izip_longest`  | :func:`py3:itertools.zip_longest`   |
 +------------------------------+-------------------------------------+-------------------------------------+
 
-six.moves.urllib.parse
-<<<<<<<<<<<<<<<<<<<<<<
+urllib parse
+<<<<<<<<<<<<
 
 .. module:: six.moves.urllib.parse
    :synopsis: Stuff from :mod:`py2:urlparse` and :mod:`py2:urllib` in Python 2 and :mod:`py3:urllib.parse` in Python 3
@@ -577,8 +577,8 @@ and :mod:`py2:urllib`:
 * :func:`py2:urllib.urlencode`
 
 
-six.moves.urllib.error
-<<<<<<<<<<<<<<<<<<<<<<
+urllib error
+<<<<<<<<<<<<
 
 .. module:: six.moves.urllib.error
    :synopsis: Stuff from :mod:`py2:urllib` and :mod:`py2:urllib2` in Python 2 and :mod:`py3:urllib.error` in Python 3
@@ -595,8 +595,8 @@ and :mod:`py2:urllib2`:
 * :exc:`py2:urllib2.HTTPError`
 
 
-six.moves.urllib.request
-<<<<<<<<<<<<<<<<<<<<<<<<
+urllib request
+<<<<<<<<<<<<<<
 
 .. module:: six.moves.urllib.request
    :synopsis: Stuff from :mod:`py2:urllib` and :mod:`py2:urllib2` in Python 2 and :mod:`py3:urllib.request` in Python 3
@@ -642,8 +642,8 @@ and :mod:`py2:urllib2`:
 * :class:`py2:urllib2.HTTPErrorProcessor`
 
 
-six.moves.urllib.response
-<<<<<<<<<<<<<<<<<<<<<<<<<
+urllib response
+<<<<<<<<<<<<<<<
 
 .. module:: six.moves.urllib.response
    :synopsis: Stuff from :mod:`py2:urllib` in Python 2 and :mod:`py3:urllib.response` in Python 3
