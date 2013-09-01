@@ -90,6 +90,9 @@ def test_move_items(item_name):
     """Ensure that everything loads correctly."""
     try:
         getattr(six.moves, item_name)
+    except AttributeError:
+        if item_name == "zip_longest" and sys.version_info < (2, 6):
+            py.test.skip("zip_longest only available on 2.6+")
     except ImportError:
         if item_name == "winreg" and not sys.platform.startswith("win"):
             py.test.skip("Windows only module")
@@ -102,6 +105,10 @@ def test_move_items(item_name):
                           [item.name for item in six._urllib_parse_moved_attributes])
 def test_move_items_urllib_parse(item_name):
     """Ensure that everything loads correctly."""
+    if item_name == "ParseResult" and sys.version_info < (2, 5):
+        py.test.skip("ParseResult is only found on 2.5+")
+    if item_name in ("parse_qs", "parse_qsl") and sys.version_info < (2, 6):
+        py.test.skip("parse_qs[l] is new in 2.6")
     getattr(six.moves.urllib.parse, item_name)
 
 
@@ -156,6 +163,7 @@ def test_zip():
     assert six.advance_iterator(zip(range(2), range(2))) == (0, 0)
 
 
+@py.test.mark.skipif("sys.version_info < (2, 6)")
 def test_zip_longest():
     from six.moves import zip_longest
     it = zip_longest(range(2), range(1))
