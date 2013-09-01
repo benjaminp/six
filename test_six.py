@@ -98,6 +98,41 @@ def test_move_items(item_name):
         raise
 
 
+@py.test.mark.parametrize("item_name",
+                          [item.name for item in six._urllib_parse_moved_attributes])
+def test_move_items_urllib_parse(item_name):
+    """Ensure that everything loads correctly."""
+    getattr(six.moves.urllib.parse, item_name)
+
+
+@py.test.mark.parametrize("item_name",
+                          [item.name for item in six._urllib_error_moved_attributes])
+def test_move_items_urllib_error(item_name):
+    """Ensure that everything loads correctly."""
+    getattr(six.moves.urllib.error, item_name)
+
+
+@py.test.mark.parametrize("item_name",
+                          [item.name for item in six._urllib_request_moved_attributes])
+def test_move_items_urllib_request(item_name):
+    """Ensure that everything loads correctly."""
+    getattr(six.moves.urllib.request, item_name)
+
+
+@py.test.mark.parametrize("item_name",
+                          [item.name for item in six._urllib_response_moved_attributes])
+def test_move_items_urllib_response(item_name):
+    """Ensure that everything loads correctly."""
+    getattr(six.moves.urllib.response, item_name)
+
+
+@py.test.mark.parametrize("item_name",
+                          [item.name for item in six._urllib_robotparser_moved_attributes])
+def test_move_items_urllib_robotparser(item_name):
+    """Ensure that everything loads correctly."""
+    getattr(six.moves.urllib.robotparser, item_name)
+
+
 def test_filter():
     from six.moves import filter
     f = filter(lambda x: x % 2, range(10))

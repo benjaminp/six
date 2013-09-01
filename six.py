@@ -185,6 +185,9 @@ _moved_attributes = [
     MovedModule("tkinter_messagebox", "tkMessageBox", "tkinter.messagebox"),
     MovedModule("tkinter_tksimpledialog", "tkSimpleDialog",
                 "tkinter.simpledialog"),
+    MovedModule("urllib_parse", "six.moves.urllib_parse", "urllib.parse"),
+    MovedModule("urllib_error", "six.moves.urllib_error", "urllib.error"),
+    MovedModule("urllib", "six.moves.urllib", "six.moves.urllib"),
     MovedModule("urllib_robotparser", "robotparser", "urllib.robotparser"),
     MovedModule("winreg", "_winreg"),
 ]
@@ -193,6 +196,143 @@ for attr in _moved_attributes:
 del attr
 
 moves = sys.modules[__name__ + ".moves"] = _MovedItems("moves")
+
+
+
+class Module_six_moves_urllib_parse(types.ModuleType):
+    """Lazy loading of moved objects in six.moves.urllib_parse"""
+
+
+_urllib_parse_moved_attributes = [
+    MovedAttribute("ParseResult", "urlparse", "urllib.parse"),
+    MovedAttribute("parse_qs", "urlparse", "urllib.parse"),
+    MovedAttribute("parse_qsl", "urlparse", "urllib.parse"),
+    MovedAttribute("urldefrag", "urlparse", "urllib.parse"),
+    MovedAttribute("urljoin", "urlparse", "urllib.parse"),
+    MovedAttribute("urlparse", "urlparse", "urllib.parse"),
+    MovedAttribute("urlsplit", "urlparse", "urllib.parse"),
+    MovedAttribute("urlunparse", "urlparse", "urllib.parse"),
+    MovedAttribute("urlunsplit", "urlparse", "urllib.parse"),
+    MovedAttribute("quote", "urllib", "urllib.parse"),
+    MovedAttribute("quote_plus", "urllib", "urllib.parse"),
+    MovedAttribute("unquote", "urllib", "urllib.parse"),
+    MovedAttribute("unquote_plus", "urllib", "urllib.parse"),
+    MovedAttribute("urlencode", "urllib", "urllib.parse"),
+]
+for attr in _urllib_parse_moved_attributes:
+    setattr(Module_six_moves_urllib_parse, attr.name, attr)
+del attr
+
+sys.modules[__name__ + ".moves.urllib_parse"] = Module_six_moves_urllib_parse("six.moves.urllib_parse")
+sys.modules[__name__ + ".moves.urllib.parse"] = Module_six_moves_urllib_parse("six.moves.urllib.parse")
+
+
+class Module_six_moves_urllib_error(types.ModuleType):
+    """Lazy loading of moved objects in six.moves.urllib_error"""
+
+
+_urllib_error_moved_attributes = [
+    MovedAttribute("URLError", "urllib2", "urllib.error"),
+    MovedAttribute("HTTPError", "urllib2", "urllib.error"),
+    MovedAttribute("ContentTooShortError", "urllib", "urllib.error"),
+]
+for attr in _urllib_error_moved_attributes:
+    setattr(Module_six_moves_urllib_error, attr.name, attr)
+del attr
+
+sys.modules[__name__ + ".moves.urllib_error"] = Module_six_moves_urllib_error("six.moves.urllib_error")
+sys.modules[__name__ + ".moves.urllib.error"] = Module_six_moves_urllib_error("six.moves.urllib.error")
+
+
+class Module_six_moves_urllib_request(types.ModuleType):
+    """Lazy loading of moved objects in six.moves.urllib_request"""
+
+
+_urllib_request_moved_attributes = [
+    MovedAttribute("urlopen", "urllib2", "urllib.request"),
+    MovedAttribute("install_opener", "urllib2", "urllib.request"),
+    MovedAttribute("build_opener", "urllib2", "urllib.request"),
+    MovedAttribute("pathname2url", "urllib", "urllib.request"),
+    MovedAttribute("url2pathname", "urllib", "urllib.request"),
+    MovedAttribute("getproxies", "urllib", "urllib.request"),
+    MovedAttribute("Request", "urllib2", "urllib.request"),
+    MovedAttribute("OpenerDirector", "urllib2", "urllib.request"),
+    MovedAttribute("HTTPDefaultErrorHandler", "urllib2", "urllib.request"),
+    MovedAttribute("HTTPRedirectHandler", "urllib2", "urllib.request"),
+    MovedAttribute("HTTPCookieProcessor", "urllib2", "urllib.request"),
+    MovedAttribute("ProxyHandler", "urllib2", "urllib.request"),
+    MovedAttribute("BaseHandler", "urllib2", "urllib.request"),
+    MovedAttribute("HTTPPasswordMgr", "urllib2", "urllib.request"),
+    MovedAttribute("HTTPPasswordMgrWithDefaultRealm", "urllib2", "urllib.request"),
+    MovedAttribute("AbstractBasicAuthHandler", "urllib2", "urllib.request"),
+    MovedAttribute("HTTPBasicAuthHandler", "urllib2", "urllib.request"),
+    MovedAttribute("ProxyBasicAuthHandler", "urllib2", "urllib.request"),
+    MovedAttribute("AbstractDigestAuthHandler", "urllib2", "urllib.request"),
+    MovedAttribute("HTTPDigestAuthHandler", "urllib2", "urllib.request"),
+    MovedAttribute("ProxyDigestAuthHandler", "urllib2", "urllib.request"),
+    MovedAttribute("HTTPHandler", "urllib2", "urllib.request"),
+    MovedAttribute("HTTPSHandler", "urllib2", "urllib.request"),
+    MovedAttribute("FileHandler", "urllib2", "urllib.request"),
+    MovedAttribute("FTPHandler", "urllib2", "urllib.request"),
+    MovedAttribute("CacheFTPHandler", "urllib2", "urllib.request"),
+    MovedAttribute("UnknownHandler", "urllib2", "urllib.request"),
+    MovedAttribute("HTTPErrorProcessor", "urllib2", "urllib.request"),
+    MovedAttribute("urlretrieve", "urllib", "urllib.request"),
+    MovedAttribute("urlcleanup", "urllib", "urllib.request"),
+    MovedAttribute("URLopener", "urllib", "urllib.request"),
+    MovedAttribute("FancyURLopener", "urllib", "urllib.request"),
+]
+for attr in _urllib_request_moved_attributes:
+    setattr(Module_six_moves_urllib_request, attr.name, attr)
+del attr
+
+sys.modules[__name__ + ".moves.urllib_request"] = Module_six_moves_urllib_request("six.moves.urllib_request")
+sys.modules[__name__ + ".moves.urllib.request"] = Module_six_moves_urllib_request("six.moves.urllib.request")
+
+
+class Module_six_moves_urllib_response(types.ModuleType):
+    """Lazy loading of moved objects in six.moves.urllib_response"""
+
+
+_urllib_response_moved_attributes = [
+    MovedAttribute("addbase", "urllib", "urllib.response"),
+    MovedAttribute("addclosehook", "urllib", "urllib.response"),
+    MovedAttribute("addinfo", "urllib", "urllib.response"),
+    MovedAttribute("addinfourl", "urllib", "urllib.response"),
+]
+for attr in _urllib_response_moved_attributes:
+    setattr(Module_six_moves_urllib_response, attr.name, attr)
+del attr
+
+sys.modules[__name__ + ".moves.urllib_response"] = Module_six_moves_urllib_response("six.moves.urllib_response")
+sys.modules[__name__ + ".moves.urllib.response"] = Module_six_moves_urllib_response("six.moves.urllib.response")
+
+
+class Module_six_moves_urllib_robotparser(types.ModuleType):
+    """Lazy loading of moved objects in six.moves.urllib_robotparser"""
+
+
+_urllib_robotparser_moved_attributes = [
+    MovedAttribute("RobotFileParser", "robotparser", "urllib.robotparser"),
+]
+for attr in _urllib_robotparser_moved_attributes:
+    setattr(Module_six_moves_urllib_robotparser, attr.name, attr)
+del attr
+
+sys.modules[__name__ + ".moves.urllib_robotparser"] = Module_six_moves_urllib_robotparser("six.moves.urllib_robotparser")
+sys.modules[__name__ + ".moves.urllib.robotparser"] = Module_six_moves_urllib_robotparser("six.moves.urllib.robotparser")
+
+
+class Module_six_moves_urllib(types.ModuleType):
+    """Create a six.moves.urllib namespace that resembles the Python 3 namespace"""
+    parse = sys.modules[__name__ + ".moves.urllib_parse"]
+    error = sys.modules[__name__ + ".moves.urllib_error"]
+    request = sys.modules[__name__ + ".moves.urllib_request"]
+    response = sys.modules[__name__ + ".moves.urllib_response"]
+    robotparser = sys.modules[__name__ + ".moves.urllib_robotparser"]
+
+
+sys.modules[__name__ + ".moves.urllib"] = Module_six_moves_urllib("six.moves.urllib")
 
 
 def add_move(move):
