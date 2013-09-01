@@ -3,8 +3,8 @@ Changelog for Six
 
 This file lists the changes in each six version.
 
-Development version
--------------------
+1.4.0
+-----
 
 - Issue #31: Add six.moves mapping for UserString.
 
