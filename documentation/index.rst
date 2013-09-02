@@ -433,14 +433,11 @@ example, ``cPickle`` no longer exists in Python 3; it was merged with
 ``pickle``.  In these cases, fetching the fast version will load the fast one on
 Python 2 and the merged module in Python 3.
 
-
-.. note::
-
-   The :mod:`py2:urllib`, :mod:`py2:urllib2`, and :mod:`py2:urlparse` modules
-   have been combined in the :mod:`py3:urllib` package in Python 3.
-   The :mod:`six.moves.urllib` package is a version-independent location 
-   for this functionality; its structure mimics the structure of the Python 3
-   :mod:`py3:urllib` package.
+The :mod:`py2:urllib`, :mod:`py2:urllib2`, and :mod:`py2:urlparse` modules have
+been combined in the :mod:`py3:urllib` package in Python 3.  The
+:mod:`six.moves.urllib` package is a version-independent location for this
+functionality; its structure mimics the structure of the Python 3
+:mod:`py3:urllib` package.
 
 Supported renames:
 
