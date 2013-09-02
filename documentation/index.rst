@@ -438,8 +438,9 @@ Python 2 and the merged module in Python 3.
 
    The :mod:`py2:urllib`, :mod:`py2:urllib2`, and :mod:`py2:urlparse` modules
    have been combined in the :mod:`py3:urllib` package in Python 3.
-   :mod:`six.moves` doesn't not support their renaming because their members
-   have been mixed across several modules in that package.
+   The :mod:`six.moves.urllib` package is a version-independent location 
+   for this functionality; its structure mimics the structure of the Python 3
+   :mod:`py3:urllib` package.
 
 Supported renames:
 
