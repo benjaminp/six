@@ -3,6 +3,11 @@ Changelog for Six
 
 This file lists the changes in each six version.
 
+1.4.1
+-----
+
+- Issue #32: urllib module wrappings don't work when six is not a toplevel file.
+
 1.4.0
 -----
 
