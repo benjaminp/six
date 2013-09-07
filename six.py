@@ -193,6 +193,8 @@ _moved_attributes = [
 ]
 for attr in _moved_attributes:
     setattr(_MovedItems, attr.name, attr)
+    if isinstance(attr, MovedModule):
+        sys.modules[__name__ + ".moves." + attr.name] = attr
 del attr
 
 moves = sys.modules[__name__ + ".moves"] = _MovedItems(__name__ + ".moves")

@@ -89,7 +89,9 @@ else:
 def test_move_items(item_name):
     """Ensure that everything loads correctly."""
     try:
-        getattr(six.moves, item_name)
+        item = getattr(six.moves, item_name)
+        if isinstance(item, types.ModuleType):
+            __import__("six.moves." + item_name)
     except AttributeError:
         if item_name == "zip_longest" and sys.version_info < (2, 6):
             py.test.skip("zip_longest only available on 2.6+")
