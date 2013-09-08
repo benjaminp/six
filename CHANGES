@@ -3,6 +3,13 @@ Changelog for Six
 
 This file lists the changes in each six version.
 
+Development version
+-------------------
+
+- Issue #35: On Python versions less than 2.7, print_ now encodes unicode
+  strings when outputing to standard streams. (Python 2.7 handles this
+  automatically.)
+
 1.4.1
 -----
 

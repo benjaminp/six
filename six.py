@@ -521,6 +521,16 @@ else:
         def write(data):
             if not isinstance(data, basestring):
                 data = str(data)
+            # If the file has an encoding, encode unicode with it. In Python
+            # 2.7, file.write handles this.
+            if (sys.version_info[1] < 7 and
+                isinstance(fp, file) and
+                isinstance(data, unicode) and
+                fp.encoding is not None):
+                errors = getattr(fp, "errors", None)
+                if errors is None:
+                    errors = "strict"
+                data = data.encode(fp.encoding, errors)
             fp.write(data)
         want_unicode = False
         sep = kwargs.pop("sep", None)
