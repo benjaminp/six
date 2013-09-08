@@ -528,7 +528,7 @@ def test_print_():
     assert out.getvalue() == "None\n"
 
 
-@py.test.mark.skipif("sys.version_info[:2] >= (2, 7)")
+@py.test.mark.skipif("sys.version_info[:2] >= (2, 6)")
 def test_print_encoding(monkeypatch):
     # Fool the type checking print_.
     monkeypatch.setattr(six, "file", six.BytesIO, raising=False)

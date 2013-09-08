@@ -481,18 +481,13 @@ _add_doc(u, """Text literal""")
 
 
 if PY3:
-    import builtins
-    exec_ = getattr(builtins, "exec")
+    exec_ = getattr(moves.builtins, "exec")
 
 
     def reraise(tp, value, tb=None):
         if value.__traceback__ is not tb:
             raise value.with_traceback(tb)
         raise value
-
-
-    print_ = getattr(builtins, "print")
-    del builtins
 
 else:
     def exec_(_code_, _globs_=None, _locs_=None):
@@ -513,18 +508,18 @@ else:
 """)
 
 
+print_ = getattr(moves.builtins, "print", None)
+if print_ is None:
     def print_(*args, **kwargs):
-        """The new-style print function."""
+        """The new-style print function for Python 2.4 and 2.5."""
         fp = kwargs.pop("file", sys.stdout)
         if fp is None:
             return
         def write(data):
             if not isinstance(data, basestring):
                 data = str(data)
-            # If the file has an encoding, encode unicode with it. In Python
-            # 2.7, file.write handles this.
-            if (sys.version_info[1] < 7 and
-                isinstance(fp, file) and
+            # If the file has an encoding, encode unicode with it.
+            if (isinstance(fp, file) and
                 isinstance(data, unicode) and
                 fp.encoding is not None):
                 errors = getattr(fp, "errors", None)
