@@ -530,7 +530,7 @@ def test_print_():
 
 @py.test.mark.skipif("sys.version_info[:2] >= (2, 6)")
 def test_print_encoding(monkeypatch):
-    # Fool the type checking print_.
+    # Fool the type checking in print_.
     monkeypatch.setattr(six, "file", six.BytesIO, raising=False)
     out = six.BytesIO()
     out.encoding = "utf-8"
