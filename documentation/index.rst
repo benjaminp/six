@@ -243,7 +243,7 @@ Python 2 and 3.
       :func:`exec` with them should be avoided.
 
 
-.. function:: print_(*args, *, file=sys.stdout, end="\n", sep=" ")
+.. function:: print_(*args, *, file=sys.stdout, end="\\n", sep=" ")
 
    Print *args* into *file*.  Each argument will be separated with *sep* and
    *end* will be written to the file at the last.
