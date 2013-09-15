@@ -246,7 +246,7 @@ Python 2 and 3.
 .. function:: print_(*args, *, file=sys.stdout, end="\\n", sep=" ")
 
    Print *args* into *file*.  Each argument will be separated with *sep* and
-   *end* will be written to the file at the last.
+   *end* will be written to the file after the last argument is printed.
 
    .. note::
 
