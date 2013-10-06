@@ -6,6 +6,8 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Issue #39: Add import mapping for the Python 2 thread module.
+
 - Issue #40: Add import mapping for the Python 2 gdbm module.
 
 - Issue #35: On Python versions less than 2.7, print_ now encodes unicode

@@ -169,6 +169,7 @@ _moved_attributes = [
     MovedModule("queue", "Queue"),
     MovedModule("reprlib", "repr"),
     MovedModule("socketserver", "SocketServer"),
+    MovedModule("_thread", "thread", "_thread"),
     MovedModule("tkinter", "Tkinter"),
     MovedModule("tkinter_dialog", "Dialog", "tkinter.dialog"),
     MovedModule("tkinter_filedialog", "FileDialog", "tkinter.filedialog"),
