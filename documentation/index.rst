@@ -506,7 +506,7 @@ Supported renames:
 +------------------------------+-------------------------------------+-------------------------------------+
 | ``tkinter_filedialog``       | :mod:`py2:FileDialog`               | :mod:`py3:tkinter.FileDialog`       |
 +------------------------------+-------------------------------------+-------------------------------------+
-| ``tkinter_scrolledtext``     | :mod:`py2:ScrolledText`             | :mod:`py3:tkinter.scolledtext`      |
+| ``tkinter_scrolledtext``     | :mod:`py2:ScrolledText`             | :mod:`py3:tkinter.scrolledtext`      |
 +------------------------------+-------------------------------------+-------------------------------------+
 | ``tkinter_simpledialog``     | :mod:`py2:SimpleDialog`             | :mod:`py2:tkinter.simpledialog`     |
 +------------------------------+-------------------------------------+-------------------------------------+
