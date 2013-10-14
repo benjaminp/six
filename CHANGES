@@ -6,6 +6,8 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Issue #43: Add import mapping for the Python 2 xmlrpclib module.
+
 - Issue #39: Add import mapping for the Python 2 thread module.
 
 - Issue #40: Add import mapping for the Python 2 gdbm module.
