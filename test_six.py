@@ -385,9 +385,9 @@ if six.PY3:
 
 
     def test_u():
-        s = six.u("hi")
+        s = six.u("hi \u0439 \\ \\\\ \n")
         assert isinstance(s, str)
-        assert s == "hi"
+        assert s == "hi \u0439 \\ \\\\ \n"
 
 else:
 
@@ -399,9 +399,9 @@ else:
 
 
     def test_u():
-        s = six.u("hi")
+        s = six.u("hi \u0439 \\ \\\\ \n")
         assert isinstance(s, unicode)
-        assert s == "hi"
+        assert s == "hi \xd0\xb9 \\ \\\\ \n".decode("utf8")
 
 
 def test_u_escapes():
