@@ -140,6 +140,26 @@ def test_move_items_urllib_robotparser(item_name):
     getattr(six.moves.urllib.robotparser, item_name)
 
 
+def test_import_moves_error_1():
+    from six.moves.urllib.parse import urljoin
+    from six import moves
+    # In 1.4.1: AttributeError: 'Module_six_moves_urllib_parse' object has no attribute 'urljoin'
+    assert moves.urllib.parse.urljoin
+
+
+def test_import_moves_error_2():
+    from six import moves
+    assert moves.urllib.parse.urljoin
+    # In 1.4.1: ImportError: cannot import name urljoin
+    from six.moves.urllib.parse import urljoin
+
+
+def test_import_moves_error_3():
+    from six.moves.urllib.parse import urljoin
+    # In 1.4.1: ImportError: cannot import name urljoin
+    from six.moves.urllib_parse import urljoin
+
+
 def test_filter():
     from six.moves import filter
     f = filter(lambda x: x % 2, range(10))

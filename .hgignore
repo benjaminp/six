@@ -3,4 +3,5 @@ syntax: glob
 dist
 MANIFEST
 documentation/_build
+.idea
 .tox
