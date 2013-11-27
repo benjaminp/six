@@ -469,7 +469,7 @@ else:
     def b(s):
         return s
     # Workaround for standalone backslash
-    _U = re.compile(r'\\(?!u)')
+    _U = re.compile(r'\\(?![uU])')
     def u(s):
         return unicode(_U.sub('\\u005C', s), "unicode_escape")
     unichr = unichr
