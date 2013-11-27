@@ -284,6 +284,7 @@ _urllib_request_moved_attributes = [
     MovedAttribute("urlcleanup", "urllib", "urllib.request"),
     MovedAttribute("URLopener", "urllib", "urllib.request"),
     MovedAttribute("FancyURLopener", "urllib", "urllib.request"),
+    MovedAttribute("proxy_bypass", "urllib", "urllib.request"),
 ]
 for attr in _urllib_request_moved_attributes:
     setattr(Module_six_moves_urllib_request, attr.name, attr)

@@ -617,6 +617,7 @@ Contains items from Python 3's :mod:`py3:urllib.request` and Python 2's:
 * :func:`py2:urllib.urlcleanup`
 * :class:`py2:urllib.URLopener`
 * :class:`py2:urllib.FancyURLopener`
+* :func:`py2:urllib.proxy_bypass`
 
 and :mod:`py2:urllib2`:
 
