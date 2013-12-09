@@ -142,6 +142,16 @@ def test_move_items_urllib_robotparser(item_name):
     getattr(six.moves.urllib.robotparser, item_name)
 
 
+def test_from_six_moves_queue_import_Queue():
+    from six.moves.queue import Queue
+    assert isinstance(Queue, types.ClassType)
+
+
+def test_from_six_moves_configparser_import_ConfigParser():
+    from six.moves.configparser import ConfigParser
+    assert isinstance(ConfigParser, types.ClassType)
+
+
 def test_filter():
     from six.moves import filter
     f = filter(lambda x: x % 2, range(10))
