@@ -99,6 +99,7 @@ def test_move_items(item_name):
         if item_name.startswith("tkinter") and not have_tkinter:
             py.test.skip("requires tkinter")
         raise
+    assert item_name in dir(six.moves)
 
 
 @py.test.mark.parametrize("item_name",
@@ -109,6 +110,7 @@ def test_move_items_urllib_parse(item_name):
         py.test.skip("ParseResult is only found on 2.5+")
     if item_name in ("parse_qs", "parse_qsl") and sys.version_info < (2, 6):
         py.test.skip("parse_qs[l] is new in 2.6")
+    assert item_name in dir(six.moves.urllib.parse)
     getattr(six.moves.urllib.parse, item_name)
 
 
@@ -116,6 +118,7 @@ def test_move_items_urllib_parse(item_name):
                           [item.name for item in six._urllib_error_moved_attributes])
 def test_move_items_urllib_error(item_name):
     """Ensure that everything loads correctly."""
+    assert item_name in dir(six.moves.urllib.error)
     getattr(six.moves.urllib.error, item_name)
 
 
@@ -123,6 +126,7 @@ def test_move_items_urllib_error(item_name):
                           [item.name for item in six._urllib_request_moved_attributes])
 def test_move_items_urllib_request(item_name):
     """Ensure that everything loads correctly."""
+    assert item_name in dir(six.moves.urllib.request)
     getattr(six.moves.urllib.request, item_name)
 
 
@@ -130,6 +134,7 @@ def test_move_items_urllib_request(item_name):
                           [item.name for item in six._urllib_response_moved_attributes])
 def test_move_items_urllib_response(item_name):
     """Ensure that everything loads correctly."""
+    assert item_name in dir(six.moves.urllib.response)
     getattr(six.moves.urllib.response, item_name)
 
 
@@ -137,6 +142,7 @@ def test_move_items_urllib_response(item_name):
                           [item.name for item in six._urllib_robotparser_moved_attributes])
 def test_move_items_urllib_robotparser(item_name):
     """Ensure that everything loads correctly."""
+    assert item_name in dir(six.moves.urllib.robotparser)
     getattr(six.moves.urllib.robotparser, item_name)
 
 
