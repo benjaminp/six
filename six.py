@@ -153,6 +153,7 @@ _moved_attributes = [
     MovedModule("builtins", "__builtin__"),
     MovedModule("configparser", "ConfigParser"),
     MovedModule("copyreg", "copy_reg"),
+    MovedModule("dbm_gnu", "gdbm", "dbm.gnu"),
     MovedModule("http_cookiejar", "cookielib", "http.cookiejar"),
     MovedModule("http_cookies", "Cookie", "http.cookies"),
     MovedModule("html_entities", "htmlentitydefs", "html.entities"),
@@ -168,6 +169,7 @@ _moved_attributes = [
     MovedModule("queue", "Queue"),
     MovedModule("reprlib", "repr"),
     MovedModule("socketserver", "SocketServer"),
+    MovedModule("_thread", "thread", "_thread"),
     MovedModule("tkinter", "Tkinter"),
     MovedModule("tkinter_dialog", "Dialog", "tkinter.dialog"),
     MovedModule("tkinter_filedialog", "FileDialog", "tkinter.filedialog"),
@@ -189,6 +191,7 @@ _moved_attributes = [
     MovedModule("urllib_error", __name__ + ".moves.urllib_error", "urllib.error"),
     MovedModule("urllib", __name__ + ".moves.urllib", __name__ + ".moves.urllib"),
     MovedModule("urllib_robotparser", "robotparser", "urllib.robotparser"),
+    MovedModule("xmlrpc_client", "xmlrpclib", "xmlrpc.client"),
     MovedModule("winreg", "_winreg"),
 ]
 for attr in _moved_attributes:
@@ -283,6 +286,7 @@ _urllib_request_moved_attributes = [
     MovedAttribute("urlcleanup", "urllib", "urllib.request"),
     MovedAttribute("URLopener", "urllib", "urllib.request"),
     MovedAttribute("FancyURLopener", "urllib", "urllib.request"),
+    MovedAttribute("proxy_bypass", "urllib", "urllib.request"),
 ]
 for attr in _urllib_request_moved_attributes:
     setattr(Module_six_moves_urllib_request, attr.name, attr)
@@ -483,18 +487,13 @@ _add_doc(u, """Text literal""")
 
 
 if PY3:
-    import builtins
-    exec_ = getattr(builtins, "exec")
+    exec_ = getattr(moves.builtins, "exec")
 
 
     def reraise(tp, value, tb=None):
         if value.__traceback__ is not tb:
             raise value.with_traceback(tb)
         raise value
-
-
-    print_ = getattr(builtins, "print")
-    del builtins
 
 else:
     def exec_(_code_, _globs_=None, _locs_=None):
@@ -515,14 +514,24 @@ else:
 """)
 
 
+print_ = getattr(moves.builtins, "print", None)
+if print_ is None:
     def print_(*args, **kwargs):
-        """The new-style print function."""
+        """The new-style print function for Python 2.4 and 2.5."""
         fp = kwargs.pop("file", sys.stdout)
         if fp is None:
             return
         def write(data):
             if not isinstance(data, basestring):
                 data = str(data)
+            # If the file has an encoding, encode unicode with it.
+            if (isinstance(fp, file) and
+                isinstance(data, unicode) and
+                fp.encoding is not None):
+                errors = getattr(fp, "errors", None)
+                if errors is None:
+                    errors = "strict"
+                data = data.encode(fp.encoding, errors)
             fp.write(data)
         want_unicode = False
         sep = kwargs.pop("sep", None)

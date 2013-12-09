@@ -530,6 +530,24 @@ def test_print_():
     assert out.getvalue() == "None\n"
 
 
+@py.test.mark.skipif("sys.version_info[:2] >= (2, 6)")
+def test_print_encoding(monkeypatch):
+    # Fool the type checking in print_.
+    monkeypatch.setattr(six, "file", six.BytesIO, raising=False)
+    out = six.BytesIO()
+    out.encoding = "utf-8"
+    out.errors = None
+    six.print_(six.u("\u053c"), end="", file=out)
+    assert out.getvalue() == six.b("\xd4\xbc")
+    out = six.BytesIO()
+    out.encoding = "ascii"
+    out.errors = "strict"
+    py.test.raises(UnicodeEncodeError, six.print_, six.u("\u053c"), file=out)
+    out.errors = "backslashreplace"
+    six.print_(six.u("\u053c"), end="", file=out)
+    assert out.getvalue() == six.b("\\u053c")
+
+
 def test_print_exceptions():
     py.test.raises(TypeError, six.print_, x=3)
     py.test.raises(TypeError, six.print_, end=3)
