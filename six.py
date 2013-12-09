@@ -105,6 +105,21 @@ class MovedModule(_LazyDescr):
         return _import_module(self.mod)
 
 
+class LazyModule(types.ModuleType):
+
+    def __init__(self, name):
+        super(LazyModule, self).__init__(name)
+        self.__doc__ = self.__class__.__doc__
+
+    def __dir__(self):
+        attrs = ["__doc__", "__name__"]
+        attrs += [attr.name for attr in self._moved_attributes]
+        return attrs
+
+    # Subclasses should override this
+    _moved_attributes = []
+
+
 class MovedAttribute(_LazyDescr):
 
     def __init__(self, name, old_mod, new_mod, old_attr=None, new_attr=None):
@@ -131,7 +146,7 @@ class MovedAttribute(_LazyDescr):
 
 
 
-class _MovedItems(types.ModuleType):
+class _MovedItems(LazyModule):
     """Lazy loading of moved objects"""
 
 
@@ -198,11 +213,13 @@ for attr in _moved_attributes:
     setattr(_MovedItems, attr.name, attr)
 del attr
 
+_MovedItems._moved_attributes = _moved_attributes
+
 moves = sys.modules[__name__ + ".moves"] = _MovedItems(__name__ + ".moves")
 
 
 
-class Module_six_moves_urllib_parse(types.ModuleType):
+class Module_six_moves_urllib_parse(LazyModule):
     """Lazy loading of moved objects in six.moves.urllib_parse"""
 
 
@@ -226,11 +243,13 @@ for attr in _urllib_parse_moved_attributes:
     setattr(Module_six_moves_urllib_parse, attr.name, attr)
 del attr
 
+Module_six_moves_urllib_parse._moved_attributes = _urllib_parse_moved_attributes
+
 sys.modules[__name__ + ".moves.urllib_parse"] = Module_six_moves_urllib_parse(__name__ + ".moves.urllib_parse")
 sys.modules[__name__ + ".moves.urllib.parse"] = Module_six_moves_urllib_parse(__name__ + ".moves.urllib.parse")
 
 
-class Module_six_moves_urllib_error(types.ModuleType):
+class Module_six_moves_urllib_error(LazyModule):
     """Lazy loading of moved objects in six.moves.urllib_error"""
 
 
@@ -243,11 +262,13 @@ for attr in _urllib_error_moved_attributes:
     setattr(Module_six_moves_urllib_error, attr.name, attr)
 del attr
 
+Module_six_moves_urllib_error._moved_attributes = _urllib_error_moved_attributes
+
 sys.modules[__name__ + ".moves.urllib_error"] = Module_six_moves_urllib_error(__name__ + ".moves.urllib_error")
 sys.modules[__name__ + ".moves.urllib.error"] = Module_six_moves_urllib_error(__name__ + ".moves.urllib.error")
 
 
-class Module_six_moves_urllib_request(types.ModuleType):
+class Module_six_moves_urllib_request(LazyModule):
     """Lazy loading of moved objects in six.moves.urllib_request"""
 
 
@@ -290,11 +311,13 @@ for attr in _urllib_request_moved_attributes:
     setattr(Module_six_moves_urllib_request, attr.name, attr)
 del attr
 
+Module_six_moves_urllib_request._moved_attributes = _urllib_request_moved_attributes
+
 sys.modules[__name__ + ".moves.urllib_request"] = Module_six_moves_urllib_request(__name__ + ".moves.urllib_request")
 sys.modules[__name__ + ".moves.urllib.request"] = Module_six_moves_urllib_request(__name__ + ".moves.urllib.request")
 
 
-class Module_six_moves_urllib_response(types.ModuleType):
+class Module_six_moves_urllib_response(LazyModule):
     """Lazy loading of moved objects in six.moves.urllib_response"""
 
 
@@ -308,11 +331,13 @@ for attr in _urllib_response_moved_attributes:
     setattr(Module_six_moves_urllib_response, attr.name, attr)
 del attr
 
+Module_six_moves_urllib_response._moved_attributes = _urllib_response_moved_attributes
+
 sys.modules[__name__ + ".moves.urllib_response"] = Module_six_moves_urllib_response(__name__ + ".moves.urllib_response")
 sys.modules[__name__ + ".moves.urllib.response"] = Module_six_moves_urllib_response(__name__ + ".moves.urllib.response")
 
 
-class Module_six_moves_urllib_robotparser(types.ModuleType):
+class Module_six_moves_urllib_robotparser(LazyModule):
     """Lazy loading of moved objects in six.moves.urllib_robotparser"""
 
 
@@ -322,6 +347,8 @@ _urllib_robotparser_moved_attributes = [
 for attr in _urllib_robotparser_moved_attributes:
     setattr(Module_six_moves_urllib_robotparser, attr.name, attr)
 del attr
+
+Module_six_moves_urllib_robotparser._moved_attributes = _urllib_robotparser_moved_attributes
 
 sys.modules[__name__ + ".moves.urllib_robotparser"] = Module_six_moves_urllib_robotparser(__name__ + ".moves.urllib_robotparser")
 sys.modules[__name__ + ".moves.urllib.robotparser"] = Module_six_moves_urllib_robotparser(__name__ + ".moves.urllib.robotparser")
@@ -334,6 +361,9 @@ class Module_six_moves_urllib(types.ModuleType):
     request = sys.modules[__name__ + ".moves.urllib_request"]
     response = sys.modules[__name__ + ".moves.urllib_response"]
     robotparser = sys.modules[__name__ + ".moves.urllib_robotparser"]
+
+    def __dir__(self):
+        return ['parse', 'error', 'request', 'response', 'robotparser']
 
 
 sys.modules[__name__ + ".moves.urllib"] = Module_six_moves_urllib(__name__ + ".moves.urllib")
