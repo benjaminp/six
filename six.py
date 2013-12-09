@@ -104,6 +104,10 @@ class MovedModule(_LazyDescr):
     def _resolve(self):
         return _import_module(self.mod)
 
+    def __getattr__(self, attr):
+        _module = self._resolve()
+        return getattr(_module, attr)
+
 
 class MovedAttribute(_LazyDescr):
 
