@@ -6,6 +6,8 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Issue #44: Fix interpretation of backslashes on Python 2 in the u() function.
+
 - Pull request #21: Add import mapping for urllib's proxy_bypass function.
 
 - Issue #43: Add import mapping for the Python 2 xmlrpclib module.
