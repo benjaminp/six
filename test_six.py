@@ -621,7 +621,7 @@ def test_add_metaclass():
     assert instance.b == Base.b
     assert instance.x == X.x
 
-    # test a class with slots
+    # Test a class with slots.
     class MySlots(object):
         __slots__ = ["a", "b"]
     MySlots = six.add_metaclass(Meta1)(MySlots)
