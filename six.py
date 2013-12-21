@@ -21,7 +21,6 @@
 # SOFTWARE.
 
 import operator
-import re
 import sys
 import types
 
@@ -470,9 +469,8 @@ else:
     def b(s):
         return s
     # Workaround for standalone backslash
-    _U = re.compile(r'\\(?![uU])')
     def u(s):
-        return unicode(_U.sub('\\u005C', s), "unicode_escape")
+        return unicode(s.replace(r'\\', r'\\\\'), "unicode_escape")
     unichr = unichr
     int2byte = chr
     def byte2int(bs):
