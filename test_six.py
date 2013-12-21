@@ -630,3 +630,14 @@ def test_add_metaclass():
     instance = MySlots()
     instance.a = "foo"
     py.test.raises(AttributeError, setattr, instance, "c", "baz")
+
+    # Test a class with string for slots.
+    class MyStringSlots(object):
+        __slots__ = "ab"
+    MyStringSlots = six.add_metaclass(Meta1)(MyStringSlots)
+    assert MyStringSlots.__slots__ == "ab"
+    instance = MyStringSlots()
+    instance.ab = "foo"
+    py.test.raises(AttributeError, setattr, instance, "a", "baz")
+    py.test.raises(AttributeError, setattr, instance, "b", "baz")
+
