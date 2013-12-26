@@ -84,6 +84,15 @@ except ImportError:
 else:
     have_tkinter = True
 
+have_gdbm = True
+try:
+    import gdbm
+except ImportError:
+    try:
+        import dbm.gnu
+    except ImportError:
+        have_gdbm = False
+
 @py.test.mark.parametrize("item_name",
                           [item.name for item in six._moved_attributes])
 def test_move_items(item_name):
@@ -98,6 +107,8 @@ def test_move_items(item_name):
             py.test.skip("Windows only module")
         if item_name.startswith("tkinter") and not have_tkinter:
             py.test.skip("requires tkinter")
+        if item_name.startswith("dbm_gnu") and not have_gdbm:
+            py.test.skip("requires gdbm")
         raise
 
 
