@@ -59,11 +59,9 @@ def test_MAXSIZE():
     except AttributeError:
         # Before Python 2.6.
         pass
-    if sys.version_info[:2] == (2, 4):
-        exc = ValueError
-    else:
-        exc = OverflowError
-    py.test.raises(exc, operator.mul, [None], six.MAXSIZE + 1)
+    py.test.raises(
+        (ValueError, OverflowError),
+        operator.mul, [None], six.MAXSIZE + 1)
 
 
 def test_lazy():
