@@ -137,27 +137,26 @@ functions and methods is the stdlib :mod:`py3:inspect` module.
 
    Get the closure (list of cells) associated with *func*.  This is equivalent
    to ``func.__closure__`` on Python 2.6+ and ``func.func_closure`` on Python
-   2.4 and 2.5.
+   2.5.
 
 
 .. function:: get_function_code(func)
 
    Get the code object associated with *func*.  This is equivalent to
-   ``func.__code__`` on Python 2.6+ and ``func.func_code`` on Python 2.4 and
-   2.5.
+   ``func.__code__`` on Python 2.6+ and ``func.func_code`` on Python 2.5.
 
 
 .. function:: get_function_defaults(func)
 
    Get the defaults tuple associated with *func*.  This is equivalent to
-   ``func.__defaults__`` on Python 2.6+ and ``func.func_defaults`` on Python 2.4
-   and 2.5.
+   ``func.__defaults__`` on Python 2.6+ and ``func.func_defaults`` on Python
+   2.5.
 
 
 .. function:: get_function_globals(func)
 
    Get the globals of *func*.  This is equivalent to ``func.__globals__`` on
-   Python 2.6+ and ``func.func_globals`` on Python 2.4 and 2.5.
+   Python 2.6+ and ``func.func_globals`` on Python 2.5.
 
 
 .. function:: next(it)
@@ -307,7 +306,7 @@ Python 2 and 3.
    on Python 2.
 
    Note that class decorators require Python 2.6. However, the effect of the
-   decorator can be emulated on Python 2.4 and 2.5 like so::
+   decorator can be emulated on Python 2.5 like so::
 
        class MyClass(object):
            pass
@@ -506,9 +505,11 @@ Supported renames:
 +------------------------------+-------------------------------------+-------------------------------------+
 | ``tkinter_filedialog``       | :mod:`py2:FileDialog`               | :mod:`py3:tkinter.FileDialog`       |
 +------------------------------+-------------------------------------+-------------------------------------+
-| ``tkinter_scrolledtext``     | :mod:`py2:ScrolledText`             | :mod:`py3:tkinter.scrolledtext`      |
+| ``tkinter_scrolledtext``     | :mod:`py2:ScrolledText`             | :mod:`py3:tkinter.scrolledtext`     |
 +------------------------------+-------------------------------------+-------------------------------------+
-| ``tkinter_simpledialog``     | :mod:`py2:SimpleDialog`             | :mod:`py2:tkinter.simpledialog`     |
+| ``tkinter_simpledialog``     | :mod:`py2:SimpleDialog`             | :mod:`py3:tkinter.simpledialog`     |
++------------------------------+-------------------------------------+-------------------------------------+
+| ``tkinter_ttk``              | :mod:`py2:ttk`                      | :mod:`py3:tkinter.ttk`              |
 +------------------------------+-------------------------------------+-------------------------------------+
 | ``tkinter_tix``              | :mod:`py2:Tix`                      | :mod:`py3:tkinter.tix`              |
 +------------------------------+-------------------------------------+-------------------------------------+
