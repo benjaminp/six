@@ -185,12 +185,9 @@ def test_import_moves_error_3():
     from six.moves.urllib_parse import urljoin
 
 
-def test_from_six_moves_queue_import_Queue():
+def test_from_imports():
     from six.moves.queue import Queue
     assert isinstance(Queue, types.ClassType)
-
-
-def test_from_six_moves_configparser_import_ConfigParser():
     from six.moves.configparser import ConfigParser
     assert isinstance(ConfigParser, types.ClassType)
 
