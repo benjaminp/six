@@ -6,6 +6,10 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Fix various import problems including issues #19 and #41. six.moves modules
+  are now lazy wrappers over the underlying modules instead of the actual
+  modules themselves.
+
 - Issue #49: Add six.moves mapping for tkinter.ttk.
 
 - Pull request #24: Add __dir__ special method to six.moves modules.
