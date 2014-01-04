@@ -187,9 +187,9 @@ def test_import_moves_error_3():
 
 def test_from_imports():
     from six.moves.queue import Queue
-    assert isinstance(Queue, types.ClassType)
+    assert isinstance(Queue, six.class_types)
     from six.moves.configparser import ConfigParser
-    assert isinstance(ConfigParser, types.ClassType)
+    assert isinstance(ConfigParser, six.class_types)
 
 
 def test_filter():
