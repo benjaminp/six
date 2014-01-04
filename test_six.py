@@ -96,7 +96,9 @@ except ImportError:
 def test_move_items(item_name):
     """Ensure that everything loads correctly."""
     try:
-        getattr(six.moves, item_name)
+        item = getattr(six.moves, item_name)
+        if isinstance(item, types.ModuleType):
+            __import__("six.moves." + item_name)
     except AttributeError:
         if item_name == "zip_longest" and sys.version_info < (2, 6):
             py.test.skip("zip_longest only available on 2.6+")
@@ -181,6 +183,16 @@ def test_import_moves_error_3():
     from six.moves.urllib.parse import urljoin
     # In 1.4.1: ImportError: cannot import name urljoin
     from six.moves.urllib_parse import urljoin
+
+
+def test_from_six_moves_queue_import_Queue():
+    from six.moves.queue import Queue
+    assert isinstance(Queue, types.ClassType)
+
+
+def test_from_six_moves_configparser_import_ConfigParser():
+    from six.moves.configparser import ConfigParser
+    assert isinstance(ConfigParser, types.ClassType)
 
 
 def test_filter():

@@ -104,6 +104,12 @@ class MovedModule(_LazyDescr):
     def _resolve(self):
         return _import_module(self.mod)
 
+    def __getattr__(self, attr):
+        _module = self._resolve()
+        value = getattr(_module, attr)
+        setattr(self, attr, value)
+        return value
+
 
 class _LazyModule(types.ModuleType):
 
@@ -212,6 +218,8 @@ _moved_attributes = [
 ]
 for attr in _moved_attributes:
     setattr(_MovedItems, attr.name, attr)
+    if isinstance(attr, MovedModule):
+        sys.modules[__name__ + ".moves." + attr.name] = attr
 del attr
 
 _MovedItems._moved_attributes = _moved_attributes
