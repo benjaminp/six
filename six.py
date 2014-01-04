@@ -81,13 +81,20 @@ class _LazyDescr(object):
 
     def __init__(self, name):
         self.name = name
+        self._cached_value = None
 
     def __get__(self, obj, tp):
+        if self._cached_value is not None:
+            return self._cached_value
         result = self._resolve()
         setattr(obj, self.name, result)
-        # This is a bit ugly, but it avoids running this again.
-        delattr(tp, self.name)
         return result
+
+    def __set__(self, obj, value):
+        self._cached_value = value
+
+    def __delete__(self, obj):
+        self._cached_value = None
 
 
 class MovedModule(_LazyDescr):
