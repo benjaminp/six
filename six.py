@@ -219,7 +219,6 @@ _MovedItems._moved_attributes = _moved_attributes
 moves = sys.modules[__name__ + ".moves"] = _MovedItems(__name__ + ".moves")
 
 
-
 class Module_six_moves_urllib_parse(_LazyModule):
     """Lazy loading of moved objects in six.moves.urllib_parse"""
 
