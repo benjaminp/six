@@ -106,7 +106,9 @@ class MovedModule(_LazyDescr):
 
     def __getattr__(self, attr):
         _module = self._resolve()
-        return getattr(_module, attr)
+        value = getattr(_module, attr)
+        setattr(self, attr, value)
+        return value
 
 
 class _LazyModule(types.ModuleType):
