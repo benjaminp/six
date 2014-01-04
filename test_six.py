@@ -103,8 +103,11 @@ def test_move_items(item_name):
     except ImportError:
         if item_name == "winreg" and not sys.platform.startswith("win"):
             py.test.skip("Windows only module")
-        if item_name.startswith("tkinter") and not have_tkinter:
-            py.test.skip("requires tkinter")
+        if item_name.startswith("tkinter"):
+            if not have_tkinter:
+                py.test.skip("requires tkinter")
+            if item_name == "tkinter_ttk" and sys.version_info <= (2, 6):
+                py.test.skip("ttk only available on 2.7+")
         if item_name.startswith("dbm_gnu") and not have_gdbm:
             py.test.skip("requires gdbm")
         raise

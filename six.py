@@ -191,6 +191,7 @@ _moved_attributes = [
     MovedModule("tkinter_scrolledtext", "ScrolledText", "tkinter.scrolledtext"),
     MovedModule("tkinter_simpledialog", "SimpleDialog", "tkinter.simpledialog"),
     MovedModule("tkinter_tix", "Tix", "tkinter.tix"),
+    MovedModule("tkinter_ttk", "ttk", "tkinter.ttk"),
     MovedModule("tkinter_constants", "Tkconstants", "tkinter.constants"),
     MovedModule("tkinter_dnd", "Tkdnd", "tkinter.dnd"),
     MovedModule("tkinter_colorchooser", "tkColorChooser",
