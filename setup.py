@@ -1,6 +1,9 @@
 from __future__ import with_statement
 
-from distutils.core import setup
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
 
 import six
 
