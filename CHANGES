@@ -6,6 +6,9 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Removed support for Python 2.4. This is because py.test no longer supports
+  2.4.
+
 - Fix various import problems including issues #19 and #41. six.moves modules
   are now lazy wrappers over the underlying modules instead of the actual
   modules themselves.
