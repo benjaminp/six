@@ -27,5 +27,6 @@ setup(name="six",
       py_modules=["six"],
       description="Python 2 and 3 compatibility utilities",
       long_description=six_long_description,
+      license="MIT",
       classifiers=six_classifiers
       )
