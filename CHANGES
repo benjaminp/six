@@ -3,8 +3,8 @@ Changelog for Six
 
 This file lists the changes in each six version.
 
-Development version
--------------------
+1.5.0
+-----
 
 - Removed support for Python 2.4. This is because py.test no longer supports
   2.4.
