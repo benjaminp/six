@@ -3,6 +3,11 @@ Changelog for Six
 
 This file lists the changes in each six version.
 
+1.5.1
+-----
+
+- Issue #51: Hack around the Django autoreloader after recent six.moves changes.
+
 1.5.0
 -----
 
