@@ -3,6 +3,12 @@ Changelog for Six
 
 This file lists the changes in each six version.
 
+1.5.2
+-----
+
+- Issue #53: Make the fake modules six.moves puts into sys.modules appear not to
+  have a __name__ unless they are loaded.
+
 1.5.1
 -----
 
