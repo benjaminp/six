@@ -444,17 +444,17 @@ functionality; its structure mimics the structure of the Python 3
 
      from six.moves.cPickle import loads
 
-   work, six places special proxy objects in in :mod:`py3:sys.modules`. These
+   work, six places special proxy objects in in :data:`py3:sys.modules`. These
    proxies lazily load the underlying module when an attribute is fetched. This
    will fail if the underlying module is not available in the Python
    interpreter. For example, ``sys.modules["six.moves.winreg"].LoadKey`` would
    fail on any non-Windows platform. Unfortunately, some applications try to
-   load attributes on every module in :mod:`py3:sys.modules`. six mitigates this
-   problem for some applications by pretending ``__file__`` and ``__name__``
-   don't exist on lazy modules that aren't loaded. That doesn't work in every
-   case, though. If you are encountering this problem and don't use any from
-   imports directly from ``six.moves`` modules, you can workaround the issue by
-   removing the six proxy modules::
+   load attributes on every module in :data:`py3:sys.modules`. six mitigates
+   this problem for some applications by pretending ``__file__`` and
+   ``__name__`` don't exist on lazy modules that aren't loaded. That doesn't
+   work in every case, though. If you are encountering this problem and don't
+   use any from imports directly from ``six.moves`` modules, you can workaround
+   the issue by removing the six proxy modules::
 
      d = [name for name in sys.modules if name.startswith("six.moves.")]
      for name in d:
