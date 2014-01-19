@@ -222,6 +222,7 @@ _moved_attributes = [
     MovedModule("urllib", __name__ + ".moves.urllib", __name__ + ".moves.urllib"),
     MovedModule("urllib_robotparser", "robotparser", "urllib.robotparser"),
     MovedModule("xmlrpc_client", "xmlrpclib", "xmlrpc.client"),
+    MovedModule("xmlrpc_server", "xmlrpclib", "xmlrpc.server"),
     MovedModule("winreg", "_winreg"),
 ]
 for attr in _moved_attributes:

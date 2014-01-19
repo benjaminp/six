@@ -6,6 +6,7 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Issue #55: Add move mapping for xmlrpc.server.
 
 1.5.2
 -----
