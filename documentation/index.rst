@@ -589,6 +589,7 @@ Contains functions from Python 3's :mod:`py3:urllib.parse` and Python 2's:
 :mod:`py2:urlparse`:
 
 * :func:`py2:urlparse.ParseResult`
+* :func:`py2:urlparse.SplitResult`
 * :func:`py2:urlparse.urlparse`
 * :func:`py2:urlparse.urlunparse`
 * :func:`py2:urlparse.parse_qs`

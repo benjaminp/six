@@ -8,6 +8,8 @@ Development version
 
 - Issue #55: Add move mapping for xmlrpc.server.
 
+- Add support for SplitResult
+
 1.5.2
 -----
 

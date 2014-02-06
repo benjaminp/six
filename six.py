@@ -242,6 +242,7 @@ class Module_six_moves_urllib_parse(_LazyModule):
 
 _urllib_parse_moved_attributes = [
     MovedAttribute("ParseResult", "urlparse", "urllib.parse"),
+    MovedAttribute("SplitResult", "urlparse", "urllib.parse"),
     MovedAttribute("parse_qs", "urlparse", "urllib.parse"),
     MovedAttribute("parse_qsl", "urlparse", "urllib.parse"),
     MovedAttribute("urldefrag", "urlparse", "urllib.parse"),
