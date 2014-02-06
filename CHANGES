@@ -6,9 +6,9 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
-- Issue #55: Add move mapping for xmlrpc.server.
+- Pull request #28: Add support for SplitResult.
 
-- Add support for SplitResult
+- Issue #55: Add move mapping for xmlrpc.server.
 
 1.5.2
 -----
