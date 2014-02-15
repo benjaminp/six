@@ -6,6 +6,9 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Issue #56: Make the fake modules six.moves puts into sys.modules appear not to
+  have a __path__ unless they are loaded.
+
 - Pull request #28: Add support for SplitResult.
 
 - Issue #55: Add move mapping for xmlrpc.server.
