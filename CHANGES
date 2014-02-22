@@ -13,6 +13,8 @@ Development version
 
 - Issue #55: Add move mapping for xmlrpc.server.
 
+- Pull request #29: Add move for urllib.parse.splitquery.
+
 1.5.2
 -----
 
