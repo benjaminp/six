@@ -450,11 +450,11 @@ functionality; its structure mimics the structure of the Python 3
    interpreter. For example, ``sys.modules["six.moves.winreg"].LoadKey`` would
    fail on any non-Windows platform. Unfortunately, some applications try to
    load attributes on every module in :data:`py3:sys.modules`. six mitigates
-   this problem for some applications by pretending ``__file__`` and
-   ``__name__`` don't exist on lazy modules that aren't loaded. That doesn't
-   work in every case, though. If you are encountering this problem and don't
-   use any from imports directly from ``six.moves`` modules, you can workaround
-   the issue by removing the six proxy modules::
+   this problem for some applications by pretending attributes on unimportable
+   modules don't exist. This hack doesn't work in every case, though. If you are
+   encountering problems with the lazy modules and don't use any from imports
+   directly from ``six.moves`` modules, you can workaround the issue by removing
+   the six proxy modules::
 
      d = [name for name in sys.modules if name.startswith("six.moves.")]
      for name in d:

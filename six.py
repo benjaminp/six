@@ -105,17 +105,22 @@ class MovedModule(_LazyDescr):
         return _import_module(self.mod)
 
     def __getattr__(self, attr):
-        # Hack around the Django autoreloader. The reloader tries to get
-        # __file__ or __name__ of every module in sys.modules. This doesn't work
-        # well if this MovedModule is for an module that is unavailable on this
-        # machine (like winreg on Unix systems). Thus, we pretend __file__ and
-        # __name__ don't exist if the module hasn't been loaded yet. We give
-        # __path__ the same treatment for Google AppEngine. See issues #51, #53
-        # and #56.
+        # It turns out many Python frameworks like to traverse sys.modules and
+        # try to load various attributes. This causes problems if this is a
+        # platform-specific module on the wrong platform, like _winreg on
+        # Unixes. Therefore, we silently pretend unimportable modules do not
+        # have any attributes. See issues #51, #53, #56, and #63 for the full
+        # tales of woe.
+        #
+        # First, if possible, avoid loading the module just to look at __file__,
+        # __name__, or __path__.
         if (attr in ("__file__", "__name__", "__path__") and
             self.mod not in sys.modules):
-            raise AttributeError
-        _module = self._resolve()
+            raise AttributeError(attr)
+        try:
+            _module = self._resolve()
+        except ImportError:
+            raise AttributeError(attr)
         value = getattr(_module, attr)
         setattr(self, attr, value)
         return value
