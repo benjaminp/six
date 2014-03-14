@@ -113,7 +113,8 @@ def test_move_items(item_name):
         if item_name.startswith("dbm_gnu") and not have_gdbm:
             py.test.skip("requires gdbm")
         raise
-    assert item_name in dir(six.moves)
+    if sys.version_info[:2] >= (2, 6):
+        assert item_name in dir(six.moves)
 
 
 @py.test.mark.parametrize("item_name",

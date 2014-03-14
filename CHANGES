@@ -3,6 +3,12 @@ Changelog for six
 
 This file lists the changes in each six version.
 
+1.6.1
+-----
+
+- Raise an AttributeError for six.moves.X when X is a module not available in
+  the current interpreter.
+
 1.6.0
 -----
 

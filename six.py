@@ -83,7 +83,11 @@ class _LazyDescr(object):
         self.name = name
 
     def __get__(self, obj, tp):
-        result = self._resolve()
+        try:
+            result = self._resolve()
+        except ImportError:
+            # See the nice big comment in MovedModule.__getattr__.
+            raise AttributeError("%s could not be imported " % self.name)
         setattr(obj, self.name, result) # Invokes __set__.
         # This is a bit ugly, but it avoids running this again.
         delattr(obj.__class__, self.name)
