@@ -83,11 +83,7 @@ class _LazyDescr(object):
         self.name = name
 
     def __get__(self, obj, tp):
-        try:
-            result = self._resolve()
-        except ImportError:
-            # See the nice big comment in MovedModule.__getattr__.
-            raise AttributeError("%s could not be imported " % self.name)
+        result = self._resolve()
         setattr(obj, self.name, result) # Invokes __set__.
         # This is a bit ugly, but it avoids running this again.
         delattr(obj.__class__, self.name)
@@ -109,22 +105,7 @@ class MovedModule(_LazyDescr):
         return _import_module(self.mod)
 
     def __getattr__(self, attr):
-        # It turns out many Python frameworks like to traverse sys.modules and
-        # try to load various attributes. This causes problems if this is a
-        # platform-specific module on the wrong platform, like _winreg on
-        # Unixes. Therefore, we silently pretend unimportable modules do not
-        # have any attributes. See issues #51, #53, #56, and #63 for the full
-        # tales of woe.
-        #
-        # First, if possible, avoid loading the module just to look at __file__,
-        # __name__, or __path__.
-        if (attr in ("__file__", "__name__", "__path__") and
-            self.mod not in sys.modules):
-            raise AttributeError(attr)
-        try:
-            _module = self._resolve()
-        except ImportError:
-            raise AttributeError(attr)
+        _module = self._resolve()
         value = getattr(_module, attr)
         setattr(self, attr, value)
         return value
@@ -170,9 +151,72 @@ class MovedAttribute(_LazyDescr):
         return getattr(module, self.attr)
 
 
+class _SixMetaPathImporter(object):
+    """
+    A meta path importer to import six.moves and its submodules.
+
+    This class implements a PEP302 finder and loader. It should be compatible
+    with Python 2.5 and all existing versions of Python3
+    """
+    def __init__(self, six_module_name):
+        self.name = six_module_name
+        self.known_modules = {}
+
+    def _add_module(self, mod, *fullnames):
+        for fullname in fullnames:
+            self.known_modules[self.name + "." + fullname] = mod
+
+    def _get_module(self, fullname):
+        return self.known_modules[self.name + "." + fullname]
+
+    def find_module(self, fullname, path=None):
+        if fullname in self.known_modules:
+            return self
+        return None
+
+    def __get_module(self, fullname):
+        try:
+            return self.known_modules[fullname]
+        except KeyError:
+            raise ImportError("This loader does not know module " + fullname)
+
+    def load_module(self, fullname):
+        try:
+            # in case of a reload
+            return sys.modules[fullname]
+        except KeyError:
+            pass
+        mod = self.__get_module(fullname)
+        if isinstance(mod, MovedModule):
+            mod = mod._resolve()
+        else:
+            mod.__loader__ = self
+        sys.modules[fullname] = mod
+        return mod
+
+    def is_package(self, fullname):
+        """
+        Return true, if the named module is a package.
+
+        We need this method to get correct spec objects with
+        Python 3.4 (see PEP451)
+        """
+        return hasattr(self.__get_module(fullname), "__path__")
+
+    def get_code(self, fullname):
+        """Return None
+
+        Required, if is_package is implemented"""
+        self.__get_module(fullname)  # eventually raises ImportError
+        return None
+    get_source = get_code  # same as get_code
+
+_importer = _SixMetaPathImporter(__name__)
+
 
 class _MovedItems(_LazyModule):
     """Lazy loading of moved objects"""
+    __path__ = []  # mark as package
 
 
 _moved_attributes = [
@@ -239,12 +283,13 @@ _moved_attributes = [
 for attr in _moved_attributes:
     setattr(_MovedItems, attr.name, attr)
     if isinstance(attr, MovedModule):
-        sys.modules[__name__ + ".moves." + attr.name] = attr
+        _importer._add_module(attr, "moves." + attr.name)
 del attr
 
 _MovedItems._moved_attributes = _moved_attributes
 
-moves = sys.modules[__name__ + ".moves"] = _MovedItems(__name__ + ".moves")
+moves = _MovedItems(__name__ + ".moves")
+_importer._add_module(moves, "moves")
 
 
 class Module_six_moves_urllib_parse(_LazyModule):
@@ -275,7 +320,8 @@ del attr
 
 Module_six_moves_urllib_parse._moved_attributes = _urllib_parse_moved_attributes
 
-sys.modules[__name__ + ".moves.urllib_parse"] = sys.modules[__name__ + ".moves.urllib.parse"] = Module_six_moves_urllib_parse(__name__ + ".moves.urllib_parse")
+_importer._add_module(Module_six_moves_urllib_parse(__name__ + ".moves.urllib_parse"),
+                      "moves.urllib_parse", "moves.urllib.parse")
 
 
 class Module_six_moves_urllib_error(_LazyModule):
@@ -293,7 +339,8 @@ del attr
 
 Module_six_moves_urllib_error._moved_attributes = _urllib_error_moved_attributes
 
-sys.modules[__name__ + ".moves.urllib_error"] = sys.modules[__name__ + ".moves.urllib.error"] = Module_six_moves_urllib_error(__name__ + ".moves.urllib.error")
+_importer._add_module(Module_six_moves_urllib_error(__name__ + ".moves.urllib.error"),
+                      "moves.urllib_error", "moves.urllib.error")
 
 
 class Module_six_moves_urllib_request(_LazyModule):
@@ -341,7 +388,8 @@ del attr
 
 Module_six_moves_urllib_request._moved_attributes = _urllib_request_moved_attributes
 
-sys.modules[__name__ + ".moves.urllib_request"] = sys.modules[__name__ + ".moves.urllib.request"] = Module_six_moves_urllib_request(__name__ + ".moves.urllib.request")
+_importer._add_module(Module_six_moves_urllib_request(__name__ + ".moves.urllib.request"),
+                      "moves.urllib_request", "moves.urllib.request")
 
 
 class Module_six_moves_urllib_response(_LazyModule):
@@ -360,7 +408,8 @@ del attr
 
 Module_six_moves_urllib_response._moved_attributes = _urllib_response_moved_attributes
 
-sys.modules[__name__ + ".moves.urllib_response"] = sys.modules[__name__ + ".moves.urllib.response"] = Module_six_moves_urllib_response(__name__ + ".moves.urllib.response")
+_importer._add_module(Module_six_moves_urllib_response(__name__ + ".moves.urllib.response"),
+                      "moves.urllib_response", "moves.urllib.response")
 
 
 class Module_six_moves_urllib_robotparser(_LazyModule):
@@ -376,22 +425,24 @@ del attr
 
 Module_six_moves_urllib_robotparser._moved_attributes = _urllib_robotparser_moved_attributes
 
-sys.modules[__name__ + ".moves.urllib_robotparser"] = sys.modules[__name__ + ".moves.urllib.robotparser"] = Module_six_moves_urllib_robotparser(__name__ + ".moves.urllib.robotparser")
+_importer._add_module(Module_six_moves_urllib_robotparser(__name__ + ".moves.urllib.robotparser"),
+                      "moves.urllib_robotparser", "moves.urllib.robotparser")
 
 
 class Module_six_moves_urllib(types.ModuleType):
     """Create a six.moves.urllib namespace that resembles the Python 3 namespace"""
-    parse = sys.modules[__name__ + ".moves.urllib_parse"]
-    error = sys.modules[__name__ + ".moves.urllib_error"]
-    request = sys.modules[__name__ + ".moves.urllib_request"]
-    response = sys.modules[__name__ + ".moves.urllib_response"]
-    robotparser = sys.modules[__name__ + ".moves.urllib_robotparser"]
+    __path__ = []  # mark as package
+    parse = _importer._get_module("moves.urllib_parse")
+    error = _importer._get_module("moves.urllib_error")
+    request = _importer._get_module("moves.urllib_request")
+    response = _importer._get_module("moves.urllib_response")
+    robotparser = _importer._get_module("moves.urllib_robotparser")
 
     def __dir__(self):
         return ['parse', 'error', 'request', 'response', 'robotparser']
 
-
-sys.modules[__name__ + ".moves.urllib"] = Module_six_moves_urllib(__name__ + ".moves.urllib")
+_importer._add_module(Module_six_moves_urllib(__name__ + ".moves.urllib"),
+                      "moves.urllib")
 
 
 def add_move(move):
@@ -644,3 +695,15 @@ def add_metaclass(metaclass):
                 orig_vars.pop(slots_var)
         return metaclass(cls.__name__, cls.__bases__, orig_vars)
     return wrapper
+
+# Complete the moves implementation.
+# This code is at the end of this module to speed up module loading.
+# 1. turn this module into a package.
+__path__ = []  # required for PEP 302 and PEP 451
+__package__ = __name__  # see PEP 366 @ReservedAssignment
+try:
+    __spec__.submodule_search_locations = []  # PEP 451 @UndefinedVariable
+except NameError:
+    pass
+# 2. add the importer to the meta path import hook.
+sys.meta_path.append(_importer)
