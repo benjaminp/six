@@ -418,11 +418,6 @@ if PY3:
     _func_code = "__code__"
     _func_defaults = "__defaults__"
     _func_globals = "__globals__"
-
-    _iterkeys = "keys"
-    _itervalues = "values"
-    _iteritems = "items"
-    _iterlists = "lists"
 else:
     _meth_func = "im_func"
     _meth_self = "im_self"
@@ -431,11 +426,6 @@ else:
     _func_code = "func_code"
     _func_defaults = "func_defaults"
     _func_globals = "func_globals"
-
-    _iterkeys = "iterkeys"
-    _itervalues = "itervalues"
-    _iteritems = "iteritems"
-    _iterlists = "iterlists"
 
 
 try:
@@ -485,21 +475,35 @@ get_function_defaults = operator.attrgetter(_func_defaults)
 get_function_globals = operator.attrgetter(_func_globals)
 
 
-def iterkeys(d, **kw):
-    """Return an iterator over the keys of a dictionary."""
-    return iter(getattr(d, _iterkeys)(**kw))
+if PY3:
+    def iterkeys(d, **kw):
+        return iter(d.keys(**kw))
 
-def itervalues(d, **kw):
-    """Return an iterator over the values of a dictionary."""
-    return iter(getattr(d, _itervalues)(**kw))
+    def itervalues(d, **kw):
+        return iter(d.values(**kw))
 
-def iteritems(d, **kw):
-    """Return an iterator over the (key, value) pairs of a dictionary."""
-    return iter(getattr(d, _iteritems)(**kw))
+    def iteritems(d, **kw):
+        return iter(d.items(**kw))
 
-def iterlists(d, **kw):
-    """Return an iterator over the (key, [values]) pairs of a dictionary."""
-    return iter(getattr(d, _iterlists)(**kw))
+    def iterlists(d, **kw):
+        return iter(d.lists(**kw))
+else:
+    def iterkeys(d, **kw):
+        return iter(d.iterkeys(**kw))
+
+    def itervalues(d, **kw):
+        return iter(d.itervalues(**kw))
+
+    def iteritems(d, **kw):
+        return iter(d.iteritems(**kw))
+
+    def iterlists(d, **kw):
+        return iter(d.iterlists(**kw))
+
+iterkeys.__doc__ = """Return an iterator over the keys of a dictionary."""
+itervalues.__doc__ = """Return an iterator over the values of a dictionary."""
+iteritems.__doc__ = """Return an iterator over the (key, value) pairs of a dictionary."""
+iterlists.__doc__ = """Return an iterator over the (key, [values]) pairs of a dictionary."""
 
 
 if PY3:
