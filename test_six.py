@@ -353,6 +353,14 @@ def test_get_function_globals():
 
 
 def test_dictionary_iterators(monkeypatch):
+    def stock_method_name(iterwhat):
+        """Given a method suffix like "lists" or "values", return the name
+        of the dict method that delivers those on the version of Python
+        we're running in."""
+        if six.PY3:
+            return iterwhat
+        return 'iter' + iterwhat
+
     class MyDict(dict):
         if not six.PY3:
             def lists(self, **kw):
@@ -361,7 +369,8 @@ def test_dictionary_iterators(monkeypatch):
             return iter([1, 2, 3])
     f = MyDict.iterlists
     del MyDict.iterlists
-    setattr(MyDict, six._iterlists, f)
+    setattr(MyDict, stock_method_name('lists'), f)
+
     d = MyDict(zip(range(10), reversed(range(10))))
     for name in "keys", "values", "items", "lists":
         meth = getattr(six, "iter" + name)
@@ -373,8 +382,8 @@ def test_dictionary_iterators(monkeypatch):
         def with_kw(*args, **kw):
             record.append(kw["kw"])
             return old(*args)
-        old = getattr(MyDict, getattr(six, "_iter" + name))
-        monkeypatch.setattr(MyDict, getattr(six, "_iter" + name), with_kw)
+        old = getattr(MyDict, stock_method_name(name))
+        monkeypatch.setattr(MyDict, stock_method_name(name), with_kw)
         meth(d, kw=42)
         assert record == [42]
         monkeypatch.undo()
