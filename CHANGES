@@ -3,6 +3,12 @@ Changelog for six
 
 This file lists the changes in each six version.
 
+Development version
+-------------------
+
+- Pull request #31: Select the implementations of dictionary iterator routines
+  at import time for a 20% speed boost.
+
 1.6.1
 -----
 
