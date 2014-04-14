@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import functools
 import operator
 import sys
 import types
@@ -631,6 +632,15 @@ if print_ is None:
 
 _add_doc(reraise, """Reraise an exception.""")
 
+if sys.version_info[0:2] < (3, 2):
+    def wraps(fn):
+        def wrapper(f):
+            f = functools.wraps(fn)(f)
+            f.__wrapped__ = getattr(fn, '__wrapped__', fn)
+            return f
+        return wrapper
+else:
+    wraps = functools.wraps
 
 def with_metaclass(meta, *bases):
     """Create a base class with a metaclass."""
