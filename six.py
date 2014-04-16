@@ -185,6 +185,8 @@ _moved_attributes = [
     MovedAttribute("reload_module", "__builtin__", "imp", "reload"),
     MovedAttribute("reduce", "__builtin__", "functools"),
     MovedAttribute("StringIO", "StringIO", "io"),
+    MovedAttribute("UserDict", "UserDict", "collections"),
+    MovedAttribute("UserList", "UserList", "collections"),
     MovedAttribute("UserString", "UserString", "collections"),
     MovedAttribute("xrange", "__builtin__", "builtins", "xrange", "range"),
     MovedAttribute("zip", "itertools", "builtins", "izip", "zip"),
