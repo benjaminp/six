@@ -6,6 +6,8 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Pull request #33: Add import mappings for UserDict and UserList.
+
 - Pull request #31: Select the implementations of dictionary iterator routines
   at import time for a 20% speed boost.
 
