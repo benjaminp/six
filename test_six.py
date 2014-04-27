@@ -634,6 +634,7 @@ def test_with_metaclass():
     assert type(X) is Meta
     assert issubclass(X, Base)
     assert issubclass(X, Base2)
+    assert X.__mro__ == (X, Base, Base2, object)
 
 
 def test_add_metaclass():
