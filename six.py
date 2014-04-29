@@ -636,7 +636,7 @@ if sys.version_info[0:2] < (3, 2):
     def wraps(fn):
         def wrapper(f):
             f = functools.wraps(fn)(f)
-            f.__wrapped__ = getattr(fn, '__wrapped__', fn)
+            f.__wrapped__ = fn
             return f
         return wrapper
 else:
