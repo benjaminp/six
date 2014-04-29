@@ -636,6 +636,24 @@ def test_with_metaclass():
     assert issubclass(X, Base2)
 
 
+def test_wraps():
+    def f(g):
+        @six.wraps(g)
+        def w():
+            return 42
+        return w
+    def k():
+        pass
+    original_k = k
+    k = f(f(k))
+    assert hasattr(k, '__wrapped__')
+    k = k.__wrapped__
+    assert hasattr(k, '__wrapped__')
+    k = k.__wrapped__
+    assert k is original_k
+    assert not hasattr(k, '__wrapped__')
+
+
 def test_add_metaclass():
     class Meta(type):
         pass
