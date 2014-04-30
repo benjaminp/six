@@ -6,6 +6,9 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Pull request #32: Add six.wraps, which is like functools.wraps but always sets
+  the __wrapped__ attribute.
+
 - Pull request #35: Improve add_metaclass, so that it doesn't end up inserting
   another class into the hierarchy.
 
