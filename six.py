@@ -635,11 +635,11 @@ if print_ is None:
 
 _add_doc(reraise, """Reraise an exception.""")
 
-if sys.version_info[0:2] < (3, 2):
-    def wraps(fn):
+if sys.version_info[0:2] < (3, 4):
+    def wraps(wrapped):
         def wrapper(f):
-            f = functools.wraps(fn)(f)
-            f.__wrapped__ = fn
+            f = functools.wraps(wrapped)(f)
+            f.__wrapped__ = wrapped
             return f
         return wrapper
 else:
