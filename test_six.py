@@ -353,6 +353,14 @@ def test_get_function_globals():
 
 
 def test_dictionary_iterators(monkeypatch):
+    def stock_method_name(iterwhat):
+        """Given a method suffix like "lists" or "values", return the name
+        of the dict method that delivers those on the version of Python
+        we're running in."""
+        if six.PY3:
+            return iterwhat
+        return 'iter' + iterwhat
+
     class MyDict(dict):
         if not six.PY3:
             def lists(self, **kw):
@@ -361,7 +369,8 @@ def test_dictionary_iterators(monkeypatch):
             return iter([1, 2, 3])
     f = MyDict.iterlists
     del MyDict.iterlists
-    setattr(MyDict, six._iterlists, f)
+    setattr(MyDict, stock_method_name('lists'), f)
+
     d = MyDict(zip(range(10), reversed(range(10))))
     for name in "keys", "values", "items", "lists":
         meth = getattr(six, "iter" + name)
@@ -373,8 +382,8 @@ def test_dictionary_iterators(monkeypatch):
         def with_kw(*args, **kw):
             record.append(kw["kw"])
             return old(*args)
-        old = getattr(MyDict, getattr(six, "_iter" + name))
-        monkeypatch.setattr(MyDict, getattr(six, "_iter" + name), with_kw)
+        old = getattr(MyDict, stock_method_name(name))
+        monkeypatch.setattr(MyDict, stock_method_name(name), with_kw)
         meth(d, kw=42)
         assert record == [42]
         monkeypatch.undo()
@@ -625,6 +634,25 @@ def test_with_metaclass():
     assert type(X) is Meta
     assert issubclass(X, Base)
     assert issubclass(X, Base2)
+    assert X.__mro__ == (X, Base, Base2, object)
+
+
+def test_wraps():
+    def f(g):
+        @six.wraps(g)
+        def w():
+            return 42
+        return w
+    def k():
+        pass
+    original_k = k
+    k = f(f(k))
+    assert hasattr(k, '__wrapped__')
+    k = k.__wrapped__
+    assert hasattr(k, '__wrapped__')
+    k = k.__wrapped__
+    assert k is original_k
+    assert not hasattr(k, '__wrapped__')
 
 
 def test_add_metaclass():

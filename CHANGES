@@ -3,6 +3,22 @@ Changelog for six
 
 This file lists the changes in each six version.
 
+Development version
+-------------------
+
+- Pull request #32: Add six.wraps, which is like functools.wraps but always sets
+  the __wrapped__ attribute.
+
+- Pull request #35: Improve add_metaclass, so that it doesn't end up inserting
+  another class into the hierarchy.
+
+- Pull request #34: Add import mappings for dummy_thread.
+
+- Pull request #33: Add import mappings for UserDict and UserList.
+
+- Pull request #31: Select the implementations of dictionary iterator routines
+  at import time for a 20% speed boost.
+
 1.6.1
 -----
 

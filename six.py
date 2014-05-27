@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import functools
 import operator
 import sys
 import types
@@ -229,6 +230,8 @@ _moved_attributes = [
     MovedAttribute("reload_module", "__builtin__", "imp", "reload"),
     MovedAttribute("reduce", "__builtin__", "functools"),
     MovedAttribute("StringIO", "StringIO", "io"),
+    MovedAttribute("UserDict", "UserDict", "collections"),
+    MovedAttribute("UserList", "UserList", "collections"),
     MovedAttribute("UserString", "UserString", "collections"),
     MovedAttribute("xrange", "__builtin__", "builtins", "xrange", "range"),
     MovedAttribute("zip", "itertools", "builtins", "izip", "zip"),
@@ -238,6 +241,7 @@ _moved_attributes = [
     MovedModule("configparser", "ConfigParser"),
     MovedModule("copyreg", "copy_reg"),
     MovedModule("dbm_gnu", "gdbm", "dbm.gnu"),
+    MovedModule("_dummy_thread", "dummy_thread", "_dummy_thread"),
     MovedModule("http_cookiejar", "cookielib", "http.cookiejar"),
     MovedModule("http_cookies", "Cookie", "http.cookies"),
     MovedModule("html_entities", "htmlentitydefs", "html.entities"),
@@ -469,11 +473,6 @@ if PY3:
     _func_code = "__code__"
     _func_defaults = "__defaults__"
     _func_globals = "__globals__"
-
-    _iterkeys = "keys"
-    _itervalues = "values"
-    _iteritems = "items"
-    _iterlists = "lists"
 else:
     _meth_func = "im_func"
     _meth_self = "im_self"
@@ -482,11 +481,6 @@ else:
     _func_code = "func_code"
     _func_defaults = "func_defaults"
     _func_globals = "func_globals"
-
-    _iterkeys = "iterkeys"
-    _itervalues = "itervalues"
-    _iteritems = "iteritems"
-    _iterlists = "iterlists"
 
 
 try:
@@ -536,21 +530,37 @@ get_function_defaults = operator.attrgetter(_func_defaults)
 get_function_globals = operator.attrgetter(_func_globals)
 
 
-def iterkeys(d, **kw):
-    """Return an iterator over the keys of a dictionary."""
-    return iter(getattr(d, _iterkeys)(**kw))
+if PY3:
+    def iterkeys(d, **kw):
+        return iter(d.keys(**kw))
 
-def itervalues(d, **kw):
-    """Return an iterator over the values of a dictionary."""
-    return iter(getattr(d, _itervalues)(**kw))
+    def itervalues(d, **kw):
+        return iter(d.values(**kw))
 
-def iteritems(d, **kw):
-    """Return an iterator over the (key, value) pairs of a dictionary."""
-    return iter(getattr(d, _iteritems)(**kw))
+    def iteritems(d, **kw):
+        return iter(d.items(**kw))
 
-def iterlists(d, **kw):
-    """Return an iterator over the (key, [values]) pairs of a dictionary."""
-    return iter(getattr(d, _iterlists)(**kw))
+    def iterlists(d, **kw):
+        return iter(d.lists(**kw))
+else:
+    def iterkeys(d, **kw):
+        return iter(d.iterkeys(**kw))
+
+    def itervalues(d, **kw):
+        return iter(d.itervalues(**kw))
+
+    def iteritems(d, **kw):
+        return iter(d.iteritems(**kw))
+
+    def iterlists(d, **kw):
+        return iter(d.iterlists(**kw))
+
+_add_doc(iterkeys, "Return an iterator over the keys of a dictionary.")
+_add_doc(itervalues, "Return an iterator over the values of a dictionary.")
+_add_doc(iteritems,
+         "Return an iterator over the (key, value) pairs of a dictionary.")
+_add_doc(iterlists,
+         "Return an iterator over the (key, [values]) pairs of a dictionary.")
 
 
 if PY3:
@@ -676,10 +686,33 @@ if print_ is None:
 
 _add_doc(reraise, """Reraise an exception.""")
 
+if sys.version_info[0:2] < (3, 4):
+    def wraps(wrapped):
+        def wrapper(f):
+            f = functools.wraps(wrapped)(f)
+            f.__wrapped__ = wrapped
+            return f
+        return wrapper
+else:
+    wraps = functools.wraps
 
 def with_metaclass(meta, *bases):
     """Create a base class with a metaclass."""
-    return meta("NewBase", bases, {})
+    # This requires a bit of explanation: the basic idea is to make a
+    # dummy metaclass for one level of class instantiation that replaces
+    # itself with the actual metaclass.  Because of internal type checks
+    # we also need to make sure that we downgrade the custom metaclass
+    # for one level to something closer to type (that's why __call__ and
+    # __init__ comes back from type etc.).
+    class metaclass(meta):
+        __call__ = type.__call__
+        __init__ = type.__init__
+        def __new__(cls, name, this_bases, d):
+            if this_bases is None:
+                return type.__new__(cls, name, (), d)
+            return meta(name, bases, d)
+    return metaclass('temporary_class', None, {})
+
 
 def add_metaclass(metaclass):
     """Class decorator for creating a class with a metaclass."""

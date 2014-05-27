@@ -222,6 +222,13 @@ functions and methods is the stdlib :mod:`py3:inspect` module.
    aliased to :class:`py3:object`.)
 
 
+.. function:: wraps(wrapped)
+
+   This is exactly the :func:`py3:functools.wraps` decorator, but it sets the
+   ``__wrapped__`` attribute on what it decorates as :func:`py3:functools.wraps`
+   does on Python versions after 3.2.
+
+
 Syntax compatibility
 >>>>>>>>>>>>>>>>>>>>
 
@@ -477,6 +484,8 @@ Supported renames:
 +------------------------------+-------------------------------------+-------------------------------------+
 | ``dbm_gnu``                  | :func:`py2:gdbm`                    | :class:`py3:dbm.gnu`                |
 +------------------------------+-------------------------------------+-------------------------------------+
+| ``_dummy_thread``            | :mod:`py2:dummy_thread`             | :mod:`py3:_dummy_thread`            |
++------------------------------+-------------------------------------+-------------------------------------+
 | ``email_mime_multipart``     | :mod:`py2:email.MIMEMultipart`      | :mod:`py3:email.mime.multipart`     |
 +------------------------------+-------------------------------------+-------------------------------------+
 | ``email_mime_text``          | :mod:`py2:email.MIMEText`           | :mod:`py3:email.mime.text`          |
@@ -562,6 +571,10 @@ Supported renames:
 | ``urllib.robotparser``       | :mod:`py2:robotparser`              | :mod:`py3:urllib.robotparser`       |
 +------------------------------+-------------------------------------+-------------------------------------+
 | ``urllib_robotparser``       | :mod:`py2:robotparser`              | :mod:`py3:urllib.robotparser`       |
++------------------------------+-------------------------------------+-------------------------------------+
+| ``UserDict``                 | :class:`py2:UserDict.UserDict`      | :class:`py3:collections.UserDict`   |
++------------------------------+-------------------------------------+-------------------------------------+
+| ``UserList``                 | :class:`py2:UserList.UserList`      | :class:`py3:collections.UserList`   |
 +------------------------------+-------------------------------------+-------------------------------------+
 | ``UserString``               | :class:`py2:UserString.UserString`  | :class:`py3:collections.UserString` |
 +------------------------------+-------------------------------------+-------------------------------------+
