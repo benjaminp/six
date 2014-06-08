@@ -6,6 +6,8 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Pull request #30: Implement six.moves with a PEP 302 meta path hook.
+
 - Pull request #32: Add six.wraps, which is like functools.wraps but always sets
   the __wrapped__ attribute.
 
