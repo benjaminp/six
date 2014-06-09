@@ -741,15 +741,16 @@ except NameError:
 # Remove other six meta path importers, since they cause problems. This can
 # happen if six is removed from sys.modules and then reloaded. (Setuptools does
 # this for some reason.)
-for i, importer in enumerate(sys.meta_path):
-    # Here's some real nastiness: Another "instance" of the six module might be
-    # floating around. Therefore, we can't use isinstance() to check for the six
-    # meta path importer, since the other six instance will have inserted an
-    # importer with different class.
-    if (type(importer).__name__ == "_SixMetaPathImporter" and
-        importer.name == __name__):
-        del sys.meta_path[i]
-        break
-del i, importer
+if sys.meta_path:
+    for i, importer in enumerate(sys.meta_path):
+        # Here's some real nastiness: Another "instance" of the six module might
+        # be floating around. Therefore, we can't use isinstance() to check for
+        # the six meta path importer, since the other six instance will have
+        # inserted an importer with different class.
+        if (type(importer).__name__ == "_SixMetaPathImporter" and
+            importer.name == __name__):
+            del sys.meta_path[i]
+            break
+    del i, importer
 # Finally, add the importer to the meta path import hook.
 sys.meta_path.append(_importer)

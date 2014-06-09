@@ -3,6 +3,11 @@ Changelog for six
 
 This file lists the changes in each six version.
 
+1.7.2
+-----
+
+- Issue #72: Fix installing on Python 2.
+
 1.7.1
 -----
 
