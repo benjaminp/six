@@ -3,6 +3,12 @@ Changelog for six
 
 This file lists the changes in each six version.
 
+1.7.1
+-----
+
+- Issue #71: Make the six.moves meta path importer handle reloading of the six
+  module gracefully.
+
 1.7.0
 -----
 
