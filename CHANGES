@@ -6,6 +6,9 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Issue #74: six.moves.xmlrpc_server should map to SimpleXMLRPCServer on Python
+  2 as documented not xmlrpclib.
+
 1.7.2
 -----
 
