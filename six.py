@@ -734,10 +734,8 @@ def add_metaclass(metaclass):
 # Turn this module into a package.
 __path__ = []  # required for PEP 302 and PEP 451
 __package__ = __name__  # see PEP 366 @ReservedAssignment
-try:
+if globals().get("__spec__") is not None:
     __spec__.submodule_search_locations = []  # PEP 451 @UndefinedVariable
-except NameError:
-    pass
 # Remove other six meta path importers, since they cause problems. This can
 # happen if six is removed from sys.modules and then reloaded. (Setuptools does
 # this for some reason.)
