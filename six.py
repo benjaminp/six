@@ -317,6 +317,7 @@ _urllib_parse_moved_attributes = [
     MovedAttribute("unquote_plus", "urllib", "urllib.parse"),
     MovedAttribute("urlencode", "urllib", "urllib.parse"),
     MovedAttribute("splitquery", "urllib", "urllib.parse"),
+    MovedAttribute("splittag", "urllib", "urllib.parse"),
     MovedAttribute("splituser", "urllib", "urllib.parse"),
 ]
 for attr in _urllib_parse_moved_attributes:

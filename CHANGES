@@ -6,6 +6,8 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Issue #81: Add six.urllib.request.splittag mapping.
+
 - Issue #80: Add six.urllib.request.splituser mapping.
 
 1.7.3
