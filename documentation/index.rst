@@ -489,6 +489,8 @@ Supported renames:
 +------------------------------+-------------------------------------+-------------------------------------+
 | ``email_mime_multipart``     | :mod:`py2:email.MIMEMultipart`      | :mod:`py3:email.mime.multipart`     |
 +------------------------------+-------------------------------------+-------------------------------------+
+| ``email_mime_nonmultipart``  | :mod:`py2:email.MIMENonMultipart`   | :mod:`py3:email.mime.nonmultipart`  |
++------------------------------+-------------------------------------+-------------------------------------+
 | ``email_mime_text``          | :mod:`py2:email.MIMEText`           | :mod:`py3:email.mime.text`          |
 +------------------------------+-------------------------------------+-------------------------------------+
 | ``email_mime_base``          | :mod:`py2:email.MIMEBase`           | :mod:`py3:email.mime.base`          |
