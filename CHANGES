@@ -6,6 +6,8 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Issue #85: Always accept *updated* and *assigned* arguments for wraps().
+
 - Issue #86: In reraise(), instantiate the exception if the second argument is
   None.
 

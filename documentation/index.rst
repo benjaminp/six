@@ -222,7 +222,7 @@ functions and methods is the stdlib :mod:`py3:inspect` module.
    aliased to :class:`py3:object`.)
 
 
-.. function:: wraps(wrapped)
+.. function:: wraps(wrapped, assigned=functools.WRAPPER_ASSIGNMENTS, updated=functools.WRAPPER_UPDATES)
 
    This is exactly the :func:`py3:functools.wraps` decorator, but it sets the
    ``__wrapped__`` attribute on what it decorates as :func:`py3:functools.wraps`
