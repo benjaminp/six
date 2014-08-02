@@ -560,6 +560,14 @@ def test_reraise():
         assert tp2 is Exception
         assert value2 is e
         assert get_next(tb3) is tb2
+    try:
+        six.reraise(tp, None, tb)
+    except Exception:
+        tp2, value2, tb2 = sys.exc_info()
+        assert tp2 is Exception
+        assert value2 is not val
+        assert isinstance(value2, Exception)
+        assert tb is get_next(tb2)
 
 
 def test_print_():

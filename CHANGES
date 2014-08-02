@@ -6,6 +6,9 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Issue #86: In reraise(), instantiate the exception if the second argument is
+  None.
+
 - Pull request #45: Add six.moves.email_mime_nonmultipart.
 
 - Issue #81: Add six.urllib.request.splittag mapping.
