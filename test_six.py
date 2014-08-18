@@ -730,3 +730,7 @@ def test_add_metaclass():
     py.test.raises(AttributeError, setattr, instance, "a", "baz")
     py.test.raises(AttributeError, setattr, instance, "b", "baz")
 
+    class MySlotsWeakref(object):
+        __slots__ = "__weakref__",
+    MySlotsWeakref = six.add_metaclass(Meta)(MySlotsWeakref)
+    assert type(MySlotsWeakref) is Meta
