@@ -6,6 +6,8 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Issue #90: Add six.moves.shlex_quote.
+
 - Issue #59: Add six.moves.intern.
 
 - Add six.urllib.parse.uses_(fragment|netloc|params|query|relative).
