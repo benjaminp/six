@@ -3,8 +3,8 @@ Changelog for six
 
 This file lists the changes in each six version.
 
-Development version
--------------------
+1.8.0
+-----
 
 - Issue #90: Add six.moves.shlex_quote.
 
