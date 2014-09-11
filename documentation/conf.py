@@ -213,5 +213,5 @@ man_pages = [
 
 # -- Intersphinx ---------------------------------------------------------------
 
-intersphinx_mapping = {"py2" : ("http://docs.python.org/2/", None),
-                       "py3" : ("http://docs.python.org/3/", None)}
+intersphinx_mapping = {"py2" : ("https://docs.python.org/2/", None),
+                       "py3" : ("https://docs.python.org/3/", None)}
