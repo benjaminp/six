@@ -6,6 +6,8 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Add six.urllib.parse.uses_(fragment|netloc|params|query|relative).
+
 - Issue #88: Fix add_metaclass when the class has __slots__ containing
   "__weakref__" or "__dict__".
 

@@ -322,6 +322,11 @@ _urllib_parse_moved_attributes = [
     MovedAttribute("splitquery", "urllib", "urllib.parse"),
     MovedAttribute("splittag", "urllib", "urllib.parse"),
     MovedAttribute("splituser", "urllib", "urllib.parse"),
+    MovedAttribute("uses_fragment", "urlparse", "urllib.parse"),
+    MovedAttribute("uses_netloc", "urlparse", "urllib.parse"),
+    MovedAttribute("uses_params", "urlparse", "urllib.parse"),
+    MovedAttribute("uses_query", "urlparse", "urllib.parse"),
+    MovedAttribute("uses_relative", "urlparse", "urllib.parse"),
 ]
 for attr in _urllib_parse_moved_attributes:
     setattr(Module_six_moves_urllib_parse, attr.name, attr)
