@@ -6,35 +6,35 @@ This file lists the changes in each six version.
 1.8.0
 -----
 
-- Issue #90: Add six.moves.shlex_quote.
+- Issue #90: Add `six.moves.shlex_quote`.
 
-- Issue #59: Add six.moves.intern.
+- Issue #59: Add `six.moves.intern`.
 
-- Add six.urllib.parse.uses_(fragment|netloc|params|query|relative).
+- Add `six.urllib.parse.uses_(fragment|netloc|params|query|relative)`.
 
-- Issue #88: Fix add_metaclass when the class has __slots__ containing
-  "__weakref__" or "__dict__".
+- Issue #88: Fix add_metaclass when the class has `__slots__` containing
+  `__weakref__` or `__dict__`.
 
 - Issue #89: Make six use absolute imports.
 
-- Issue #85: Always accept *updated* and *assigned* arguments for wraps().
+- Issue #85: Always accept *updated* and *assigned* arguments for `wraps()`.
 
-- Issue #86: In reraise(), instantiate the exception if the second argument is
-  None.
+- Issue #86: In `reraise()`, instantiate the exception if the second argument is
+  `None`.
 
-- Pull request #45: Add six.moves.email_mime_nonmultipart.
+- Pull request #45: Add `six.moves.email_mime_nonmultipart`.
 
-- Issue #81: Add six.urllib.request.splittag mapping.
+- Issue #81: Add `six.urllib.request.splittag` mapping.
 
-- Issue #80: Add six.urllib.request.splituser mapping.
+- Issue #80: Add `six.urllib.request.splituser` mapping.
 
 1.7.3
 -----
 
 - Issue #77: Fix import six on Python 3.4 with a custom loader.
 
-- Issue #74: six.moves.xmlrpc_server should map to SimpleXMLRPCServer on Python
-  2 as documented not xmlrpclib.
+- Issue #74: `six.moves.xmlrpc_server` should map to `SimpleXMLRPCServer` on Python
+  2 as documented not `xmlrpclib`.
 
 1.7.2
 -----
