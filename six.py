@@ -746,7 +746,7 @@ def python_2_unicode_compatible(klass):
     To support Python 2 and 3 with a single code base, define a __str__ method
     returning text and apply this decorator to the class.
     """
-    if six.PY2:
+    if PY2:
         if '__str__' not in klass.__dict__:
             raise ValueError("@python_2_unicode_compatible cannot be applied "
                              "to %s because it doesn't define __str__()." %
