@@ -389,6 +389,35 @@ def test_dictionary_iterators(monkeypatch):
         monkeypatch.undo()
 
 
+def test_dictionary_views(monkeypatch):
+    if sys.version_info[:2] <= (2, 6):
+        py.test.skip("view methods on dictionaries only available on 2.7+")
+    def stock_method_name(viewwhat):
+        """Given a method suffix like "keys" or "values", return the name
+        of the dict method that delivers those on the version of Python
+        we're running in."""
+        if six.PY3:
+            return viewwhat
+        return 'view' + viewwhat
+
+    class MyDict(dict):
+        pass
+
+    d = MyDict(zip(range(10), reversed(range(10))))
+    for name in "keys", "values", "items":
+        meth = getattr(six, "view" + name)
+        view = meth(d)
+        assert set(view) == set(getattr(d, name)())
+        record = []
+        def with_kw(*args, **kw):
+            record.append(kw["kw"])
+            return old(*args)
+        old = getattr(MyDict, stock_method_name(name))
+        monkeypatch.setattr(MyDict, stock_method_name(name), with_kw)
+        meth(d, kw=42)
+        assert record == [42]
+        monkeypatch.undo()
+
 def test_advance_iterator():
     assert six.next is six.advance_iterator
     l = [1, 2]
