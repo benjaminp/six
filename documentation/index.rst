@@ -205,21 +205,21 @@ functions and methods is the stdlib :mod:`py3:inspect` module.
 
 .. function:: viewkeys(dictionary, **kwargs)
 
-   Returns a view over *dictionary*\'s keys. This replaces
+   Return a view over *dictionary*\'s keys. This replaces
    ``dictionary.viewkeys()`` on Python 2.7 and ``dictionary.keys()`` on
    Python 3. *kwargs* are passed through to the underlying method.
 
 
 .. function:: viewvalues(dictionary, **kwargs)
 
-   Returns a view over *dictionary*\'s values. This replaces
+   Return a view over *dictionary*\'s values. This replaces
    ``dictionary.viewvalues()`` on Python 2.7 and ``dictionary.values()`` on
    Python 3. *kwargs* are passed through to the underlying method.
 
 
 .. function:: viewitems(dictionary, **kwargs)
 
-   Returns a view over *dictionary*\'s items. This replaces
+   Return a view over *dictionary*\'s items. This replaces
    ``dictionary.viewitems()`` on Python 2.7 and ``dictionary.items()`` on
    Python 3. *kwargs* are passed through to the underlying method.
 

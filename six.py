@@ -555,14 +555,11 @@ if PY3:
     def iterlists(d, **kw):
         return iter(d.lists(**kw))
 
-    def viewkeys(d, **kw):
-        return d.keys(**kw)
+    viewkeys = operator.methodcaller("keys")
 
-    def viewvalues(d, **kw):
-        return d.values(**kw)
+    viewvalues = operator.methodcaller("values")
 
-    def viewitems(d, **kw):
-        return d.items(**kw)
+    viewitems = operator.methodcaller("items")
 else:
     def iterkeys(d, **kw):
         return iter(d.iterkeys(**kw))
@@ -576,14 +573,11 @@ else:
     def iterlists(d, **kw):
         return iter(d.iterlists(**kw))
 
-    def viewkeys(d, **kw):
-        return d.viewkeys(**kw)
+    viewkeys = operator.methodcaller("viewkeys")
 
-    def viewvalues(d, **kw):
-        return d.viewvalues(**kw)
+    viewvalues = operator.methodcaller("viewvalues")
 
-    def viewitems(d, **kw):
-        return d.viewitems(**kw)
+    viewitems = operator.methodcaller("viewitems")
 
 _add_doc(iterkeys, "Return an iterator over the keys of a dictionary.")
 _add_doc(itervalues, "Return an iterator over the values of a dictionary.")
@@ -591,10 +585,6 @@ _add_doc(iteritems,
          "Return an iterator over the (key, value) pairs of a dictionary.")
 _add_doc(iterlists,
          "Return an iterator over the (key, [values]) pairs of a dictionary.")
-_add_doc(viewkeys, "Return a view over the keys of a dictionary.")
-_add_doc(viewvalues, "Retun a view over the values of a dictionary.")
-_add_doc(viewitems,
-         "Return a view over the (key, value) pairs of a dictionary.")
 
 
 if PY3:
