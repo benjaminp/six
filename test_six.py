@@ -389,8 +389,8 @@ def test_dictionary_iterators(monkeypatch):
         monkeypatch.undo()
 
 
-@py.test.mark.skipIf(sys.version_info[:2] < (2, 7),
-                "view methods on dictionaries only available on 2.7+")
+@py.test.mark.skipif(sys.version_info[:2] < (2, 7),
+                reason="view methods on dictionaries only available on 2.7+")
 def test_dictionary_views():
     def stock_method_name(viewwhat):
         """Given a method suffix like "keys" or "values", return the name
