@@ -389,7 +389,7 @@ def test_dictionary_iterators(monkeypatch):
         monkeypatch.undo()
 
 
-@py.test.mark.skipIf(sys.version_info[:2] <= (2, 6),
+@py.test.mark.skipIf(sys.version_info[:2] < (2, 7),
                 "view methods on dictionaries only available on 2.7+")
 def test_dictionary_views():
     def stock_method_name(viewwhat):
@@ -400,24 +400,11 @@ def test_dictionary_views():
             return viewwhat
         return 'view' + viewwhat
 
-    class MyDict(dict):
-        def viewkeys(self, *args, **kw):
-            record.append(kw)
-            return super(MyDict, self).viewkeys()
-
-        def keys(self, *args, **kw):
-            record.append(kw)
-            return super().keys()
-
-    d = dict(zip(range(10), reversed(range(10))))
+    d = dict(zip(range(10), (range(11, 20))))
     for name in "keys", "values", "items":
         meth = getattr(six, "view" + name)
         view = meth(d)
         assert set(view) == set(getattr(d, name)())
-    d = MyDict()
-    record = []
-    six.viewkeys(d, kw=42)
-    assert record == [{'kw': 42}]
 
 
 def test_advance_iterator():
