@@ -23,6 +23,7 @@
 from __future__ import absolute_import
 
 import functools
+import itertools
 import operator
 import sys
 import types
@@ -621,8 +622,7 @@ else:
         return ord(bs[0])
     def indexbytes(buf, i):
         return ord(buf[i])
-    def iterbytes(buf):
-        return (ord(byte) for byte in buf)
+    iterbytes = functools.partial(itertools.imap, ord)
     import StringIO
     StringIO = BytesIO = StringIO.StringIO
 _add_doc(b, """Byte literal""")
