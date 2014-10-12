@@ -3,6 +3,14 @@ Changelog for six
 
 This file lists the changes in each six version.
 
+Development version
+-------------------
+
+- Issue #98: Fix `six.moves` race condition in multi-threaded code.
+
+- Pull request #51: Add `six.view(keys|values|itmes)`, which provide dictionary
+  views on Python 2.7+.
+
 1.8.0
 -----
 
