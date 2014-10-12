@@ -206,21 +206,21 @@ functions and methods is the stdlib :mod:`py3:inspect` module.
 .. function:: viewkeys(dictionary)
 
    Return a view over *dictionary*\'s keys. This replaces
-   ``dictionary.viewkeys()`` on Python 2.7 and ``dictionary.keys()`` on
+   :meth:`py2:dict.viewkeys` on Python 2.7 and :meth:`py3:dict.keys` on
    Python 3.
 
 
 .. function:: viewvalues(dictionary)
 
    Return a view over *dictionary*\'s values. This replaces
-   ``dictionary.viewvalues()`` on Python 2.7 and ``dictionary.values()`` on
+   :meth:`py2:dict.viewvalues` on Python 2.7 and :meth:`py3:dict.values` on
    Python 3.
 
 
 .. function:: viewitems(dictionary)
 
    Return a view over *dictionary*\'s items. This replaces
-   ``dictionary.viewitems()`` on Python 2.7 and ``dictionary.items()`` on
+   :meth:`py2:dict.viewitems` on Python 2.7 and :meth:`py3:dict.items` on
    Python 3.
 
 
