@@ -160,7 +160,7 @@ functions and methods is the stdlib :mod:`py3:inspect` module.
 
 
 .. function:: next(it)
-.. function:: advance_iterator(it)
+              advance_iterator(it)
 
    Get the next item of iterator *it*.  :exc:`py3:StopIteration` is raised if
    the iterator is exhausted.  This is a replacement for calling ``it.next()``
