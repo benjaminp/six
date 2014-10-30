@@ -588,6 +588,27 @@ def test_reraise():
         assert tb is get_next(tb2)
 
 
+def test_raise_from():
+    try:
+        try:
+            raise Exception("blah")
+        except Exception:
+            ctx = sys.exc_info()[1]
+            f = Exception("foo")
+            six.raise_from(f, None)
+    except Exception:
+        tp, val, tb = sys.exc_info()
+    if sys.version_info[:2] > (3, 0):
+        # We should have done a raise f from None equivalent.
+        assert val.__cause__ is None
+        assert val.__context__ is ctx
+    if sys.version_info[:2] >= (3, 3):
+        # And that should suppress the context on the exception.
+        assert val.__suppress_context__
+    # For all versions the outer exception should have raised successfully.
+    assert str(val) == "foo"
+
+
 def test_print_():
     save = sys.stdout
     out = sys.stdout = six.moves.StringIO()

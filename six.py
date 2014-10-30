@@ -659,6 +659,15 @@ else:
 """)
 
 
+if sys.version_info > (3, 2):
+    exec_("""def raise_from(value, from_value):
+    raise value from from_value
+""")
+else:
+    def raise_from(value, from_value):
+        raise value
+
+
 print_ = getattr(moves.builtins, "print", None)
 if print_ is None:
     def print_(*args, **kwargs):

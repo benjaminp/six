@@ -282,6 +282,13 @@ Python 2 and 3.
       ok. :)
 
 
+.. function:: raise_from(exc_value, exc_value_from)
+
+   Raise an exception from a context.  On Python 3, this is equivalent to
+   ``raise exc_value from exc_value_from``.  On Python 2, which does not support
+   exception chaining, it is equivalent to ``raise exc_value``.
+
+
 .. function:: reraise(exc_type, exc_value, exc_traceback=None)
 
    Reraise an exception, possibly with a different traceback.  In the simple
