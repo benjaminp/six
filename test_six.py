@@ -1,6 +1,7 @@
 import operator
 import sys
 import types
+import unittest
 
 import py
 
@@ -773,3 +774,39 @@ def test_add_metaclass():
         __slots__ = "__weakref__",
     MySlotsWeakref = six.add_metaclass(Meta)(MySlotsWeakref)
     assert type(MySlotsWeakref) is Meta
+
+
+@py.test.mark.skipif("sys.version_info[:2] < (2, 7)")
+def test_assertCountEqual():
+    class TestAssertCountEqual(unittest.TestCase):
+        def test(self):
+            with self.assertRaises(AssertionError):
+                six.assertCountEqual(self, (1, 2), [3, 4, 5])
+
+            six.assertCountEqual(self, (1, 2), [2, 1])
+
+    TestAssertCountEqual('test').test()
+
+
+def test_assertRegex():
+    class TestAssertRegex(unittest.TestCase):
+        def test(self):
+            with self.assertRaises(AssertionError):
+                six.assertRegex(self, 'test', r'^a')
+
+            six.assertRegex(self, 'test', r'^t')
+
+    TestAssertRegex('test').test()
+
+
+def test_assertRaisesRegex():
+    class TestAssertRaisesRegex(unittest.TestCase):
+        def test(self):
+            with six.assertRaisesRegex(self, AssertionError, '^Foo'):
+                raise AssertionError('Foo')
+
+            with self.assertRaises(AssertionError):
+                with six.assertRaisesRegex(self, AssertionError, r'^Foo'):
+                    raise AssertionError('Bar')
+
+    TestAssertRaisesRegex('test').test()
