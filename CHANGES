@@ -6,6 +6,9 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Issue #105 and pull request #58: Ensure `six.wraps` respects the *updated* and
+  *assigned* arguments.
+
 - Issue #102: Add `raise_from` to abstract out Python 3's raise from syntax.
 
 - Issue #97: Optimize `six.iterbytes` on Python 2.
