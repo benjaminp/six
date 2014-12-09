@@ -701,6 +701,18 @@ def test_wraps():
     assert k is original_k
     assert not hasattr(k, '__wrapped__')
 
+    def f(g, assign, update):
+        def w():
+            return 42
+        w.glue = {"foo" : "bar"}
+        return six.wraps(g, assign, update)(w)
+    k.glue = {"melon" : "egg"}
+    k.turnip = 43
+    k = f(k, ["turnip"], ["glue"])
+    assert k.__name__ == "w"
+    assert k.turnip == 43
+    assert k.glue == {"melon" : "egg", "foo" : "bar"}
+
 
 def test_add_metaclass():
     class Meta(type):
