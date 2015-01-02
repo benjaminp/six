@@ -243,7 +243,7 @@ functions and methods is the stdlib :mod:`py3:inspect` module.
    aliased to :class:`py3:object`.)
 
 
-.. function:: wraps(wrapped, assigned=functools.WRAPPER_ASSIGNMENTS, updated=functools.WRAPPER_UPDATES)
+.. decorator:: wraps(wrapped, assigned=functools.WRAPPER_ASSIGNMENTS, updated=functools.WRAPPER_UPDATES)
 
    This is exactly the :func:`py3:functools.wraps` decorator, but it sets the
    ``__wrapped__`` attribute on what it decorates as :func:`py3:functools.wraps`
@@ -320,7 +320,7 @@ Python 2 and 3.
    decorator.
 
 
-.. function:: add_metaclass(metaclass)
+.. decorator:: add_metaclass(metaclass)
 
    Class decorator that replaces a normally-constructed class with a
    metaclass-constructed one.  Example usage: ::
