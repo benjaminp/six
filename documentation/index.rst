@@ -458,10 +458,12 @@ Note these functions are only available on Python 2.7 or later.
    Alias for :meth:`~py3:unittest.TestCase.assertCountEqual` on Python 3 and
    :meth:`~py2:unittest.TestCase.assertItemsEqual` on Python 2.
 
+
 .. function:: assertRaisesRegex()
 
    Alias for :meth:`~py3:unittest.TestCase.assertRaisesRegex` on Python 3 and
    :meth:`~py2:unittest.TestCase.assertRaisesRegexp` on Python 2.
+
 
 .. function:: assertRegex()
 
