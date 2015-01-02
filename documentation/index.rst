@@ -451,12 +451,12 @@ as the first argument. For example::
         def test(self):
             six.assertCountEqual(self, (1, 2), [2, 1])
 
+Note these functions are only available on Python 2.7 or later.
 
 .. function:: assertCountEqual()
 
    Alias for :meth:`~py3:unittest.TestCase.assertCountEqual` on Python 3 and
-   :meth:`~py2:unittest.TestCase.assertItemsEqual` on Python 2.  This method is
-   only available on Python 2.7 and later.
+   :meth:`~py2:unittest.TestCase.assertItemsEqual` on Python 2.
 
 .. function:: assertRaisesRegex()
 
