@@ -440,8 +440,6 @@ string data in all Python versions.
 unittest assertions
 >>>>>>>>>>>>>>>>>>>
 
-.. currentmodule:: six
-
 Contains compatibility shims for unittest assertions that have been renamed.
 The parameters are the same as their aliases, but you must pass the test method
 as the first argument. For example::
