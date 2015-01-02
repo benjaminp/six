@@ -440,7 +440,7 @@ string data in all Python versions.
 unittest assertions
 >>>>>>>>>>>>>>>>>>>
 
-Contains compatibility shims for unittest assertions that have been renamed.
+Six contains compatibility shims for unittest assertions that have been renamed.
 The parameters are the same as their aliases, but you must pass the test method
 as the first argument. For example::
 
@@ -455,7 +455,8 @@ as the first argument. For example::
 .. function:: assertCountEqual()
 
    Alias for :meth:`~py3:unittest.TestCase.assertCountEqual` on Python 3 and
-   :meth:`~py2:unittest.TestCase.assertItemsEqual` on Python 2.
+   :meth:`~py2:unittest.TestCase.assertItemsEqual` on Python 2.  This method is
+   only available on Python 2.7 and later.
 
 .. function:: assertRaisesRegex()
 
