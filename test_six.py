@@ -800,6 +800,7 @@ def test_assertCountEqual():
     TestAssertCountEqual('test').test()
 
 
+@py.test.mark.skipif("sys.version_info[:2] < (2, 7)")
 def test_assertRegex():
     class TestAssertRegex(unittest.TestCase):
         def test(self):
@@ -811,6 +812,7 @@ def test_assertRegex():
     TestAssertRegex('test').test()
 
 
+@py.test.mark.skipif("sys.version_info[:2] < (2, 7)")
 def test_assertRaisesRegex():
     class TestAssertRaisesRegex(unittest.TestCase):
         def test(self):
