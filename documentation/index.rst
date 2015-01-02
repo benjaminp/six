@@ -437,6 +437,14 @@ string data in all Python versions.
    :class:`py3:io.BytesIO`.
 
 
+.. decorator:: python_2_unicode_compatible
+
+   A class decorator that takes a class defining a ``__str__`` method.  On
+   Python 3, the decorator does nothing.  On Python 2, it aliases the
+   ``__str__`` method to ``__unicode__`` and creates a new ``__str__`` method
+   that returns the result of ``__unicode__()`` encoded with UTF-8.
+
+
 unittest assertions
 >>>>>>>>>>>>>>>>>>>
 

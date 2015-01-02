@@ -6,6 +6,9 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Pull request #48 and issue #15: Add the `python_2_unicode_compatible`
+  decorator.
+
 - Pull request #57 and issue #50: Add several compatibility methods for unittest
   assertions that were renamed between Python 2 and 3.
 
