@@ -3,8 +3,8 @@ Changelog for six
 
 This file lists the changes in each six version.
 
-Development version
--------------------
+1.9.0
+-----
 
 - Issue #106: Support the `flush` parameter to `six.print_`.
 

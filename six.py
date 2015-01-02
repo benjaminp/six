@@ -29,7 +29,7 @@ import sys
 import types
 
 __author__ = "Benjamin Peterson <benjamin@python.org>"
-__version__ = "1.8.0"
+__version__ = "1.9.0"
 
 
 # Useful for very coarse version differentiation.
