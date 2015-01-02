@@ -677,7 +677,13 @@ else:
 """)
 
 
-if sys.version_info > (3, 2):
+if sys.version_info[:2] == (3, 2):
+    exec_("""def raise_from(value, from_value):
+    if from_value is None:
+        raise value
+    raise value from from_value
+""")
+elif sys.version_info[:2] > (3, 2):
     exec_("""def raise_from(value, from_value):
     raise value from from_value
 """)
