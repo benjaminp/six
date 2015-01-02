@@ -6,6 +6,8 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Issue #106: Support the `flush` parameter to `six.print_`.
+
 - Pull request #48 and issue #15: Add the `python_2_unicode_compatible`
   decorator.
 

@@ -740,6 +740,14 @@ if print_ is None:
                 write(sep)
             write(arg)
         write(end)
+if sys.version_info[:2] < (3, 3):
+    _print = print_
+    def print_(*args, **kwargs):
+        fp = kwargs.get("file", sys.stdout)
+        flush = kwargs.pop("flush", False)
+        _print(*args, **kwargs)
+        if flush and fp is not None:
+            fp.flush()
 
 _add_doc(reraise, """Reraise an exception.""")
 

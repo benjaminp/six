@@ -636,6 +636,17 @@ def test_print_():
     out = six.StringIO()
     six.print_(None, file=out)
     assert out.getvalue() == "None\n"
+    class FlushableStringIO(six.StringIO):
+        def __init__(self):
+            six.StringIO.__init__(self)
+            self.flushed = False
+        def flush(self):
+            self.flushed = True
+    out = FlushableStringIO()
+    six.print_("Hello", file=out)
+    assert not out.flushed
+    six.print_("Hello", file=out, flush=True)
+    assert out.flushed
 
 
 @py.test.mark.skipif("sys.version_info[:2] >= (2, 6)")
