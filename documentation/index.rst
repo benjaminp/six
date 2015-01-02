@@ -437,6 +437,39 @@ string data in all Python versions.
    :class:`py3:io.BytesIO`.
 
 
+unittest assertions
+>>>>>>>>>>>>>>>>>>>
+
+.. currentmodule:: six
+
+Contains compatibility shims for unittest assertions that have been renamed.
+The parameters are the same as their aliases, but you must pass the test method
+as the first argument. For example::
+
+    import six
+    import unittest
+
+    class TestAssertCountEqual(unittest.TestCase):
+        def test(self):
+            six.assertCountEqual(self, (1, 2), [2, 1])
+
+
+.. function:: assertCountEqual()
+
+   Alias for :meth:`~py3:unittest.TestCase.assertCountEqual` on Python 3 and
+   :meth:`~py2:unittest.TestCase.assertItemsEqual` on Python 2.
+
+.. function:: assertRaisesRegex()
+
+   Alias for :meth:`~py3:unittest.TestCase.assertRaisesRegex` on Python 3 and
+   :meth:`~py2:unittest.TestCase.assertRaisesRegexp` on Python 2.
+
+.. function:: assertRegex()
+
+   Alias for :meth:`~py3:unittest.TestCase.assertRegex` on Python 3 and
+   :meth:`~py2:unittest.TestCase.assertRegexpMatches` on Python 2.
+
+
 Renamed modules and attributes compatibility
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -744,39 +777,6 @@ Contains classes from Python 3's :mod:`py3:urllib.response` and Python 2's:
 * :class:`py2:urllib.addclosehook`
 * :class:`py2:urllib.addinfo`
 * :class:`py2:urllib.addinfourl`
-
-
-unittest assertions
-<<<<<<<<<<<<<<<<<<<
-
-.. currentmodule:: six
-
-Contains compatibility shims for unittest assertions that have been renamed.
-The parameters are the same as their aliases, but you must pass the test method
-as the first argument. For example::
-
-    import six
-    import unittest
-
-    class TestAssertCountEqual(unittest.TestCase):
-        def test(self):
-            six.assertCountEqual(self, (1, 2), [2, 1])
-
-
-.. function:: assertCountEqual()
-
-   Alias for :meth:`~py3:unittest.TestCase.assertCountEqual` on Python 3 and
-   :meth:`~py2:unittest.TestCase.assertItemsEqual` on Python 2.
-
-.. function:: assertRaisesRegex()
-
-   Alias for :meth:`~py3:unittest.TestCase.assertRaisesRegex` on Python 3 and
-   :meth:`~py2:unittest.TestCase.assertRaisesRegexp` on Python 2.
-
-.. function:: assertRegex()
-
-   Alias for :meth:`~py3:unittest.TestCase.assertRegex` on Python 3 and
-   :meth:`~py2:unittest.TestCase.assertRegexpMatches` on Python 2.
 
 
 Advanced - Customizing renames
