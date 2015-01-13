@@ -57,6 +57,7 @@ else:
     else:
         # It's possible to have sizeof(long) != sizeof(Py_ssize_t).
         class X(object):
+
             def __len__(self):
                 return 1 << 31
         try:
@@ -88,7 +89,7 @@ class _LazyDescr(object):
 
     def __get__(self, obj, tp):
         result = self._resolve()
-        setattr(obj, self.name, result) # Invokes __set__.
+        setattr(obj, self.name, result)  # Invokes __set__.
         try:
             # This is a bit ugly, but it avoids running this again by
             # removing this descriptor.
@@ -160,12 +161,14 @@ class MovedAttribute(_LazyDescr):
 
 
 class _SixMetaPathImporter(object):
+
     """
     A meta path importer to import six.moves and its submodules.
 
     This class implements a PEP302 finder and loader. It should be compatible
     with Python 2.5 and all existing versions of Python3
     """
+
     def __init__(self, six_module_name):
         self.name = six_module_name
         self.known_modules = {}
@@ -223,6 +226,7 @@ _importer = _SixMetaPathImporter(__name__)
 
 
 class _MovedItems(_LazyModule):
+
     """Lazy loading of moved objects"""
     __path__ = []  # mark as package
 
@@ -307,6 +311,7 @@ _importer._add_module(moves, "moves")
 
 
 class Module_six_moves_urllib_parse(_LazyModule):
+
     """Lazy loading of moved objects in six.moves.urllib_parse"""
 
 
@@ -346,6 +351,7 @@ _importer._add_module(Module_six_moves_urllib_parse(__name__ + ".moves.urllib_pa
 
 
 class Module_six_moves_urllib_error(_LazyModule):
+
     """Lazy loading of moved objects in six.moves.urllib_error"""
 
 
@@ -365,6 +371,7 @@ _importer._add_module(Module_six_moves_urllib_error(__name__ + ".moves.urllib.er
 
 
 class Module_six_moves_urllib_request(_LazyModule):
+
     """Lazy loading of moved objects in six.moves.urllib_request"""
 
 
@@ -414,6 +421,7 @@ _importer._add_module(Module_six_moves_urllib_request(__name__ + ".moves.urllib.
 
 
 class Module_six_moves_urllib_response(_LazyModule):
+
     """Lazy loading of moved objects in six.moves.urllib_response"""
 
 
@@ -434,6 +442,7 @@ _importer._add_module(Module_six_moves_urllib_response(__name__ + ".moves.urllib
 
 
 class Module_six_moves_urllib_robotparser(_LazyModule):
+
     """Lazy loading of moved objects in six.moves.urllib_robotparser"""
 
 
@@ -451,6 +460,7 @@ _importer._add_module(Module_six_moves_urllib_robotparser(__name__ + ".moves.url
 
 
 class Module_six_moves_urllib(types.ModuleType):
+
     """Create a six.moves.urllib namespace that resembles the Python 3 namespace"""
     __path__ = []  # mark as package
     parse = _importer._get_module("moves.urllib_parse")
@@ -595,6 +605,7 @@ _add_doc(iterlists,
 if PY3:
     def b(s):
         return s.encode("latin-1")
+
     def u(s):
         return s
     unichr = chr
@@ -614,12 +625,15 @@ else:
     def b(s):
         return s
     # Workaround for standalone backslash
+
     def u(s):
         return unicode(s.replace(r'\\', r'\\\\'), "unicode_escape")
     unichr = unichr
     int2byte = chr
+
     def byte2int(bs):
         return ord(bs[0])
+
     def indexbytes(buf, i):
         return ord(buf[i])
     iterbytes = functools.partial(itertools.imap, ord)
@@ -631,7 +645,6 @@ _add_doc(u, """Text literal""")
 
 if PY3:
     exec_ = getattr(moves.builtins, "exec")
-
 
     def reraise(tp, value, tb=None):
         if value is None:
@@ -652,7 +665,6 @@ else:
         elif _locs_ is None:
             _locs_ = _globs_
         exec("""exec _code_ in _globs_, _locs_""")
-
 
     exec_("""def reraise(tp, value, tb=None):
     raise tp, value, tb
@@ -675,13 +687,14 @@ if print_ is None:
         fp = kwargs.pop("file", sys.stdout)
         if fp is None:
             return
+
         def write(data):
             if not isinstance(data, basestring):
                 data = str(data)
             # If the file has an encoding, encode unicode with it.
             if (isinstance(fp, file) and
-                isinstance(data, unicode) and
-                fp.encoding is not None):
+                    isinstance(data, unicode) and
+                    fp.encoding is not None):
                 errors = getattr(fp, "errors", None)
                 if errors is None:
                     errors = "strict"
@@ -736,12 +749,14 @@ if sys.version_info[0:2] < (3, 4):
 else:
     wraps = functools.wraps
 
+
 def with_metaclass(meta, *bases):
     """Create a base class with a metaclass."""
     # This requires a bit of explanation: the basic idea is to make a dummy
     # metaclass for one level of class instantiation that replaces itself with
     # the actual metaclass.
     class metaclass(meta):
+
         def __new__(cls, name, this_bases, d):
             return meta(name, bases, d)
     return type.__new__(metaclass, 'temporary_class', (), {})
@@ -779,7 +794,7 @@ if sys.meta_path:
         # the six meta path importer, since the other six instance will have
         # inserted an importer with different class.
         if (type(importer).__name__ == "_SixMetaPathImporter" and
-            importer.name == __name__):
+                importer.name == __name__):
             del sys.meta_path[i]
             break
     del i, importer
