@@ -26,6 +26,9 @@ This file lists the changes in each six version.
 - Pull request #51: Add `six.view(keys|values|itmes)`, which provide dictionary
   views on Python 2.7+.
 
+- Issue #112: `six.moves.reload_module` now uses the importlib module on
+  Python 3.4+.
+
 1.8.0
 -----
 
