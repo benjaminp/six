@@ -612,8 +612,12 @@ if PY3:
     StringIO = io.StringIO
     BytesIO = io.BytesIO
     _assertCountEqual = "assertCountEqual"
-    _assertRaisesRegex = "assertRaisesRegex"
-    _assertRegex = "assertRegex"
+    if sys.version_info[1] <= 1:
+        _assertRaisesRegex = "assertRaisesRegexp"
+        _assertRegex = "assertRegexpMatches"
+    else:
+        _assertRaisesRegex = "assertRaisesRegex"
+        _assertRegex = "assertRegex"
 else:
     def b(s):
         return s
