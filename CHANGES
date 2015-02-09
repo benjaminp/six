@@ -3,8 +3,19 @@ Changelog for six
 
 This file lists the changes in each six version.
 
-Development version
--------------------
+1.9.0
+-----
+
+- Issue #106: Support the `flush` parameter to `six.print_`.
+
+- Pull request #48 and issue #15: Add the `python_2_unicode_compatible`
+  decorator.
+
+- Pull request #57 and issue #50: Add several compatibility methods for unittest
+  assertions that were renamed between Python 2 and 3.
+
+- Issue #105 and pull request #58: Ensure `six.wraps` respects the *updated* and
+  *assigned* arguments.
 
 - Issue #102: Add `raise_from` to abstract out Python 3's raise from syntax.
 
@@ -14,6 +25,9 @@ Development version
 
 - Pull request #51: Add `six.view(keys|values|itmes)`, which provide dictionary
   views on Python 2.7+.
+
+- Issue #112: `six.moves.reload_module` now uses the importlib module on
+  Python 3.4+.
 
 1.8.0
 -----

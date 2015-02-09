@@ -18,7 +18,7 @@ tracker and code hosting is on `BitBucket <http://bitbucket.org/gutworth/six>`_.
 
 The name, "six", comes from the fact that 2*3 equals 6.  Why not addition?
 Multiplication is more powerful, and, anyway, "five" has already been snatched
-away by the Zope Five project.
+away by the (admittedly now moribund) Zope Five project.
 
 
 Indices and tables
@@ -243,7 +243,7 @@ functions and methods is the stdlib :mod:`py3:inspect` module.
    aliased to :class:`py3:object`.)
 
 
-.. function:: wraps(wrapped, assigned=functools.WRAPPER_ASSIGNMENTS, updated=functools.WRAPPER_UPDATES)
+.. decorator:: wraps(wrapped, assigned=functools.WRAPPER_ASSIGNMENTS, updated=functools.WRAPPER_UPDATES)
 
    This is exactly the :func:`py3:functools.wraps` decorator, but it sets the
    ``__wrapped__`` attribute on what it decorates as :func:`py3:functools.wraps`
@@ -270,10 +270,11 @@ Python 2 and 3.
       :func:`exec` with them should be avoided.
 
 
-.. function:: print_(*args, *, file=sys.stdout, end="\\n", sep=" ")
+.. function:: print_(*args, *, file=sys.stdout, end="\\n", sep=" ", flush=False)
 
    Print *args* into *file*.  Each argument will be separated with *sep* and
-   *end* will be written to the file after the last argument is printed.
+   *end* will be written to the file after the last argument is printed.  If
+   *flush* is true, ``file.flush()`` will be called after all data is written.
 
    .. note::
 
@@ -320,7 +321,7 @@ Python 2 and 3.
    decorator.
 
 
-.. function:: add_metaclass(metaclass)
+.. decorator:: add_metaclass(metaclass)
 
    Class decorator that replaces a normally-constructed class with a
    metaclass-constructed one.  Example usage: ::
@@ -435,6 +436,48 @@ string data in all Python versions.
    This is a fake file object for binary data.  In Python 2, it's an alias for
    :class:`py2:StringIO.StringIO`, but in Python 3, it's an alias for
    :class:`py3:io.BytesIO`.
+
+
+.. decorator:: python_2_unicode_compatible
+
+   A class decorator that takes a class defining a ``__str__`` method.  On
+   Python 3, the decorator does nothing.  On Python 2, it aliases the
+   ``__str__`` method to ``__unicode__`` and creates a new ``__str__`` method
+   that returns the result of ``__unicode__()`` encoded with UTF-8.
+
+
+unittest assertions
+>>>>>>>>>>>>>>>>>>>
+
+Six contains compatibility shims for unittest assertions that have been renamed.
+The parameters are the same as their aliases, but you must pass the test method
+as the first argument. For example::
+
+    import six
+    import unittest
+
+    class TestAssertCountEqual(unittest.TestCase):
+        def test(self):
+            six.assertCountEqual(self, (1, 2), [2, 1])
+
+Note these functions are only available on Python 2.7 or later.
+
+.. function:: assertCountEqual()
+
+   Alias for :meth:`~py3:unittest.TestCase.assertCountEqual` on Python 3 and
+   :meth:`~py2:unittest.TestCase.assertItemsEqual` on Python 2.
+
+
+.. function:: assertRaisesRegex()
+
+   Alias for :meth:`~py3:unittest.TestCase.assertRaisesRegex` on Python 3 and
+   :meth:`~py2:unittest.TestCase.assertRaisesRegexp` on Python 2.
+
+
+.. function:: assertRegex()
+
+   Alias for :meth:`~py3:unittest.TestCase.assertRegex` on Python 3 and
+   :meth:`~py2:unittest.TestCase.assertRegexpMatches` on Python 2.
 
 
 Renamed modules and attributes compatibility
@@ -555,7 +598,9 @@ Supported renames:
 +------------------------------+-------------------------------------+-------------------------------------+
 | ``reduce``                   | :func:`py2:reduce`                  | :func:`py3:functools.reduce`        |
 +------------------------------+-------------------------------------+-------------------------------------+
-| ``reload_module``            | :func:`py2:reload`                  | :func:`py3:imp.reload`              |
+| ``reload_module``            | :func:`py2:reload`                  | :func:`py3:imp.reload`,             |
+|                              |                                     | :func:`py3:importlib.reload`        |
+|                              |                                     | on Python 3.4+                      |
 +------------------------------+-------------------------------------+-------------------------------------+
 | ``reprlib``                  | :mod:`py2:repr`                     | :mod:`py3:reprlib`                  |
 +------------------------------+-------------------------------------+-------------------------------------+
