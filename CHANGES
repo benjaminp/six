@@ -6,6 +6,9 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Pull request #60 and issue #108: Add `six.moves.getcwd` and
+  `six.moves.getcwdu`.
+
 - Pull request #64: Add `create_unbound_method` to create unbound methods.
 
 1.9.0
