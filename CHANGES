@@ -3,6 +3,11 @@ Changelog for six
 
 This file lists the changes in each six version.
 
+Development version
+-------------------
+
+- Pull request #64: Add `create_unbound_method` to create unbound methods.
+
 1.9.0
 -----
 
