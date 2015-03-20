@@ -234,9 +234,9 @@ functions and methods is the stdlib :mod:`py3:inspect` module.
 
 .. function:: create_unbound_method(func, cls)
 
-   Return an unbound method object wrapping *func*. In Python 2, this will return
-   a :func:`py3:types.MethodType` object. In Python 3 unbound methods do not
-   exist and this wrapper will return *func*.
+   Return an unbound method object wrapping *func*.  In Python 2, this will
+   return a :func:`py2:types.MethodType` object.  In Python 3, unbound methods
+   do not exist and this wrapper will simply return *func*.
 
 
 .. class:: Iterator
