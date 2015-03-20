@@ -298,8 +298,12 @@ _moved_attributes = [
     MovedModule("urllib_robotparser", "robotparser", "urllib.robotparser"),
     MovedModule("xmlrpc_client", "xmlrpclib", "xmlrpc.client"),
     MovedModule("xmlrpc_server", "SimpleXMLRPCServer", "xmlrpc.server"),
-    MovedModule("winreg", "_winreg"),
 ]
+#Add windows specific modules if needed
+if sys.platform in ('win32', 'cygwin'):
+    _moved_attributes += [
+        MovedModule("winreg", "_winreg"),
+    ]
 for attr in _moved_attributes:
     setattr(_MovedItems, attr.name, attr)
     if isinstance(attr, MovedModule):
