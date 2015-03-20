@@ -6,6 +6,9 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Pull request #55 and issue #99: Don't add the `winreg` module to `six.moves`
+  on non-Windows platforms.
+
 - Pull request #60 and issue #108: Add `six.moves.getcwd` and
   `six.moves.getcwdu`.
 
