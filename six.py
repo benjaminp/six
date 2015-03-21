@@ -622,12 +622,9 @@ if PY3:
     def u(s):
         return s
     unichr = chr
-    if sys.version_info[1] <= 1:
-        def int2byte(i):
-            return bytes((i,))
-    else:
-        # This is about 2x faster than the implementation above on 3.2+
-        int2byte = operator.methodcaller("to_bytes", 1, "big")
+    import struct
+    int2byte = struct.Struct(">B").pack
+    del struct
     byte2int = operator.itemgetter(0)
     indexbytes = operator.getitem
     iterbytes = iter

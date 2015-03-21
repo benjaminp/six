@@ -6,6 +6,8 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Issue #122: Improve the performance of `six.int2byte` on Python 3.
+
 - Pull request #55 and issue #99: Don't add the `winreg` module to `six.moves`
   on non-Windows platforms.
 

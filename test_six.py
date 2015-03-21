@@ -511,7 +511,7 @@ def test_unichr():
 
 def test_int2byte():
     assert six.int2byte(3) == six.b("\x03")
-    py.test.raises((OverflowError, ValueError), six.int2byte, 256)
+    py.test.raises(Exception, six.int2byte, 256)
 
 
 def test_byte2int():
