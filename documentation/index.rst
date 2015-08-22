@@ -390,7 +390,7 @@ string data in all Python versions.
    .. note::
 
       In Python 3.3, the ``u`` prefix has been reintroduced. Code that only
-      supports Python 3 versions greater than 3.3 thus does not need
+      supports Python 3 versions of 3.3 and higher thus does not need
       :func:`u`.
 
    .. note::
