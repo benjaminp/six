@@ -3,8 +3,8 @@ Changelog for six
 
 This file lists the changes in each six version.
 
-Development version
--------------------
+1.10.0
+------
 
 - Issue #122: Improve the performance of `six.int2byte` on Python 3.
 
