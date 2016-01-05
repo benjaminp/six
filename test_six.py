@@ -890,3 +890,24 @@ def test_python_2_unicode_compatible():
         assert str(my_test) == six.u("hello")
 
     assert getattr(six.moves.builtins, 'bytes', str)(my_test) == six.b("hello")
+
+
+def test_python_2_boolean_compatible():
+    @six.python_2_boolean_compatible
+    class MyTest(object):
+        def __bool__(self):
+            return True
+
+    my_test = MyTest()
+
+    assert bool(my_test) is True
+
+
+@py.test.mark.skipif("six.PY3")
+def test_python_2_boolean_compatible_no_bool():
+    # This test doesn't apply to python 3.x, since python_2_bool_compatible is
+    # a no-op on python 3.x
+    with py.test.raises(ValueError):
+        @six.python_2_boolean_compatible
+        class MyTest(object):
+            pass
