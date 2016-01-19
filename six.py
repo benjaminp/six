@@ -657,7 +657,15 @@ else:
         return ord(buf[i])
     iterbytes = functools.partial(itertools.imap, ord)
     import StringIO
-    StringIO = BytesIO = StringIO.StringIO
+
+    class WithableStringIO(StringIO.StringIO):
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            self.close()
+
+    StringIO = BytesIO = WithableStringIO
     _assertCountEqual = "assertItemsEqual"
     _assertRaisesRegex = "assertRaisesRegexp"
     _assertRegex = "assertRegexpMatches"
