@@ -20,10 +20,7 @@
 
 from __future__ import with_statement
 
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+from setuptools import setup
 
 import six
 
