@@ -442,9 +442,9 @@ string data in all Python versions.
 
 .. data:: BytesIO
 
-   This is a fake file object for binary data.  In Python 2, it's an alias for
-   :class:`py2:StringIO.StringIO`, but in Python 3, it's an alias for
-   :class:`py3:io.BytesIO`.
+   This is a fake file object for binary data.  In Python 3, it's an alias for
+   :class:`py3:io.BytesIO`.  In Python 2, it is the same custom object as
+   ``StringIO``.
 
 
 .. decorator:: python_2_unicode_compatible

@@ -566,6 +566,10 @@ def test_BytesIO():
     fp.write(six.b("hello"))
     assert fp.getvalue() == six.b("hello")
 
+    with six.BytesIO() as fp2:
+        fp2.write(six.b("hello"))
+        assert fp2.getvalue() == six.b("hello")
+
 
 def test_exec_():
     def f():
