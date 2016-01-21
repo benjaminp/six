@@ -433,9 +433,11 @@ string data in all Python versions.
 
 .. data:: StringIO
 
-   This is an fake file object for textual data.  It's an alias for
-   :class:`py2:StringIO.StringIO` in Python 2 and :class:`py3:io.StringIO` in
-   Python 3.
+   This is a fake file object for textual data.  It's an alias for
+   :class:`py3:io.StringIO` in Python 3.  In Python 2, it is a custom object
+   which inherits from :class:`py2:StringIO.StringIO` and adds context management
+   (``__enter__`` and ``__exit__`` methods), so that it behaves correctly
+   with ``with`` statements.
 
 
 .. data:: BytesIO
