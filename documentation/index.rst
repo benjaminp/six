@@ -345,7 +345,7 @@ Python 2 and 3.
    on Python 3 or ::
 
        class MyClass(object):
-           __metaclass__ = MyMeta
+           __metaclass__ = Meta
 
    on Python 2.
 
