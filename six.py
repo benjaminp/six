@@ -686,7 +686,8 @@ if PY3:
                 raise value.with_traceback(tb)
             raise value
         finally:
-            del value, tb
+            value = None
+            tb = None
 
 else:
     def exec_(_code_, _globs_=None, _locs_=None):
@@ -705,7 +706,7 @@ else:
     try:
         raise tp, value, tb
     finally:
-        del tb
+        tb = None
 """)
 
 
@@ -716,14 +717,14 @@ if sys.version_info[:2] == (3, 2):
             raise value
         raise value from from_value
     finally:
-        del value
+        value = None
 """)
 elif sys.version_info[:2] > (3, 2):
     exec_("""def raise_from(value, from_value):
     try:
         raise value from from_value
     finally:
-        del value
+        value = None
 """)
 else:
     def raise_from(value, from_value):
