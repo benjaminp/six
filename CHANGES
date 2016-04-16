@@ -3,6 +3,12 @@ Changelog for six
 
 This file lists the changes in each six version.
 
+Development version
+-------------------
+
+- Pull request #72: Avoid creating reference cycles through tracebacks in
+  `reraise`.
+
 1.10.0
 ------
 
