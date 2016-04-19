@@ -6,6 +6,8 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Pull request #75: Add `six.moves.email_mime_image`.
+
 - Pull request #72: Avoid creating reference cycles through tracebacks in
   `reraise`.
 
