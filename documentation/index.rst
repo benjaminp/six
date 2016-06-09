@@ -361,7 +361,7 @@ Binary and text data
 >>>>>>>>>>>>>>>>>>>>
 
 Python 3 enforces the distinction between byte strings and text strings far more
-rigoriously than Python 2 does; binary data cannot be automatically coerced to
+rigorously than Python 2 does; binary data cannot be automatically coerced to
 or from text data.  six provides several functions to assist in classifying
 string data in all Python versions.
 
@@ -509,7 +509,7 @@ For the most part, :mod:`six.moves` aliases are the names of the modules in
 Python 3.  When the new Python 3 name is a package, the components of the name
 are separated by underscores.  For example, ``html.parser`` becomes
 ``html_parser``.  In some cases where several modules have been combined, the
-Python 2 name is retained.  This is so the appropiate modules can be found when
+Python 2 name is retained.  This is so the appropriate modules can be found when
 running on Python 2.  For example, ``BaseHTTPServer`` which is in
 ``http.server`` in Python 3 is aliased as ``BaseHTTPServer``.
 
