@@ -376,7 +376,7 @@ string data in all Python versions.
    .. note::
 
       Since all Python versions 2.6 and after support the ``b`` prefix,
-      :func:`b`, code without 2.5 support doesn't need :func:`b`.
+      code without 2.5 support doesn't need :func:`b`.
 
 
 .. function:: u(text)
