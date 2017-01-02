@@ -14,7 +14,7 @@ without modification.  six consists of only one Python file, so it is painless
 to copy into a project.
 
 Six can be downloaded on `PyPi <http://pypi.python.org/pypi/six/>`_.  Its bug
-tracker and code hosting is on `BitBucket <http://bitbucket.org/gutworth/six>`_.
+tracker and code hosting is on `GitHub <https://github.com/benjaminp/six>`_.
 
 The name, "six", comes from the fact that 2*3 equals 6.  Why not addition?
 Multiplication is more powerful, and, anyway, "five" has already been snatched
