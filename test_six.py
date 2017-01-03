@@ -833,6 +833,30 @@ def test_add_metaclass():
     assert type(MySlotsWeakref) is Meta
 
 
+def test_add_metaclass_child_meta():
+    """
+    Capture the known failure in the rare case where the parent
+    has a metaclass that is a superclass of the metaclass used
+    with the decorator (#127).
+    """
+    class MetaA(type): pass
+    class MetaB(type): pass
+
+    class A(object): pass
+    A = six.add_metaclass(MetaA)(A)
+
+    class B(object): pass
+    B = six.add_metaclass(MetaB)(B)
+
+    class MetaC(MetaA, MetaB): pass
+
+    with py.test.raises(TypeError) as exc:
+        class C(A, B): pass
+        C = six.add_metaclass(MetaC)(C)
+
+    assert 'metaclass conflict' in str(exc.value)
+
+
 @py.test.mark.skipif("sys.version_info[:2] < (2, 7) or sys.version_info[:2] in ((3, 0), (3, 1))")
 def test_assertCountEqual():
     class TestAssertCountEqual(unittest.TestCase):
