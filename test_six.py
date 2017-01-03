@@ -232,6 +232,19 @@ def test_map():
     assert six.advance_iterator(map(lambda x: x + 1, range(2))) == 1
 
 
+def test_getoutput():
+    from six.moves import getoutput
+    output = getoutput('echo "foo"')
+    assert output == 'foo'
+
+
+def test_getstatusoutput():
+    from six.moves import getstatusoutput
+    status, output = getstatusoutput('echo "foo"')
+    assert status == 0
+    assert output == 'foo'
+
+
 def test_zip():
     from six.moves import zip
     assert six.advance_iterator(zip(range(2), range(2))) == (0, 0)
