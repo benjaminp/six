@@ -644,6 +644,13 @@ def test_raise_from():
     assert str(val) == "foo"
 
 
+def test_exception_message():
+    e = Exception("string")
+    assert six.exception_message(e) == "string"
+    e = Exception("unic\xf6de")
+    assert six.exception_message(e) == "unic\xf6de"
+
+
 def test_print_():
     save = sys.stdout
     out = sys.stdout = six.moves.StringIO()

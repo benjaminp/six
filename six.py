@@ -710,6 +710,7 @@ else:
     finally:
         tb = None
 """)
+_add_doc(reraise, """Reraise an exception.""")
 
 
 if sys.version_info[:2] == (3, 2):
@@ -731,6 +732,15 @@ elif sys.version_info[:2] > (3, 2):
 else:
     def raise_from(value, from_value):
         raise value
+
+
+if PY3:
+    def exception_message(exception):
+        return str(exception)
+else:
+    def exception_message(exception):
+        return exception.message
+_add_doc(exception_message, "Return an Exception's message.")
 
 
 print_ = getattr(moves.builtins, "print", None)
@@ -797,8 +807,6 @@ if sys.version_info[:2] < (3, 3):
         _print(*args, **kwargs)
         if flush and fp is not None:
             fp.flush()
-
-_add_doc(reraise, """Reraise an exception.""")
 
 if sys.version_info[0:2] < (3, 4):
     def wraps(wrapped, assigned=functools.WRAPPER_ASSIGNMENTS,
