@@ -718,7 +718,7 @@ and :mod:`py2:urllib`:
 * :func:`py2:urllib.splittag`
 * :func:`py2:urllib.splituser`
 * :func:`py2:urllib.splitvalue`
-* :func:`py2:urllib.unquote`
+* :func:`py2:urllib.unquote` (also exposed as :func:`py3:urllib.parse.unquote_to_bytes`)
 * :func:`py2:urllib.unquote_plus`
 * :func:`py2:urllib.urlencode`
 
