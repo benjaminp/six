@@ -6,6 +6,8 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Pull request #172 and issue #171: Add unquote_to_bytes to moved urllib.parse.
+
 - Pull request #167: Add `six.moves.getstatusoutput` and `six.moves.getoutput`.
 
 - Pull request #80: Add `six.moves.urllib_parse.splitvalue`.
