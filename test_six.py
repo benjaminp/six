@@ -569,11 +569,19 @@ def test_StringIO():
     fp.write(six.u("hello"))
     assert fp.getvalue() == six.u("hello")
 
+    with six.StringIO() as fp2:
+        fp2.write(six.u("hello"))
+        assert fp2.getvalue() == six.u("hello")
+
 
 def test_BytesIO():
     fp = six.BytesIO()
     fp.write(six.b("hello"))
     assert fp.getvalue() == six.b("hello")
+
+    with six.BytesIO() as fp2:
+        fp2.write(six.b("hello"))
+        assert fp2.getvalue() == six.b("hello")
 
 
 def test_exec_():

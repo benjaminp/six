@@ -659,8 +659,16 @@ else:
     def indexbytes(buf, i):
         return ord(buf[i])
     iterbytes = functools.partial(itertools.imap, ord)
-    import StringIO
-    StringIO = BytesIO = StringIO.StringIO
+    import StringIO as _StringIO
+
+    class StringIO(_StringIO.StringIO):
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            self.close()
+
+    StringIO = BytesIO = StringIO
     _assertCountEqual = "assertItemsEqual"
     _assertRaisesRegex = "assertRaisesRegexp"
     _assertRegex = "assertRegexpMatches"
