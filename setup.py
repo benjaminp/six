@@ -20,7 +20,13 @@
 
 from __future__ import with_statement
 
-from setuptools import setup
+# Six is a dependency of setuptools, so using setuptools creates a
+# circular dependency when building a Python stack from source. We
+# therefore allow falling back to distutils to install six.
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
 
 import six
 
