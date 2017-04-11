@@ -19,6 +19,7 @@
 # SOFTWARE.
 
 from __future__ import with_statement
+import ast
 
 # Six is a dependency of setuptools, so using setuptools creates a
 # circular dependency when building a Python stack from source. We
@@ -27,8 +28,6 @@ try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
-
-import six
 
 six_classifiers = [
     "Programming Language :: Python :: 2",
@@ -42,8 +41,15 @@ six_classifiers = [
 with open("README", "r") as fp:
     six_long_description = fp.read()
 
+# Do not import `six` yet, lest we import some random version on sys.path.
+with open("six.py", "r") as fp:
+    for line in fp:
+        if line.startswith("__version__"):
+            version = ast.literal_eval(line.split("=", 1)[1].strip())
+            break
+
 setup(name="six",
-      version=six.__version__,
+      version=version,
       author="Benjamin Peterson",
       author_email="benjamin@python.org",
       url="http://pypi.python.org/pypi/six/",
