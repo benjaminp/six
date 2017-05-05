@@ -433,7 +433,7 @@ string data in all Python versions.
 
 .. data:: StringIO
 
-   This is an fake file object for textual data.  It's an alias for
+   This is a fake file object for textual data.  It's an alias for
    :class:`py2:StringIO.StringIO` in Python 2 and :class:`py3:io.StringIO` in
    Python 3.
 
