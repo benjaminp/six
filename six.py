@@ -330,6 +330,7 @@ _urllib_parse_moved_attributes = [
     MovedAttribute("SplitResult", "urlparse", "urllib.parse"),
     MovedAttribute("parse_qs", "urlparse", "urllib.parse"),
     MovedAttribute("parse_qsl", "urlparse", "urllib.parse"),
+    MovedAttribute("scheme_chars", "urlparse", "urllib.parse"),
     MovedAttribute("urldefrag", "urlparse", "urllib.parse"),
     MovedAttribute("urljoin", "urlparse", "urllib.parse"),
     MovedAttribute("urlparse", "urlparse", "urllib.parse"),
