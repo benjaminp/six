@@ -164,7 +164,9 @@ functions and methods is the stdlib :mod:`py3:inspect` module.
 
    Get the next item of iterator *it*.  :exc:`py3:StopIteration` is raised if
    the iterator is exhausted.  This is a replacement for calling ``it.next()``
-   in Python 2 and ``next(it)`` in Python 3.
+   in Python 2 and ``next(it)`` in Python 3.  Python 2.6 and above have a
+   builtin ``next`` function, so six's version is only necessary for Python 2.5
+   compatibility.
 
 
 .. function:: callable(obj)
