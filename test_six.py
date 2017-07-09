@@ -903,3 +903,53 @@ def test_python_2_unicode_compatible():
         assert str(my_test) == six.u("hello")
 
     assert getattr(six.moves.builtins, 'bytes', str)(my_test) == six.b("hello")
+
+
+def test_ensure_binary_raise_type_error():
+    with py.test.raises(TypeError):
+        six.ensure_str(8)
+
+
+def test_ensure_binary_raise():
+    unicode_grinning_face = six.u("\U0001F600")
+    binary_grinning_face = b"\xf0\x9f\x98\x80"
+    if six.PY2:
+        # PY2: unicode -> str
+        assert six.ensure_binary(unicode_grinning_face) == binary_grinning_face
+        # PY2: str -> str
+        assert six.ensure_binary(binary_grinning_face) == binary_grinning_face
+    else:
+        # PY3: str -> bytes
+        assert six.ensure_binary(unicode_grinning_face) == binary_grinning_face
+        # PY3: bytes -> bytes
+        assert six.ensure_binary(binary_grinning_face) == binary_grinning_face
+
+
+def test_ensure_str():
+    unicode_grinning_face = six.u("\U0001F600")
+    binary_grinning_face = b"\xf0\x9f\x98\x80"
+    if six.PY2:
+        # PY2: unicode -> str
+        assert six.ensure_str(unicode_grinning_face) == binary_grinning_face
+        # PY2: str -> str
+        assert six.ensure_str(binary_grinning_face) == binary_grinning_face
+    else:
+        # PY3: str -> str
+        assert six.ensure_str(unicode_grinning_face) == unicode_grinning_face
+        # PY3: bytes -> str
+        assert six.ensure_str(binary_grinning_face) == unicode_grinning_face
+
+
+def test_ensure_text():
+    unicode_grinning_face = six.u("\U0001F600")
+    binary_grinning_face = b"\xf0\x9f\x98\x80"
+    if six.PY2:
+        # PY2: unicode -> unicode
+        assert six.ensure_text(unicode_grinning_face) == unicode_grinning_face
+        # PY2: str -> unicode
+        assert six.ensure_text(binary_grinning_face) == unicode_grinning_face
+    else:
+        # PY3: str -> str
+        assert six.ensure_text(unicode_grinning_face) == unicode_grinning_face
+        # PY3: bytes -> str
+        assert six.ensure_text(binary_grinning_face) == unicode_grinning_face

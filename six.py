@@ -843,6 +843,63 @@ def add_metaclass(metaclass):
     return wrapper
 
 
+def ensure_binary(s, encoding='utf-8', errors='strict'):
+    """ A helper function to ensure output is six.binary_type.
+
+    For Python 2:
+      - `unicode` -> encoded to `str`
+      - `str` -> `str`
+
+    For Python 3:
+      - `str` -> encoded to `bytes`
+      - `bytes` -> `bytes`
+    """
+    if not isinstance(s, (text_type, binary_type)):
+        raise TypeError("not expecting type '%s'" % type(s))
+    if isinstance(s, text_type):
+        return s.encode(encoding, errors)
+    else:
+        return s
+
+
+def ensure_str(s, encoding='utf-8', errors='strict'):
+    """ A helper function to ensure output is six.str_type.
+    For Python 2:
+      - `unicode` -> encoded to `str`
+      - `str` -> `str`
+
+    For Python 3:
+      - `str` -> `str`
+      - `bytes` -> decoded to `str`
+    """
+    if not isinstance(s, (text_type, binary_type)):
+        raise TypeError("not expecting type '%s'" % type(s))
+    if PY2 and isinstance(s, text_type):
+        s = s.encode(encoding, errors)
+    elif PY3 and isinstance(s, binary_type):
+        s = s.decode(encoding, errors)
+    return s
+
+
+def ensure_text(s, encoding='utf-8', errors='strict'):
+    """ A helper function to ensure output is six.text_type.
+
+    For Python 2:
+      - `unicode` -> `unicode`
+      - `str` -> `unicode`
+
+    For Python 3:
+      - `str` -> `str`
+      - `bytes` -> decoded to `str`
+    """
+    if not isinstance(s, (text_type, binary_type)):
+        raise TypeError("not expecting type '%s'" % type(s))
+    if isinstance(s, binary_type):
+        return s.decode(encoding, errors)
+    else:
+        return s
+
+
 def python_2_unicode_compatible(klass):
     """
     A decorator that defines __unicode__ and __str__ methods under Python 2.
