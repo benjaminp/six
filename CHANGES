@@ -6,7 +6,7 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
-- Pull request #NNN: Add parse_http_list and parse_keqv_list to moved
+- Pull request #203: Add parse_http_list and parse_keqv_list to moved
   urllib.request.
 
 - Pull request #172 and issue #171: Add unquote_to_bytes to moved urllib.parse.
