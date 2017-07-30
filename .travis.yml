@@ -10,6 +10,8 @@ python:
 - 3.4
 - 3.5
 - &mainstream_python 3.6
+- 3.6-dev
+- 3.7-dev
 - pypy2.7-5.8.0
 - pypy3.5-5.8.0
 install:
