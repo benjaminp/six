@@ -1,10 +1,97 @@
 language: python
 python:
-  - "2.6"
-  - "2.7"
-  - "3.2"
-  - "3.3"
-  - "3.4"
-  - "3.5"
-  - "3.6"
-script: py.test
+- 2.6
+- 2.7
+- 3.2
+- 3.3
+- 3.4
+- 3.5
+- &mainstream_python 3.6
+_base_envs:
+- &linux_pyenv_base
+  language: generic
+  python: pypy
+  os: linux
+  sudo: false
+  dist: trusty
+  group: edge
+  addons:
+    apt:
+      packages:
+      - make
+      - build-essential
+      - libssl-dev
+      - zlib1g-dev
+      - libbz2-dev
+      - libreadline-dev
+      - libsqlite3-dev
+      - wget
+      - curl
+      - llvm
+      - libncurses5-dev
+      - libncursesw5-dev
+      - xz-utils
+      - tk-dev
+  env:
+  - PYTHON_VERSION=pypy2.7-5.8.0
+  - &env_pyenv PYENV_ROOT="$HOME/.pyenv"
+  - &env_path PATH="$PYENV_ROOT/bin:$PATH"
+  before_install:
+  - &ensure_pyenv_installed |
+    if [ ! -f "$PYENV_ROOT/bin/pyenv" ]
+    then
+      rm -rf "$PYENV_ROOT"
+      curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
+    fi
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+    pyenv update
+  - &install_python pyenv install --skip-existing --keep --verbose "$PYTHON_VERSION"
+  - &switch_python pyenv shell "$PYTHON_VERSION"
+  - &python_version python --version
+install:
+- pip install --upgrade --force-reinstall "setuptools; python_version != '3.2'" "setuptools < 30; python_version == '3.2'"
+- pip uninstall --yes six || true
+- pip install --upgrade --force-reinstall --ignore-installed -e .
+- pip install pytest
+- &py_pkg_list pip list --format=columns || pip list
+script:
+- py.test
+- echo Checking whether installation flow is not broken...
+- pip uninstall --yes six || true
+- pip install --ignore-installed .
+- *py_pkg_list
+jobs:
+  fast_finish: true
+  include:
+  - <<: *linux_pyenv_base
+    python: pypy
+    env:
+    - PYTHON_VERSION=pypy2.7-5.8.0
+    - *env_pyenv
+    - *env_path
+  - <<: *linux_pyenv_base
+    python: pypy3
+    env:
+    - PYTHON_VERSION=pypy3.5-5.8.0
+    - *env_pyenv
+    - *env_path
+  - stage: upload new version of python package to PYPI (only for tagged commits)
+    python: *mainstream_python
+    install: skip
+    script: skip
+    deploy:
+      provider: pypi
+      on:
+        tags: true
+        all_branches: true
+        python: *mainstream_python
+      user: gutworth
+      distributions: bdist_wheel
+      password:
+        secure: YOUR_ENCRYPTED_PYPI_PASSWORD_HERE
+cache:
+  pip: true
+after_failure:
+- echo "Here's a list of installed Python packages:"
+- *py_pkg_list
