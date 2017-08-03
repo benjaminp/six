@@ -104,7 +104,7 @@ Here's example usage of the module::
 Object model compatibility
 >>>>>>>>>>>>>>>>>>>>>>>>>>
 
-Python 3 renamed the attributes of several intepreter data structures.  The
+Python 3 renamed the attributes of several interpreter data structures.  The
 following accessors are available.  Note that the recommended way to inspect
 functions and methods is the stdlib :mod:`py3:inspect` module.
 
