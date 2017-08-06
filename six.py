@@ -854,16 +854,17 @@ def ensure_binary(s, encoding='utf-8', errors='strict'):
       - `str` -> encoded to `bytes`
       - `bytes` -> `bytes`
     """
-    if not isinstance(s, (text_type, binary_type)):
-        raise TypeError("not expecting type '%s'" % type(s))
     if isinstance(s, text_type):
         return s.encode(encoding, errors)
-    else:
+    elif isinstance(s, binary_type):
         return s
+    else:
+        raise TypeError("not expecting type '%s'" % type(s))
 
 
 def ensure_str(s, encoding='utf-8', errors='strict'):
-    """ A helper function to ensure output is six.str_type.
+    """ A helper function to ensure output is `str`.
+
     For Python 2:
       - `unicode` -> encoded to `str`
       - `str` -> `str`
@@ -892,12 +893,13 @@ def ensure_text(s, encoding='utf-8', errors='strict'):
       - `str` -> `str`
       - `bytes` -> decoded to `str`
     """
-    if not isinstance(s, (text_type, binary_type)):
-        raise TypeError("not expecting type '%s'" % type(s))
     if isinstance(s, binary_type):
         return s.decode(encoding, errors)
-    else:
+    elif isinstance(s, text_type):
         return s
+    else:
+        raise TypeError("not expecting type '%s'" % type(s))
+
 
 
 def python_2_unicode_compatible(klass):

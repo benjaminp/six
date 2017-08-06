@@ -433,6 +433,24 @@ string data in all Python versions.
    a bytes object iterator in Python 3.
 
 
+.. function:: ensure_binary(s, encoding='utf-8', errors='strict')
+
+  A helper function to ensure output is :data:`binary_type`. ``encoding``, ``errors``
+  are the same as https://docs.python.org/3/library/stdtypes.html#str.encode
+
+
+.. function:: ensure_str(s, encoding='utf-8', errors='strict')
+
+  A helper function to ensure output is ``str``. ``encoding``, ``errors``
+  are the same as https://docs.python.org/3/library/stdtypes.html#str.encode
+
+
+.. function:: ensure_text(s, encoding='utf-8', errors='strict')
+
+  A helper function to ensure output is :data:`text_type`. ``encoding``, ``errors``
+  are the same as https://docs.python.org/3/library/stdtypes.html#str.encode
+
+
 .. data:: StringIO
 
    This is a fake file object for textual data.  It's an alias for
