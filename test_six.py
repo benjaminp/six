@@ -903,3 +903,14 @@ def test_python_2_unicode_compatible():
         assert str(my_test) == six.u("hello")
 
     assert getattr(six.moves.builtins, 'bytes', str)(my_test) == six.b("hello")
+
+
+def test_python_2_bool_compatible():
+    @six.python_2_bool_compatible
+    class MyTest(object):
+        def __bool__(self):
+            return False
+
+    my_test = MyTest()
+
+    assert bool(my_test) is False

@@ -861,6 +861,24 @@ def python_2_unicode_compatible(klass):
     return klass
 
 
+def python_2_bool_compatible(klass):
+    """
+    A decorator that defines __nonzero__ method under Python 2.
+    Under Python 3 it does nothing.
+
+    To support Python 2 and 3 with a single code base, define a __bool__ method
+    returning bool value and apply this decorator to the class.
+    """
+    if PY2:
+        if '__bool__' not in klass.__dict__:
+            raise ValueError("@python_2_bool_compatible cannot be applied "
+                             "to %s because it doesn't define __bool__()." %
+                             klass.__name__)
+        klass.__nonzero__ = klass.__bool__
+        del klass.__bool__
+    return klass
+
+
 # Complete the moves implementation.
 # This code is at the end of this module to speed up module loading.
 # Turn this module into a package.
