@@ -1,10 +1,50 @@
+os: linux
+dist: trusty
+sudo: false
 language: python
 python:
-  - "2.6"
-  - "2.7"
-  - "3.2"
-  - "3.3"
-  - "3.4"
-  - "3.5"
-  - "3.6"
-script: py.test
+- 2.6
+- 2.7
+- 3.2
+- 3.3
+- 3.4
+- 3.5
+- &mainstream_python 3.6
+- 3.6-dev
+- 3.7-dev
+- pypy2.7-5.8.0
+- pypy3.5-5.8.0
+install:
+- pip install --upgrade --force-reinstall "setuptools; python_version != '3.2'" "setuptools < 30; python_version == '3.2'"
+- pip uninstall --yes six || true
+- pip install --upgrade --force-reinstall --ignore-installed -e .
+- pip install pytest
+- &py_pkg_list pip list --format=columns || pip list
+script:
+- py.test
+- echo Checking whether installation flow is not broken...
+- pip uninstall --yes six || true
+- pip install --ignore-installed .
+- *py_pkg_list
+jobs:
+  fast_finish: true
+  include:
+  - stage: upload new version of python package to PYPI (only for tagged commits)
+    python: *mainstream_python
+    install: skip
+    script: skip
+    deploy:
+      provider: pypi
+      on:
+        tags: true
+        all_branches: true
+        python: *mainstream_python
+      user: gutworth
+      distributions: bdist_wheel
+      password:
+        secure: YOUR_ENCRYPTED_PYPI_PASSWORD_HERE
+cache:
+  pip: true
+after_failure:
+- echo "Here's a list of installed Python packages:"
+- *py_pkg_list
