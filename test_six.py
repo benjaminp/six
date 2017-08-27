@@ -238,13 +238,6 @@ def test_getoutput():
     assert output == 'foo'
 
 
-def test_getstatusoutput():
-    from six.moves import getstatusoutput
-    status, output = getstatusoutput('echo "foo"')
-    assert status == 0
-    assert output == 'foo'
-
-
 def test_zip():
     from six.moves import zip
     assert six.advance_iterator(zip(range(2), range(2))) == (0, 0)
