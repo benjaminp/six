@@ -771,6 +771,8 @@ and :mod:`py2:urllib2`:
 * :func:`py2:urllib2.urlopen`
 * :func:`py2:urllib2.install_opener`
 * :func:`py2:urllib2.build_opener`
+* :func:`py2:urllib2.parse_http_list`
+* :func:`py2:urllib2.parse_keqv_list`
 * :class:`py2:urllib2.Request`
 * :class:`py2:urllib2.OpenerDirector`
 * :class:`py2:urllib2.HTTPDefaultErrorHandler`
