@@ -50,32 +50,33 @@ Six provides constants that may differ between Python versions.  Ones ending
 
 .. data:: class_types
 
-   Possible class types.  In Python 2, this encompasses old-style and new-style
-   classes.  In Python 3, this is just new-styles.
+   Possible class types.  In Python 2, (<type 'type'>, <type 'classobj'>)
+   encompasses new-style and old-style classes.  In Python 3, (<class 'type'>,)
+   is just new-style classess.
 
 
 .. data:: integer_types
 
-   Possible integer types.  In Python 2, this is :func:`py2:long` and
-   :func:`py2:int`, and in Python 3, just :func:`py3:int`.
+   Possible integer types.  In Python 2, (<type ':func:`py2:int`'>, <type ':func:`py2:long`'>) and
+   in Python 3, just (<class ':func:`py3:int`'>,).
 
 
 .. data:: string_types
 
-   Possible types for text data.  This is :func:`py2:basestring` in Python 2 and
-   :func:`py3:str` in Python 3.
+   Possible types for text data.  In Python 2, (<type ':func:`py2:basestring`'>,) and
+   in Python 3, (<class ':func:`py3:str`'>,).
 
 
 .. data:: text_type
 
-   Type for representing (Unicode) textual data.  This is :func:`py2:unicode` in
-   Python 2 and :func:`py3:str` in Python 3.
+   Type for representing (Unicode) textual data.  In Python 2, <type ':func:`py2:unicode`'> and
+   in Python 3, <class ':func:`py3:str`'>.
 
 
 .. data:: binary_type
 
-   Type for representing binary data.  This is :func:`py2:str` in Python 2 and
-   :func:`py3:bytes` in Python 3.
+   Type for representing binary data.  In Python 2,  <type ':func:`py2:str`'> and
+   in Python 3, <class ':func:`py3:bytes`'>.
 
 
 .. data:: MAXSIZE
