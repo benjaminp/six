@@ -16,7 +16,7 @@ Six supports every Python version since 2.6.  It is contained in only one Python
 file, so it can be easily copied into your project. (The copyright and license
 notice must be retained.)
 
-Online documentation is at https://pythonhosted.org/six/.
+Online documentation is at http://six.rtfd.org.
 
 Bugs can be reported to https://github.com/benjaminp/six.  The code can also
 be found there.
