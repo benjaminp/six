@@ -3,8 +3,8 @@ Changelog for six
 
 This file lists the changes in each six version.
 
-Development version
--------------------
+1.11.0
+------
 
 - Pull request #178: `with_metaclass` now properly proxies `__prepare__` to the
   underlying metaclass.
