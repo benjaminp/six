@@ -40,7 +40,7 @@ jobs:
         all_branches: true
         python: *mainstream_python
       user: gutworth
-      distributions: bdist_wheel
+      distributions: "sdist bdist_wheel"
       password:
         secure: YOUR_ENCRYPTED_PYPI_PASSWORD_HERE
 cache:
