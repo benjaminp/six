@@ -734,6 +734,14 @@ def test_with_metaclass():
     assert issubclass(X, Base)
     assert issubclass(X, Base2)
     assert X.__mro__ == (X, Base, Base2, object)
+    class X(six.with_metaclass(Meta)):
+        pass
+    class MetaSub(Meta):
+        pass
+    class Y(six.with_metaclass(MetaSub, X)):
+        pass
+    assert type(Y) is MetaSub
+    assert Y.__mro__ == (Y, X, object)
 
 
 @py.test.mark.skipif("sys.version_info[:2] < (3, 0)")
