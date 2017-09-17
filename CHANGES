@@ -6,6 +6,9 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Pull request #178: `with_metaclass` now properly proxies `__prepare__` to the
+  underlying metaclass.
+
 - Pull request #191: Allow `with_metaclass` to work with metaclasses implemented
   in C.
 
