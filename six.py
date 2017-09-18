@@ -816,20 +816,93 @@ else:
     wraps = functools.wraps
 
 
+class _WithMetaclass(type):
+    """
+    Metaclasses to be used in six.with_metaclass: instances of
+    _WithMetaclass are metaclasses, so this is a metametaclass.
+    """
+    @classmethod
+    def get(cls, meta, bases):
+        """
+        Return a metaclass (an instance of _WithMetaclass) which, if an
+        instance of it is used as base class, will create a class with
+        metaclass "meta" and bases "bases".
+        """
+        # We use "meta" as base class instead of "type" to support the
+        # following wrong usage:
+        #
+        #     class X(six.with_metaclass(M)):
+        #         __metaclass__ = M
+        #
+        return cls("metaclass", (meta,), dict(meta=meta, bases=bases))
+
+    def instance(self):
+        """
+        Return an instance of the metaclass "self".
+        """
+        return self.__new__(self, "temporary_class", (object,), {})
+
+    @property
+    def __prepare__(self):
+        # We forward __prepare__ to __prepare which is the actual
+        # implementation.
+        #
+        # This is a property for 2 reasons:
+        #
+        # First of all, if the metaclass does not define __prepare__, we
+        # pretend that we don't have a __prepare__ method either.
+        # PEP 3115 says that a __prepare__ method is not required to
+        # exist. Also, some user code might call __prepare__ on Py2 and
+        # we gracefully handle that.
+        #
+        # Second, this is a property for a technical reason: an ordinary
+        # __prepare__ method on the metametaclass would not be called,
+        # since it is overridden by type.__prepare__ (as an application
+        # of the general principle that instance attributes override
+        # type attributes). A property works because it bypasses
+        # attribute lookup on the instance.
+
+        # Check for __prepare__ attribute, propagate AttributeError
+        self.meta.__prepare__
+        return self.__prepare
+
+    def __prepare(self, name, bases, **kwargs):
+        """
+        Ensure that metaclass.__prepare__ is called with the correct
+        arguments.
+        """
+        return self.meta.__prepare__(name, self.bases, **kwargs)
+
+    def __call__(self, name, bases, d):
+        """
+        Create the eventual class with metaclass "self.meta" and bases
+        "self.bases".
+        """
+        if "__metaclass__" in d:
+            from warnings import warn
+            warn("when using six.with_metaclass, remove __metaclass__ from your class", DeprecationWarning)
+        return self.meta(name, self.bases, d)
+
+
 def with_metaclass(meta, *bases):
     """Create a base class with a metaclass."""
-    # This requires a bit of explanation: the basic idea is to make a dummy
-    # metaclass for one level of class instantiation that replaces itself with
-    # the actual metaclass.
-    class metaclass(type):
-
-        def __new__(cls, name, this_bases, d):
-            return meta(name, bases, d)
-
-        @classmethod
-        def __prepare__(cls, name, this_bases):
-            return meta.__prepare__(name, bases)
-    return type.__new__(metaclass, 'temporary_class', (), {})
+    # This requires a bit of explanation: with_metaclass() returns
+    # a temporary class which will setup the correct metaclass when
+    # this temporary class is used as base class.
+    #
+    # In detail: let T = with_metaclass(meta, *bases). When the user
+    # does "class X(with_metaclass(meta, *bases))", Python will first
+    # determine the metaclass of X from its bases. In our case, there is
+    # a single base class T. Therefore, the metaclass will be type(T).
+    #
+    # Next, Python will call type(T)("X", (T,), methods) and it is this
+    # call that we want to override. So we need to define a __call__
+    # method in the metaclass of type(T), which needs a metametaclass,
+    # called "_WithMetaclass".
+    # The metaclass type(T) is returned by _WithMetaclass.get(...) and
+    # the instance() method creates an instance of this metaclass, which
+    # is a regular class.
+    return _WithMetaclass.get(meta, bases).instance()
 
 
 def add_metaclass(metaclass):
