@@ -511,6 +511,7 @@ if PY3:
 
     _func_closure = "__closure__"
     _func_code = "__code__"
+    _func_name = "__name__"
     _func_defaults = "__defaults__"
     _func_globals = "__globals__"
 else:
@@ -519,6 +520,7 @@ else:
 
     _func_closure = "func_closure"
     _func_code = "func_code"
+    _func_name = "func_name"
     _func_defaults = "func_defaults"
     _func_globals = "func_globals"
 
