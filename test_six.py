@@ -905,7 +905,7 @@ def test_python_2_unicode_compatible():
     assert getattr(six.moves.builtins, 'bytes', str)(my_test) == six.b("hello")
 
 
-class EnsureTests(unittest.TestCase):
+class EnsureTests:
 
     # grinning face emoji
     UNICODE_EMOJI = six.u("\U0001F600")
@@ -914,6 +914,11 @@ class EnsureTests(unittest.TestCase):
     def test_ensure_binary_raise_type_error(self):
         with py.test.raises(TypeError):
             six.ensure_str(8)
+
+    def test_errors_and_encoding(self):
+        six.ensure_binary(self.UNICODE_EMOJI, encoding='latin-1', errors='ignore')
+        with py.test.raises(UnicodeEncodeError):
+            six.ensure_binary(self.UNICODE_EMOJI, encoding='latin-1', errors='strict')
 
     def test_ensure_binary_raise(self):
         converted_unicode = six.ensure_binary(self.UNICODE_EMOJI, encoding='utf-8', errors='strict')
