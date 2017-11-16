@@ -736,6 +736,30 @@ else:
     def raise_from(value, from_value):
         raise value
 
+if sys.version_info[:2] == (3, 2):
+    exec_("""def raisefrom(exc_type, message, from_value):
+    try:
+        value = exc_type(message)
+        if from_value is None:
+            raise value
+        raise value from from_value
+    finally:
+        exc_type = None
+""")
+elif sys.version_info[:2] > (3, 2):
+    exec_("""def raisefrom(exc_type, message, from_value):
+    try:
+        raise exc_type(message) from from_value
+    finally:
+        exc_type = None
+""")
+else:
+    exec_("""def raisefrom(exc_type, message, from_value):
+    try:
+        raise exc_type, '%s - %s' % (message, from_value), sys.exc_info()[2]
+    finally:
+        exc_type = None
+""")
 
 print_ = getattr(moves.builtins, "print", None)
 if print_ is None:

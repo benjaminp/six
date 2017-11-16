@@ -292,12 +292,24 @@ Python 2 and 3.
       ok. :)
 
 
+.. function:: raisefrom(exc_type, exc_message, exc_value_from)
+
+   Raise an exception from a context.  On Python 3, this is equivalent to
+   ``raise exc_type(exc_message) from exc_value_from``.
+   On Python 2, which does not support exception chaining, it is equivalent to
+   ``raise exc_type(message)`` where ``message`` is
+   ``exc_message - exc_value_from_message`` and the traceback is from
+   ``exc_value_from``.
+   This new function is designed to replace the :func:`raise_from` (note the
+   underscore between raise and from) as it makes Python 2 imitate Python 3.
+
 .. function:: raise_from(exc_value, exc_value_from)
 
    Raise an exception from a context.  On Python 3, this is equivalent to
    ``raise exc_value from exc_value_from``.  On Python 2, which does not support
    exception chaining, it is equivalent to ``raise exc_value``.
-
+   As the Python 2 behaviour does not imitate Python 3, there is a new function
+   :func:`raisefrom` (note no underscore between raise and from) which does.
 
 .. function:: reraise(exc_type, exc_value, exc_traceback=None)
 

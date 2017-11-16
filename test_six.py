@@ -650,6 +650,59 @@ def test_raise_from():
     assert str(val) == "foo"
 
 
+def test_raisefrom():
+    e = Exception("blah")
+    try:
+        try:
+            raise e
+        except Exception:
+            _, ctx, orig_tb = sys.exc_info()
+            six.raisefrom(Exception, "foo", None)
+    except Exception:
+        tp, val, tb = sys.exc_info()
+    if sys.version_info[:2] > (3, 0):
+        # We should have done a raise Exception("foo") from None equivalent.
+        assert val.__cause__ is None
+        assert val.__context__ is ctx
+        if sys.version_info[:2] >= (3, 3):
+            # And that should suppress the context on the exception.
+            assert val.__suppress_context__
+        # The outer exception should have raised successfully.
+        assert str(val) == "foo"
+    else:
+        assert tp is Exception
+        # The outer exception should have raised successfully with message of inner exception appended
+        assert str(val) == "foo - None"
+        assert tb.tb_next == orig_tb
+
+    class MyError(Exception):
+        pass
+
+    try:
+        try:
+            int("two")
+        except ValueError as ex:
+            _, ctx, orig_tb = sys.exc_info()
+            six.raisefrom(MyError, "My error message", ex)
+    except Exception:
+        tp, val, tb = sys.exc_info()
+    if sys.version_info[:2] > (3, 0):
+        # We should have done a raise MyError("My error message") from ValueError equivalent.
+        assert isinstance(val.__cause__, ValueError) is True
+        assert str(val.__cause__) == "invalid literal for int() with base 10: 'two'"
+        assert val.__context__ is ctx
+        if sys.version_info[:2] >= (3, 3):
+            # And that should suppress the context on the exception.
+            assert val.__suppress_context__
+        # The outer exception should have raised successfully.
+        assert str(val) == "My error message"
+    else:
+        assert tp is MyError
+        # The outer exception should have raised successfully with message of inner exception appended
+        assert str(val) == "My error message - invalid literal for int() with base 10: 'two'"
+        assert tb.tb_next == orig_tb
+
+
 def test_print_():
     save = sys.stdout
     out = sys.stdout = six.moves.StringIO()
