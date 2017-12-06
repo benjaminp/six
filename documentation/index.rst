@@ -13,7 +13,7 @@ Python 3.  It is intended to support codebases that work on both Python 2 and 3
 without modification.  six consists of only one Python file, so it is painless
 to copy into a project.
 
-Six can be downloaded on `PyPi <https://pypi.python.org/pypi/six/>`_.  Its bug
+Six can be downloaded on `PyPI <https://pypi.python.org/pypi/six/>`_.  Its bug
 tracker and code hosting is on `GitHub <https://github.com/benjaminp/six>`_.
 
 The name, "six", comes from the fact that 2*3 equals 6.  Why not addition?
