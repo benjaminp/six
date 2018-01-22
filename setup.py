@@ -53,5 +53,6 @@ setup(name="six",
       description="Python 2 and 3 compatibility utilities",
       long_description=six_long_description,
       license="MIT",
-      classifiers=six_classifiers
+      classifiers=six_classifiers,
+      python_requires=">=2.6, !=3.0.*, !=3.1.*",
       )
