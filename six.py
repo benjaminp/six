@@ -849,7 +849,7 @@ def add_metaclass(metaclass):
 
 
 def ensure_binary(s, encoding='utf-8', errors='strict'):
-    """ A helper function to ensure output is six.binary_type.
+    """Coerce **s** to six.binary_type.
 
     For Python 2:
       - `unicode` -> encoded to `str`
@@ -868,7 +868,7 @@ def ensure_binary(s, encoding='utf-8', errors='strict'):
 
 
 def ensure_str(s, encoding='utf-8', errors='strict'):
-    """ A helper function to ensure output is `str`.
+    """Coerce *s* to `str`.
 
     For Python 2:
       - `unicode` -> encoded to `str`
@@ -888,7 +888,7 @@ def ensure_str(s, encoding='utf-8', errors='strict'):
 
 
 def ensure_text(s, encoding='utf-8', errors='strict'):
-    """ A helper function to ensure output is six.text_type.
+    """Coerce *s* to six.text_type.
 
     For Python 2:
       - `unicode` -> `unicode`

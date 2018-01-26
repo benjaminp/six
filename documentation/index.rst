@@ -435,20 +435,20 @@ string data in all Python versions.
 
 .. function:: ensure_binary(s, encoding='utf-8', errors='strict')
 
-  A helper function to ensure output is :data:`binary_type`. ``encoding``, ``errors``
-  are the same as :meth:`py3:str.encode`
+   Coerce *s* to :data:`binary_type`. *encoding*, *errors* are the same as
+   :meth:`py3:str.encode`
 
 
 .. function:: ensure_str(s, encoding='utf-8', errors='strict')
 
-  A helper function to ensure output is ``str``. ``encoding``, ``errors``
-  are the same :meth:`py3:str.encode`
+   Coerce *s* to ``str``. ``encoding``, ``errors`` are the same
+   :meth:`py3:str.encode`
 
 
 .. function:: ensure_text(s, encoding='utf-8', errors='strict')
 
-  A helper function to ensure output is :data:`text_type`. ``encoding``, ``errors``
-  are the same as :meth:`py3:str.encode`
+   Coerce *s* to :data:`text_type`. *encoding*, *errors* are the same as
+   :meth:`py3:str.encode`
 
 
 .. data:: StringIO
