@@ -3,6 +3,12 @@ Changelog for six
 
 This file lists the changes in each six version.
 
+Development version
+-------------------
+
+- Pull request #204: At `six.ensure_binary`, `six.ensure_text`, and
+  `six.ensure_str`.
+
 1.11.0
 ------
 
