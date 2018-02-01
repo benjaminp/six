@@ -73,6 +73,12 @@ def test_binary_type():
     assert type(six.b("hi")) is six.binary_type
 
 
+def test_file_types():
+    import tempfile
+    with tempfile.TemporaryFile() as fh:
+        assert isinstance(fh, six.file_types)
+
+
 def test_MAXSIZE():
     try:
         # This shouldn't raise an overflow error.
