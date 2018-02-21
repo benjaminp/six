@@ -851,13 +851,19 @@ def test_add_metaclass():
 
     # Test a class with slots.
     class MySlots(object):
-        __slots__ = ["a", "b"]
+        __slots__ = ["a", "b", "__d"]
+        def set_d(self, d):
+            self.__d = d
+        def get_d(self):
+            return self.__d
     MySlots = six.add_metaclass(Meta1)(MySlots)
 
-    assert MySlots.__slots__ == ["a", "b"]
+    assert MySlots.__slots__ == ["a", "b", "__d"]
     instance = MySlots()
     instance.a = "foo"
     py.test.raises(AttributeError, setattr, instance, "c", "baz")
+    instance.set_d("d value")
+    assert instance.get_d() == "d value"
 
     # Test a class with string for slots.
     class MyStringSlots(object):

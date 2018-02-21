@@ -223,6 +223,7 @@ class _SixMetaPathImporter(object):
         return None
     get_source = get_code  # same as get_code
 
+
 _importer = _SixMetaPathImporter(__name__)
 
 
@@ -484,6 +485,7 @@ class Module_six_moves_urllib(types.ModuleType):
 
     def __dir__(self):
         return ['parse', 'error', 'request', 'response', 'robotparser']
+
 
 _importer._add_module(Module_six_moves_urllib(__name__ + ".moves.urllib"),
                       "moves.urllib")
@@ -832,6 +834,15 @@ def with_metaclass(meta, *bases):
     return type.__new__(metaclass, 'temporary_class', (), {})
 
 
+def __mangle_attribute_name(cls, attr_name):
+    """mangle the attribute names from __slots__"""
+    if attr_name.startswith('__') and not attr_name.endswith('__'):
+        attr_name = '_' + cls.__name__ + attr_name
+        while attr_name.startswith('__'):
+            attr_name = attr_name[1:]
+    return attr_name
+
+
 def add_metaclass(metaclass):
     """Class decorator for creating a class with a metaclass."""
     def wrapper(cls):
@@ -839,9 +850,9 @@ def add_metaclass(metaclass):
         slots = orig_vars.get('__slots__')
         if slots is not None:
             if isinstance(slots, str):
-                slots = [slots]
+                slots = (slots,)
             for slots_var in slots:
-                orig_vars.pop(slots_var)
+                orig_vars.pop(__mangle_attribute_name(cls, slots_var))
         orig_vars.pop('__dict__', None)
         orig_vars.pop('__weakref__', None)
         return metaclass(cls.__name__, cls.__bases__, orig_vars)
@@ -904,7 +915,6 @@ def ensure_text(s, encoding='utf-8', errors='strict'):
         return s
     else:
         raise TypeError("not expecting type '%s'" % type(s))
-
 
 
 def python_2_unicode_compatible(klass):
