@@ -371,7 +371,7 @@ string data in all Python versions.
 .. function:: b(data)
 
    A "fake" bytes literal.  *data* should always be a normal string literal.  In
-   Python 2, :func:`b` returns a 8-bit string.  In Python 3, *data* is encoded
+   Python 2, :func:`b` returns an 8-bit string.  In Python 3, *data* is encoded
    with the latin-1 encoding to bytes.
 
 
