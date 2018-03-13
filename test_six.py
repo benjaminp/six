@@ -232,6 +232,16 @@ def test_map():
     assert six.advance_iterator(map(lambda x: x + 1, range(2))) == 1
 
 
+def test_getargspec():
+    from six.moves import getargspec
+    
+    def test(a, b='c', *args, **kwargs):
+        pass
+
+    argspec = getargspec(test)
+    assert argspec == (['a', 'b'], 'args', 'kwargs', ('c',))
+
+
 def test_getoutput():
     from six.moves import getoutput
     output = getoutput('echo "foo"')
