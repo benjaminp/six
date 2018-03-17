@@ -34,6 +34,7 @@ __version__ = "1.11.0"
 
 # Useful for very coarse version differentiation.
 PY2 = sys.version_info[0] == 2
+PY27 = sys.version_info[0:2] == (2, 7)
 PY3 = sys.version_info[0] == 3
 PY34 = sys.version_info[0:2] >= (3, 4)
 
@@ -243,7 +244,7 @@ _moved_attributes = [
     MovedAttribute("getcwdb", "os", "os", "getcwd", "getcwdb"),
     MovedAttribute("getoutput", "commands", "subprocess"),
     MovedAttribute("range", "__builtin__", "builtins", "xrange", "range"),
-    MovedAttribute("reload_module", "__builtin__", "importlib" if PY34 else "imp", "reload"),
+    MovedAttribute("reload_module", "__builtin__" if not PY27 else "imp", "importlib" if PY34 else "imp", "reload"),
     MovedAttribute("reduce", "__builtin__", "functools"),
     MovedAttribute("shlex_quote", "pipes", "shlex", "quote"),
     MovedAttribute("StringIO", "StringIO", "io"),
