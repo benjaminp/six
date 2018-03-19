@@ -16,9 +16,9 @@ to copy into a project.
 Six can be downloaded on `PyPI <https://pypi.python.org/pypi/six/>`_.  Its bug
 tracker and code hosting is on `GitHub <https://github.com/benjaminp/six>`_.
 
-The name, "six", comes from the fact that 2*3 equals 6.  Why not addition?
-Multiplication is more powerful, and, anyway, "five" has already been snatched
-away by the (admittedly now moribund) Zope Five project.
+The name, "six", comes from the fact that 2*3 equals 6. Why not addition?  The
+multiplication sign (⋅) also means logical AND, and, anyway, "five" has already
+been snatched away by the (admittedly now moribund) Zope Five project.
 
 
 Indices and tables
