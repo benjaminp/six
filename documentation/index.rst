@@ -473,6 +473,19 @@ string data in all Python versions.
    that returns the result of ``__unicode__()`` encoded with UTF-8.
 
 
+Behavior changes
+>>>>>>>>>>>>>>>>
+
+Six also provides shims for changes in behavior.
+
+.. function:: hasattr(obj, name)
+
+    In Python 2, hasattr() catches all exceptions, while on Python 3 it only
+    catches `~py3:AttributeError`. On Python 3, this function is an alias to
+    `~py3:hasattr`. On Python 2, it implements the (more sensible) Python 3
+    behaviour
+
+
 unittest assertions
 >>>>>>>>>>>>>>>>>>>
 

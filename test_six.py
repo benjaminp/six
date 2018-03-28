@@ -934,6 +934,28 @@ def test_python_2_unicode_compatible():
     assert getattr(six.moves.builtins, 'bytes', str)(my_test) == six.b("hello")
 
 
+def test_hasattr():
+    class MyTest():
+        @property
+        def no_error(self):
+            pass
+
+        @property
+        def div_error(self):
+            raise ZeroDivisionError
+
+        @property
+        def attribute_error(self):
+            raise AttributeError
+
+    my_test = MyTest()
+    assert six.hasattr(my_test, "no_error")
+    assert not six.hasattr(my_test, "doesnotexist")
+    assert not six.hasattr(my_test, "attribute_error")
+    with py.test.raises(ZeroDivisionError):
+        six.hasattr(my_test, "div_error")
+
+
 class EnsureTests:
 
     # grinning face emoji
