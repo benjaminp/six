@@ -231,11 +231,12 @@ def test_map():
     from six.moves import map
     assert six.advance_iterator(map(lambda x: x + 1, range(2))) == 1
 
-
+@py.test.mark.skipif("sys.version_info[:3] < (3, 3, 4) and sys.platform.startswith('win')")
 def test_getoutput():
     from six.moves import getoutput
     output = getoutput('echo "foo"')
-    assert output == 'foo'
+    #On Unix platforms, foo is returned and on Windows, "foo".
+    assert output in ['foo', '"foo"']
 
 
 def test_zip():
