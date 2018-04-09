@@ -233,6 +233,8 @@ class _MovedItems(_LazyModule):
 
 
 _moved_attributes = [
+    MovedAttribute("base64_decodebytes", "base64", "base64", "decodestring", "decodebytes"),
+    MovedAttribute("base64_encodebytes", "base64", "base64", "encodestring", "encodebytes"),
     MovedAttribute("cStringIO", "cStringIO", "io", "StringIO"),
     MovedAttribute("filter", "itertools", "builtins", "ifilter", "filter"),
     MovedAttribute("filterfalse", "itertools", "itertools", "ifilterfalse", "filterfalse"),
