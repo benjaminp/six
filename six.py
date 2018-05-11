@@ -102,9 +102,9 @@ class _LazyDescr(object):
 
 class MovedModule(_LazyDescr):
 
-    def __init__(self, name, old, new=None):
+    def __init__(self, name, old, new=None, since=(3,)):
         super(MovedModule, self).__init__(name)
-        if PY3:
+        if sys.version_info[0:len(since)] >= since:
             if new is None:
                 new = name
             self.mod = new
@@ -300,6 +300,7 @@ _moved_attributes = [
     MovedModule("urllib_robotparser", "robotparser", "urllib.robotparser"),
     MovedModule("xmlrpc_client", "xmlrpclib", "xmlrpc.client"),
     MovedModule("xmlrpc_server", "SimpleXMLRPCServer", "xmlrpc.server"),
+    MovedModule("collections_abc", "collections", "collections.abc", (3, 3)),
 ]
 # Add windows specific modules.
 if sys.platform == "win32":
