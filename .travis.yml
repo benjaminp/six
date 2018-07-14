@@ -15,7 +15,7 @@ python:
 - pypy2.7-5.8.0
 - pypy3.5-5.8.0
 install:
-- pip install --upgrade --force-reinstall "setuptools; python_version != '3.2'" "setuptools < 30; python_version == '3.2'"
+- pip install --upgrade --force-reinstall "setuptools; python_version != '3.2' and python_version != '3.3'" "setuptools < 30; python_version == '3.2'" "setuptools < 40; python_version == '3.3'"
 - pip uninstall --yes six || true
 - pip install --upgrade --force-reinstall --ignore-installed -e .
 - pip install pytest
