@@ -1,5 +1,5 @@
 .. image:: http://img.shields.io/pypi/v/six.svg
-   :target: https://pypi.python.org/pypi/six
+   :target: https://pypi.org/project/six/
 
 .. image:: https://travis-ci.org/benjaminp/six.svg?branch=master
     :target: https://travis-ci.org/benjaminp/six
