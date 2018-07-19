@@ -594,6 +594,16 @@ if PY3:
     viewvalues = operator.methodcaller("values")
 
     viewitems = operator.methodcaller("items")
+
+    def listkeys(d, **kw):
+        return list(d.keys(**kw))
+
+    def listitems(d, **kw):
+        return list(d.items(**kw))
+
+    def listvalues(d, **kw):
+        return list(d.values(**kw))
+
 else:
     def iterkeys(d, **kw):
         return d.iterkeys(**kw)
@@ -613,13 +623,25 @@ else:
 
     viewitems = operator.methodcaller("viewitems")
 
+    def listkeys(d, **kw):
+        return d.keys(**kw)
+
+    def listitems(d, **kw):
+        return d.items(**kw)
+
+    def listvalues(d, **kw):
+        return d.values(**kw)
+
 _add_doc(iterkeys, "Return an iterator over the keys of a dictionary.")
 _add_doc(itervalues, "Return an iterator over the values of a dictionary.")
 _add_doc(iteritems,
          "Return an iterator over the (key, value) pairs of a dictionary.")
 _add_doc(iterlists,
          "Return an iterator over the (key, [values]) pairs of a dictionary.")
-
+_add_doc(listkeys, "Return a list over the keys of a dictionary.")
+_add_doc(listvalues, "Return a list over the values of a dictionary.")
+_add_doc(listitems,
+         "Return a list over the (key, value) pairs of a dictionary.")
 
 if PY3:
     def b(s):

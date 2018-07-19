@@ -416,6 +416,28 @@ def test_dictionary_iterators(monkeypatch):
         monkeypatch.undo()
 
 
+def test_dictionary_lists(monkeypatch):
+
+    class MyDict(dict):
+        pass
+
+    d = MyDict(zip(range(10), reversed(range(10))))
+    for name in "keys", "values", "items":
+        meth = getattr(six, "list" + name)
+        res = meth(d)
+        assert isinstance(res, list)
+        record = []
+
+        def with_kw(*args, **kw):
+            record.append(kw["kw"])
+            return old(*args)
+        old = getattr(MyDict, name)
+        monkeypatch.setattr(MyDict, name, with_kw)
+        meth(d, kw=42)
+        assert record == [42]
+        monkeypatch.undo()
+
+
 @py.test.mark.skipif("sys.version_info[:2] < (2, 7)",
                 reason="view methods on dictionaries only available on 2.7+")
 def test_dictionary_views():
