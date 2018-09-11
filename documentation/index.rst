@@ -50,8 +50,9 @@ Six provides constants that may differ between Python versions.  Ones ending
 
 .. data:: class_types
 
-   Possible class types.  In Python 2, this encompasses old-style and new-style
-   classes.  In Python 3, this is just new-styles.
+   Possible class types.  In Python 2, this encompasses old-style
+   :data:`py2:types.ClassType` and new-style ``type`` classes.  In Python 3,
+   this is just ``type``.
 
 
 .. data:: integer_types
