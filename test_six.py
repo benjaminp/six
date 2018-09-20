@@ -875,6 +875,24 @@ def test_add_metaclass():
     assert type(MySlotsWeakref) is Meta
 
 
+@py.test.mark.skipif("sys.version_info[:2] < (3, 3)")
+def test_add_metaclass_nested():
+    # Regression test for https://github.com/benjaminp/six/issues/259
+    class Meta(type):
+        pass
+
+    class A:
+        class B: pass
+
+    assert A.B.__qualname__.endswith('A.B')
+
+    class A:
+        @six.add_metaclass(Meta)
+        class B: pass
+
+    assert A.B.__qualname__.endswith('A.B')
+
+
 @py.test.mark.skipif("sys.version_info[:2] < (2, 7) or sys.version_info[:2] in ((3, 0), (3, 1))")
 def test_assertCountEqual():
     class TestAssertCountEqual(unittest.TestCase):

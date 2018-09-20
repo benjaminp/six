@@ -844,7 +844,11 @@ def add_metaclass(metaclass):
                 orig_vars.pop(slots_var)
         orig_vars.pop('__dict__', None)
         orig_vars.pop('__weakref__', None)
-        return metaclass(cls.__name__, cls.__bases__, orig_vars)
+        new_cls = metaclass(cls.__name__, cls.__bases__, orig_vars)
+        if hasattr(cls, '__qualname__') and cls.__qualname__ != cls.__name__:
+            new_cls.__qualname__ = cls.__qualname__
+
+        return new_cls
     return wrapper
 
 
