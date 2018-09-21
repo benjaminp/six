@@ -884,13 +884,15 @@ def test_add_metaclass_nested():
     class A:
         class B: pass
 
-    assert A.B.__qualname__.endswith('A.B')
+    expected = 'test_add_metaclass_nested.<locals>.A.B'
+
+    assert A.B.__qualname__ == expected
 
     class A:
         @six.add_metaclass(Meta)
         class B: pass
 
-    assert A.B.__qualname__.endswith('A.B')
+    assert A.B.__qualname__ == expected
 
 
 @py.test.mark.skipif("sys.version_info[:2] < (2, 7) or sys.version_info[:2] in ((3, 0), (3, 1))")
