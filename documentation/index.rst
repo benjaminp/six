@@ -300,12 +300,12 @@ Python 2 and 3.
    exception chaining, it is equivalent to ``raise exc_value``.
 
 
-.. function:: reraise(exc_type, exc_value, exc_traceback=None)
+.. function:: reraise(exc_type, exc_value, tb=None)
 
    Reraise an exception, possibly with a different traceback.  In the simple
    case, ``reraise(*sys.exc_info())`` with an active exception (in an except
    block) reraises the current exception with the last traceback.  A different
-   traceback can be specified with the *exc_traceback* parameter.  Note that
+   traceback can be specified with the *tb* parameter.  Note that
    since the exception reraising is done within the :func:`reraise` function,
    Python will attach the call frame of :func:`reraise` to whatever traceback is
    raised.
