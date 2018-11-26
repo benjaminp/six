@@ -522,7 +522,7 @@ Python 2 or 3, write::
    from six.moves import html_parser
 
 Similarly, to get the function to reload modules, which was moved from the
-builtin module to the ``imp`` module, use::
+builtin module to the ``importlib`` module, use::
 
    from six.moves import reload_module
 
