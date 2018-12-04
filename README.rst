@@ -1,8 +1,10 @@
 .. image:: https://img.shields.io/pypi/v/six.svg
    :target: https://pypi.org/project/six/
+   :alt: six on PyPI
 
 .. image:: https://travis-ci.org/benjaminp/six.svg?branch=master
    :target: https://travis-ci.org/benjaminp/six
+   :alt: six on TravisCI
 
 .. image:: https://readthedocs.org/projects/six/badge/?version=latest
    :target: https://six.readthedocs.io/
@@ -10,6 +12,7 @@
 
 .. image:: https://img.shields.io/badge/license-MIT-green.svg
    :target: https://github.com/benjaminp/six/blob/master/LICENSE
+   :alt: MIT License badge
 
 Six is a Python 2 and 3 compatibility library.  It provides utility functions
 for smoothing over the differences between the Python versions with the goal of
