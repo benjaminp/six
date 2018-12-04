@@ -2,11 +2,11 @@
    :target: https://pypi.org/project/six/
 
 .. image:: https://travis-ci.org/benjaminp/six.svg?branch=master
-    :target: https://travis-ci.org/benjaminp/six
+   :target: https://travis-ci.org/benjaminp/six
 
 .. image:: https://readthedocs.org/projects/six/badge/?version=latest
-    :target: https://six.readthedocs.io/
-    :alt: six's documentation on Read the Docs
+   :target: https://six.readthedocs.io/
+   :alt: six's documentation on Read the Docs
 
 .. image:: https://img.shields.io/badge/license-MIT-green.svg
    :target: https://github.com/benjaminp/six/blob/master/LICENSE
