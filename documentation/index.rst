@@ -76,7 +76,9 @@ Six provides constants that may differ between Python versions.  Ones ending
 .. data:: binary_type
 
    Type for representing binary data.  This is :func:`py2:str` in Python 2 and
-   :func:`py3:bytes` in Python 3.
+   :func:`py3:bytes` in Python 3.  Python 2.6 and 2.7 include ``bytes`` as a
+   builtin alias of ``str``, so six’s version is only necessary for Python 2.5
+   compatibility.
 
 
 .. data:: MAXSIZE
