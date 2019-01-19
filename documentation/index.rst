@@ -444,7 +444,7 @@ string data in all Python versions.
 
 .. function:: ensure_str(s, encoding='utf-8', errors='strict')
 
-   Coerce *s* to ``str``. ``encoding``, ``errors`` are the same
+   Coerce *s* to ``str``. *encoding*, *errors* are the same
    :meth:`py3:str.encode`
 
 
