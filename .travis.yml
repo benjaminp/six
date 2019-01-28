@@ -12,14 +12,6 @@ python:
 - &mainstream_python 3.6
 - pypy2.7-5.8.0
 - pypy3.5-5.8.0
-matrix:
-  allow_failures:
-  - python: nightly
-  include:
-  - python: 3.7
-    dist: xenial  # required for Python >= 3.7 (travis-ci/travis-ci#9069)
-  - python: nightly
-    dist: xenial  # required for Python >= 3.7 (travis-ci/travis-ci#9069)   
 install:
 - pip install --upgrade --force-reinstall "setuptools; python_version != '3.2' and python_version != '3.3'" "setuptools < 30; python_version == '3.2'" "setuptools < 40; python_version == '3.3'"
 - pip uninstall --yes six || true
@@ -34,7 +26,13 @@ script:
 - *py_pkg_list
 jobs:
   fast_finish: true
+  allow_failures:
+  - python: nightly
   include:
+  - python: 3.7
+    dist: xenial  # required for Python >= 3.7 (travis-ci/travis-ci#9069)
+  - python: nightly
+    dist: xenial  # required for Python >= 3.7 (travis-ci/travis-ci#9069)   
   - stage: upload new version of python package to PYPI (only for tagged commits)
     python: *mainstream_python
     install: skip
