@@ -26,13 +26,12 @@ script:
 - *py_pkg_list
 jobs:
   fast_finish: true
-  allow_failures:
-  - python: nightly
   include:
   - python: 3.7
     dist: xenial  # required for Python >= 3.7 (travis-ci/travis-ci#9069)
   - python: nightly
-    dist: xenial  # required for Python >= 3.7 (travis-ci/travis-ci#9069)   
+    dist: xenial  # required for Python >= 3.7 (travis-ci/travis-ci#9069)
+    allow_failures: true
   - stage: upload new version of python package to PYPI (only for tagged commits)
     python: *mainstream_python
     install: skip
