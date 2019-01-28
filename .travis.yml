@@ -31,7 +31,6 @@ jobs:
     dist: xenial  # required for Python >= 3.7 (travis-ci/travis-ci#9069)
   - python: nightly
     dist: xenial  # required for Python >= 3.7 (travis-ci/travis-ci#9069)
-    allow_failures: true
   - stage: upload new version of python package to PYPI (only for tagged commits)
     python: *mainstream_python
     install: skip
