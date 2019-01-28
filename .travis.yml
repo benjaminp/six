@@ -1,6 +1,5 @@
 os: linux
 dist: trusty
-sudo: false
 language: python
 python:
 - 2.6
@@ -9,9 +8,8 @@ python:
 - 3.3
 - 3.4
 - 3.5
+- 3.6
 - &mainstream_python 3.6
-- 3.6-dev
-- 3.7-dev
 - pypy2.7-5.8.0
 - pypy3.5-5.8.0
 install:
@@ -29,6 +27,10 @@ script:
 jobs:
   fast_finish: true
   include:
+  - python: 3.7
+    dist: xenial  # required for Python >= 3.7 (travis-ci/travis-ci#9069)
+  - python: nightly
+    dist: xenial  # required for Python >= 3.7 (travis-ci/travis-ci#9069)
   - stage: upload new version of python package to PYPI (only for tagged commits)
     python: *mainstream_python
     install: skip
