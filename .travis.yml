@@ -1,6 +1,5 @@
 os: linux
 dist: trusty
-sudo: false
 language: python
 python:
 - 2.6
@@ -9,11 +8,18 @@ python:
 - 3.3
 - 3.4
 - 3.5
+- 3.6
 - &mainstream_python 3.6
-- 3.6-dev
-- 3.7-dev
 - pypy2.7-5.8.0
 - pypy3.5-5.8.0
+matrix:
+  allow_failures:
+  - python: nightly
+  include:
+  - python 3.7
+    dist: xenial  # required for Python >= 3.7 (travis-ci/travis-ci#9069)
+  - python nightly
+    dist: xenial  # required for Python >= 3.7 (travis-ci/travis-ci#9069)   
 install:
 - pip install --upgrade --force-reinstall "setuptools; python_version != '3.2' and python_version != '3.3'" "setuptools < 30; python_version == '3.2'" "setuptools < 40; python_version == '3.3'"
 - pip uninstall --yes six || true
