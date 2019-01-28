@@ -16,9 +16,9 @@ matrix:
   allow_failures:
   - python: nightly
   include:
-  - python 3.7
+  - python: 3.7
     dist: xenial  # required for Python >= 3.7 (travis-ci/travis-ci#9069)
-  - python nightly
+  - python: nightly
     dist: xenial  # required for Python >= 3.7 (travis-ci/travis-ci#9069)   
 install:
 - pip install --upgrade --force-reinstall "setuptools; python_version != '3.2' and python_version != '3.3'" "setuptools < 30; python_version == '3.2'" "setuptools < 40; python_version == '3.3'"
