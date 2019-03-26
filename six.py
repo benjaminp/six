@@ -818,6 +818,11 @@ else:
 
 def with_metaclass(meta, *bases):
     """Create a base class with a metaclass."""
+    # No need for a dummy metaclass if `meta` is already present in
+    # the inheritance hierarchy. See also a note in `add_metaclass`.
+    if any(isinstance(cls, meta) for cls in bases):
+        return type('temporary_class', bases, {})
+
     # This requires a bit of explanation: the basic idea is to make a dummy
     # metaclass for one level of class instantiation that replaces itself with
     # the actual metaclass.
@@ -835,6 +840,13 @@ def with_metaclass(meta, *bases):
 def add_metaclass(metaclass):
     """Class decorator for creating a class with a metaclass."""
     def wrapper(cls):
+        if isinstance(cls, metaclass):
+            # Avoid recreating the class if `metaclass` has been inherited
+            # from one of the bases. Note, that this behavior matches
+            # that of Python 3.X where the "appropriate metaclass" is
+            # determined prior to constructing a class.
+            return cls
+
         orig_vars = cls.__dict__.copy()
         slots = orig_vars.get('__slots__')
         if slots is not None:
