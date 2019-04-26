@@ -642,9 +642,11 @@ if PY3:
     if sys.version_info[1] <= 1:
         _assertRaisesRegex = "assertRaisesRegexp"
         _assertRegex = "assertRegexpMatches"
+        _assertNotRegex = "assertNotRegexpMatches"
     else:
         _assertRaisesRegex = "assertRaisesRegex"
         _assertRegex = "assertRegex"
+        _assertNotRegex = "assertNotRegex"
 else:
     def b(s):
         return s
@@ -666,6 +668,7 @@ else:
     _assertCountEqual = "assertItemsEqual"
     _assertRaisesRegex = "assertRaisesRegexp"
     _assertRegex = "assertRegexpMatches"
+    _assertNotRegex = "assertNotRegexpMatches"
 _add_doc(b, """Byte literal""")
 _add_doc(u, """Text literal""")
 
@@ -680,6 +683,10 @@ def assertRaisesRegex(self, *args, **kwargs):
 
 def assertRegex(self, *args, **kwargs):
     return getattr(self, _assertRegex)(*args, **kwargs)
+
+
+def assertNotRegex(self, *args, **kwargs):
+    return getattr(self, _assertNotRegex)(*args, **kwargs)
 
 
 if PY3:

@@ -920,6 +920,18 @@ def test_assertRegex():
 
 
 @py.test.mark.skipif("sys.version_info[:2] < (2, 7)")
+def test_assertNotRegex():
+    class TestAssertNotRegex(unittest.TestCase):
+        def test(self):
+            with self.assertRaises(AssertionError):
+                six.assertNotRegex(self, 'test', r'^t')
+
+            six.assertNotRegex(self, 'test', r'^a')
+
+    TestAssertNotRegex('test').test()
+
+
+@py.test.mark.skipif("sys.version_info[:2] < (2, 7)")
 def test_assertRaisesRegex():
     class TestAssertRaisesRegex(unittest.TestCase):
         def test(self):
