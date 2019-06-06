@@ -452,6 +452,30 @@ string data in all Python versions.
    :meth:`py3:str.encode`
 
 
+.. function:: str_to_binary(s, encoding='utf-8', errors='strict')
+
+   Encodes s to :data:`binary_type` in python 3 only. No-op in python 2.
+   *encoding*, *errors* are same as :meth:`py3.str.encode`
+
+
+.. function:: binary_to_str(s, encoding='utf-8', errors='strict')
+
+   Decodes s to ``str`` in python 3 only. No-op in python 2.
+   *encoding*, *errors* are same as :meth:`py3.str.encode`
+
+
+.. function:: str_to_text(s, encoding='utf-8', errors='strict')
+
+   Decodes s to :data:`text_type` in python 2 only. No-op in python 3.
+   *encoding*, *errors* are same as :meth:`py3.str.encode`
+
+
+.. function:: text_to_str(s, encoding='utf-8', errors='strict')
+
+   Encodes s to ``str`` in python 2 only. No-op in python 3.
+   *encoding*, *errors* are same as :meth:`py3.str.encode`
+
+
 .. data:: StringIO
 
    This is a fake file object for textual data.  It's an alias for
