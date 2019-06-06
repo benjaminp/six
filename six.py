@@ -928,10 +928,10 @@ else:
         return s
 
     def text_to_str(s, encoding='utf-8', errors='strict'):
-        return s.encode('utf-8')
+        return s.encode(encoding, errors)
 
     def str_to_text(s, encoding='utf-8', errors='strict'):
-        return s.decode('utf-8')
+        return s.decode(encoding, errors)
 
 
 def python_2_unicode_compatible(klass):
