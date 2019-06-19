@@ -744,6 +744,34 @@ def test_with_metaclass():
     assert Y.__mro__ == (Y, X, object)
 
 
+def test_with_metaclass_inheritance():
+    stack = []
+
+    class AMeta(type):
+        def __new__(cls, *args):
+            stack.append("AMeta.__new__")
+            return super(AMeta, cls).__new__(cls, *args)
+
+    class BMeta(AMeta):
+        def __new__(cls, *args):
+          stack.append("BMeta.__new__")
+          return super(BMeta, cls).__new__(cls, *args)
+
+    class Abstract(six.with_metaclass(BMeta)):
+        pass
+
+    assert stack == ["BMeta.__new__", "AMeta.__new__"]
+    del stack[:]
+
+    class Concrete(six.with_metaclass(AMeta, Abstract)):
+        pass
+
+    # The most-specific metaclass `BMeta` is called two times: once for
+    # the temporary class, and once for `Concrete`.
+    assert stack == ["BMeta.__new__", "AMeta.__new__"] * 2
+
+
+
 @py.test.mark.skipif("sys.version_info[:2] < (3, 0)")
 def test_with_metaclass_prepare():
     """Test that with_metaclass causes Meta.__prepare__ to be called with the correct arguments."""
@@ -873,6 +901,35 @@ def test_add_metaclass():
         __slots__ = "__weakref__",
     MySlotsWeakref = six.add_metaclass(Meta)(MySlotsWeakref)
     assert type(MySlotsWeakref) is Meta
+
+
+def test_add_metaclass_inheritance():
+    stack = []
+
+    class AMeta(type):
+        def __new__(cls, *args):
+            stack.append("AMeta.__new__")
+            return super(AMeta, cls).__new__(cls, *args)
+
+    class BMeta(AMeta):
+       def __new__(cls, *args):
+          stack.append("BMeta.__new__")
+          return super(BMeta, cls).__new__(cls, *args)
+
+    @six.add_metaclass(BMeta)
+    class Abstract(object):
+        pass
+
+    assert stack == ["BMeta.__new__", "AMeta.__new__"]
+    del stack[:]
+
+    @six.add_metaclass(AMeta)
+    class Concrete(Abstract):
+        pass
+
+    # The most-specific metaclass `BMeta` is only called at `Concrete`
+    # construction time and *not* in `add_metaclass`.
+    assert stack == ["BMeta.__new__", "AMeta.__new__"]
 
 
 @py.test.mark.skipif("sys.version_info[:2] < (3, 3)")
