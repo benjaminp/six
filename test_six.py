@@ -772,6 +772,24 @@ def test_with_metaclass_prepare():
     assert isinstance(getattr(X, 'namespace', {}), MyDict)
 
 
+def test_with_metaclass_no_prepare():
+    """Test with_metaclass when the metaclass has no __prepare__ method."""
+
+    class deleted_attribute(object):
+        def __get__(self, instance, owner):
+            raise AttributeError
+
+    class Meta(type):
+        __prepare__ = deleted_attribute()
+
+    assert not hasattr(Meta, "__prepare__")
+
+    class X(six.with_metaclass(Meta)):
+        pass
+
+    assert type(X) is Meta
+
+
 def test_wraps():
     def f(g):
         @six.wraps(g)
