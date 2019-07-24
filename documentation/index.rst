@@ -361,6 +361,12 @@ Python 2 and 3.
            pass
        MyClass = add_metaclass(Meta)(MyClass)
 
+   This technique works by re-building MyClass from the indicated metaclass,
+   but in the rare case where the parent has a metaclass that is a
+   superclass of the metaclass used with the decorator, this approach will
+   fail with a TypeError. See `issue 127
+   <https://github.com/benjaminp/six/issues/127>`_ for details.
+
 
 Binary and text data
 >>>>>>>>>>>>>>>>>>>>
