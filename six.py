@@ -597,6 +597,8 @@ if PY3:
 
     viewitems = operator.methodcaller("items")
 else:
+    import collections as _collections
+
     def iterkeys(d, **kw):
         return d.iterkeys(**kw)
 
@@ -609,11 +611,27 @@ else:
     def iterlists(d, **kw):
         return d.iterlists(**kw)
 
-    viewkeys = operator.methodcaller("viewkeys")
+    def viewkeys(d):
+        return (
+            _collections.KeysView(d)
+            if isinstance(d, types.DictProxyType)
+            else d.viewkeys()
+        )
 
-    viewvalues = operator.methodcaller("viewvalues")
+    def viewvalues(d):
+        return (
+            _collections.ValuesView(d)
+            if isinstance(d, types.DictProxyType)
+            else d.viewvalues()
+        )
 
-    viewitems = operator.methodcaller("viewitems")
+    def viewitems(d):
+        return (
+            _collections.ItemsView(d)
+            if isinstance(d, types.DictProxyType)
+            else d.viewitems()
+        )
+
 
 _add_doc(iterkeys, "Return an iterator over the keys of a dictionary.")
 _add_doc(itervalues, "Return an iterator over the values of a dictionary.")

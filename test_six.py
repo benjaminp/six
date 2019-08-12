@@ -434,6 +434,33 @@ def test_dictionary_views():
         view = meth(d)
         assert set(view) == set(getattr(d, name)())
 
+@pytest.mark.skipif("sys.version_info[:2] < (2, 7)",
+                reason="view methods on dictionaries only available on 2.7+")
+def test_dictproxy_views():
+    class Ham(object):
+        pass
+
+    dictproxy = vars(Ham)
+    dictcopy = dict(dictproxy)
+
+    fns = [six.viewkeys, six.viewvalues, six.viewitems]
+    dictproxy_views = [fn(dictproxy) for fn in fns]
+
+    # test dictproxy six.view*s work the same as per a regular dict
+    assert (
+        [set(v) for v in dictproxy_views]
+        == [set(fn(dictcopy)) for fn in fns]
+    )
+
+    # test that dictproxy mutations are also exposed on the relevent
+    # six.view*s results
+    eggs = object()
+    setattr(Ham, "spam", eggs)
+    keysview, valuesview, itemsview = dictproxy_views
+    assert "spam" in keysview
+    assert eggs in valuesview
+    assert ("spam", eggs) in itemsview
+
 
 def test_advance_iterator():
     assert six.next is six.advance_iterator
