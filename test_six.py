@@ -86,10 +86,10 @@ def test_MAXSIZE():
 
 
 def test_lazy():
-    if six.PY3:
-        html_name = "html.parser"
-    else:
+    if six.PY2:
         html_name = "HTMLParser"
+    else:
+        html_name = "html.parser"
     assert html_name not in sys.modules
     mod = six.moves.html_parser
     assert sys.modules[html_name] is mod
@@ -267,31 +267,31 @@ class TestCustomizedMoves:
 
     def test_moved_attribute(self):
         attr = six.MovedAttribute("spam", "foo", "bar")
-        if six.PY3:
-            assert attr.mod == "bar"
-        else:
+        if six.PY2:
             assert attr.mod == "foo"
+        else:
+            assert attr.mod == "bar"
         assert attr.attr == "spam"
         attr = six.MovedAttribute("spam", "foo", "bar", "lemma")
         assert attr.attr == "lemma"
         attr = six.MovedAttribute("spam", "foo", "bar", "lemma", "theorm")
-        if six.PY3:
-            assert attr.attr == "theorm"
-        else:
+        if six.PY2:
             assert attr.attr == "lemma"
+        else:
+            assert attr.attr == "theorm"
 
 
     def test_moved_module(self):
         attr = six.MovedModule("spam", "foo")
-        if six.PY3:
+        if six.PY2:
+            assert attr.mod == "foo"
+        else:
             assert attr.mod == "spam"
-        else:
-            assert attr.mod == "foo"
         attr = six.MovedModule("spam", "foo", "bar")
-        if six.PY3:
-            assert attr.mod == "bar"
-        else:
+        if six.PY2:
             assert attr.mod == "foo"
+        else:
+            assert attr.mod == "bar"
 
 
     def test_custom_move_module(self):
@@ -384,12 +384,12 @@ def test_dictionary_iterators(monkeypatch):
         """Given a method suffix like "lists" or "values", return the name
         of the dict method that delivers those on the version of Python
         we're running in."""
-        if six.PY3:
+        if not six.PY2:
             return iterwhat
         return 'iter' + iterwhat
 
     class MyDict(dict):
-        if not six.PY3:
+        if six.PY2:
             def lists(self, **kw):
                 return [1, 2, 3]
         def iterlists(self, **kw):
@@ -423,7 +423,7 @@ def test_dictionary_views():
         """Given a method suffix like "keys" or "values", return the name
         of the dict method that delivers those on the version of Python
         we're running in."""
-        if six.PY3:
+        if not six.PY2:
             return viewwhat
         return 'view' + viewwhat
 
@@ -496,21 +496,7 @@ def test_create_unbound_method():
     assert f(x) is x
 
 
-if six.PY3:
-
-    def test_b():
-        data = six.b("\xff")
-        assert isinstance(data, bytes)
-        assert len(data) == 1
-        assert data == bytes([255])
-
-
-    def test_u():
-        s = six.u("hi \u0439 \U00000439 \\ \\\\ \n")
-        assert isinstance(s, str)
-        assert s == "hi \u0439 \U00000439 \\ \\\\ \n"
-
-else:
+if six.PY2:
 
     def test_b():
         data = six.b("\xff")
@@ -523,6 +509,20 @@ else:
         s = six.u("hi \u0439 \U00000439 \\ \\\\ \n")
         assert isinstance(s, unicode)
         assert s == "hi \xd0\xb9 \xd0\xb9 \\ \\\\ \n".decode("utf8")
+
+else:
+
+    def test_b():
+        data = six.b("\xff")
+        assert isinstance(data, bytes)
+        assert len(data) == 1
+        assert data == bytes([255])
+
+
+    def test_u():
+        s = six.u("hi \u0439 \U00000439 \\ \\\\ \n")
+        assert isinstance(s, str)
+        assert s == "hi \u0439 \U00000439 \\ \\\\ \n"
 
 
 def test_u_escapes():
@@ -589,10 +589,10 @@ def test_exec_():
 
 def test_reraise():
     def get_next(tb):
-        if six.PY3:
-            return tb.tb_next.tb_next
-        else:
+        if six.PY2:
             return tb.tb_next
+        else:
+            return tb.tb_next.tb_next
     e = Exception("blah")
     try:
         raise e
@@ -947,7 +947,7 @@ def test_python_2_unicode_compatible():
     if six.PY2:
         assert str(my_test) == six.b("hello")
         assert unicode(my_test) == six.u("hello")
-    elif six.PY3:
+    else:
         assert bytes(my_test) == six.b("hello")
         assert str(my_test) == six.u("hello")
 
