@@ -743,19 +743,23 @@ def test_with_metaclass():
         pass
     assert type(Y) is MetaSub
     assert Y.__mro__ == (Y, X, object)
-    if sys.version_info[:2] >= (3, 7):
-        from typing import Generic, TypeVar
-        T = TypeVar('T')
-        class G(six.with_metaclass(Meta, Generic[T])):
+    if sys.version_info[:2] >= (3, 5):
+        import typing
+        T = typing.TypeVar('T')
+        if sys.version_info < (3, 7):
+            # Generics with custom metaclasses were broken on older versions.
+            class Meta(Meta, typing.GenericMeta):
+                pass
+        class G(six.with_metaclass(Meta, typing.Generic[T])):
             pass
-        class GA(six.with_metaclass(abc.ABCMeta, Generic[T])):
+        class GA(six.with_metaclass(abc.ABCMeta, typing.Generic[T])):
             pass
         assert isinstance(G, Meta)
         assert isinstance(GA, abc.ABCMeta)
         assert G[int] is not G[G[int]]
         assert GA[int] is not GA[GA[int]]
-        assert G.__bases__ == (Generic,)
-        assert G.__orig_bases__ == (Generic[T],)
+        assert G.__bases__ == (typing.Generic,)
+        assert G.__orig_bases__ == (typing.Generic[T],)
 
 
 @py.test.mark.skipif("sys.version_info[:2] < (3, 0)")
