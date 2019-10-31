@@ -752,7 +752,7 @@ def test_with_metaclass_typing():
         py.test.skip("typing module required")
     class Meta(type):
         pass
-    if sys.version_info < (3, 7):
+    if sys.version_info[:2] < (3, 7):
         # Generics with custom metaclasses were broken on older versions.
         class Meta(Meta, typing.GenericMeta):
             pass
