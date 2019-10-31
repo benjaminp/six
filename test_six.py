@@ -745,6 +745,7 @@ def test_with_metaclass():
     assert Y.__mro__ == (Y, X, object)
 
 
+@py.test.mark.skipif("sys.version_info[:2] < (2, 7)")
 def test_with_metaclass_typing():
     try:
         import typing
