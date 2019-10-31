@@ -22,6 +22,7 @@ import operator
 import sys
 import types
 import unittest
+import abc
 
 import py
 
@@ -742,6 +743,19 @@ def test_with_metaclass():
         pass
     assert type(Y) is MetaSub
     assert Y.__mro__ == (Y, X, object)
+    if sys.version_info[:2] >= (3, 7):
+        from typing import Generic, TypeVar
+        T = TypeVar('T')
+        class G(six.with_metaclass(Meta, Generic[T])):
+            pass
+        class GA(six.with_metaclass(abc.ABCMeta, Generic[T])):
+            pass
+        assert isinstance(G, Meta)
+        assert isinstance(GA, abc.ABCMeta)
+        assert G[int] is not G[G[int]]
+        assert GA[int] is not GA[GA[int]]
+        assert G.__bases__ == (Generic,)
+        assert G.__orig_bases__ == (Generic[T],)
 
 
 @py.test.mark.skipif("sys.version_info[:2] < (3, 0)")
