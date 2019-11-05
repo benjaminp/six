@@ -3,6 +3,14 @@ Changelog for six
 
 This file lists the changes in each six version.
 
+1.13.0
+------
+
+- Pull request #304: Re-add distutils fallback in `setup.py`.
+
+- Pull request #305: On Python 3.7, `with_metaclass` supports classes using PEP
+  560 features.
+
 1.12.0
 ------
 
