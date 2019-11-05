@@ -856,7 +856,7 @@ def test_wraps_raises_on_missing_updated_field_on_wrapper():
     def wrapper():
         pass
 
-    with py.test.raises(AttributeError, match='has no attribute.*xyzzy'):
+    with pytest.raises(AttributeError, match='has no attribute.*xyzzy'):
         six.wraps(wrapped, [], ['xyzzy'])(wrapper)
 
 
