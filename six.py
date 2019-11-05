@@ -257,7 +257,7 @@ _moved_attributes = [
     MovedModule("configparser", "ConfigParser"),
     MovedModule("copyreg", "copy_reg"),
     MovedModule("dbm_gnu", "gdbm", "dbm.gnu"),
-    MovedModule("ndbm", "dbm", "dbm.ndbm"),
+    MovedModule("dbm_ndbm", "dbm", "dbm.ndbm"),
     MovedModule("_dummy_thread", "dummy_thread", "_dummy_thread"),
     MovedModule("http_cookiejar", "cookielib", "http.cookiejar"),
     MovedModule("http_cookies", "Cookie", "http.cookies"),
