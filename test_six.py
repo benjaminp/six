@@ -22,6 +22,7 @@ import operator
 import sys
 import types
 import unittest
+import abc
 
 import py
 
@@ -742,6 +743,53 @@ def test_with_metaclass():
         pass
     assert type(Y) is MetaSub
     assert Y.__mro__ == (Y, X, object)
+
+
+@py.test.mark.skipif("sys.version_info[:2] < (2, 7)")
+def test_with_metaclass_typing():
+    try:
+        import typing
+    except ImportError:
+        py.test.skip("typing module required")
+    class Meta(type):
+        pass
+    if sys.version_info[:2] < (3, 7):
+        # Generics with custom metaclasses were broken on older versions.
+        class Meta(Meta, typing.GenericMeta):
+            pass
+    T = typing.TypeVar('T')
+    class G(six.with_metaclass(Meta, typing.Generic[T])):
+        pass
+    class GA(six.with_metaclass(abc.ABCMeta, typing.Generic[T])):
+        pass
+    assert isinstance(G, Meta)
+    assert isinstance(GA, abc.ABCMeta)
+    assert G[int] is not G[G[int]]
+    assert GA[int] is not GA[GA[int]]
+    assert G.__bases__ == (typing.Generic,)
+    assert G.__orig_bases__ == (typing.Generic[T],)
+
+
+@py.test.mark.skipif("sys.version_info[:2] < (3, 7)")
+def test_with_metaclass_pep_560():
+    class Meta(type):
+        pass
+    class A:
+        pass
+    class B:
+        pass
+    class Fake:
+        def __mro_entries__(self, bases):
+            return (A, B)
+    fake = Fake()
+    class G(six.with_metaclass(Meta, fake)):
+        pass
+    class GA(six.with_metaclass(abc.ABCMeta, fake)):
+        pass
+    assert isinstance(G, Meta)
+    assert isinstance(GA, abc.ABCMeta)
+    assert G.__bases__ == (A, B)
+    assert G.__orig_bases__ == (fake,)
 
 
 @py.test.mark.skipif("sys.version_info[:2] < (3, 0)")
