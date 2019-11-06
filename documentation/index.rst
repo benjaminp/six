@@ -873,3 +873,18 @@ have any public members.
    attributes in Python 2 and 3.  *old_mod* is the name of the Python 2 module.
    *new_mod* is the name of the Python 3 module.  If *new_attr* is not given, it
    defaults to *old_attr*.  If neither is given, they both default to *name*.
+
+
+Deprecated and Removed Modules and Attributes
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+.. function:: html_escape(s, quote=True)
+
+    :func:`py2:cgi.escape` was deprecated in version 3.7 and is no longer
+    available in versions 3.8+.  The intended replacement is
+    :func:`py3:html.escape`, which differs in two ways:
+
+    1. The default value for the *quote* parameter is ``True`` rather than
+       ``False``.
+    2. When *quote* is ``True``, single quote characters (``'``) are also
+       quoted.
