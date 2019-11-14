@@ -420,14 +420,6 @@ def test_dictionary_iterators(monkeypatch):
 @pytest.mark.skipif("sys.version_info[:2] < (2, 7)",
                 reason="view methods on dictionaries only available on 2.7+")
 def test_dictionary_views():
-    def stock_method_name(viewwhat):
-        """Given a method suffix like "keys" or "values", return the name
-        of the dict method that delivers those on the version of Python
-        we're running in."""
-        if six.PY3:
-            return viewwhat
-        return 'view' + viewwhat
-
     d = dict(zip(range(10), (range(11, 20))))
     for name in "keys", "values", "items":
         meth = getattr(six, "view" + name)
