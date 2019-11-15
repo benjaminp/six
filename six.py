@@ -808,9 +808,14 @@ if sys.version_info[:2] < (3, 3):
 _add_doc(reraise, """Reraise an exception.""")
 
 if sys.version_info[0:2] < (3, 4):
-    def update_wrapper(wrapper, wrapped,
-                       assigned=functools.WRAPPER_ASSIGNMENTS,
-                       updated=functools.WRAPPER_UPDATES):
+    # This does exactly the same what the :func:`py3:functools.update_wrapper`
+    # function does on Python versions after 3.2. It sets the ``__wrapped__``
+    # attribute on ``wrapper`` object and it doesn't raise an error if any of
+    # the attributes mentioned in ``assigned`` and ``updated`` are missing on
+    # ``wrapped`` object.
+    def _update_wrapper(wrapper, wrapped,
+                        assigned=functools.WRAPPER_ASSIGNMENTS,
+                        updated=functools.WRAPPER_UPDATES):
         for attr in assigned:
             try:
                 value = getattr(wrapped, attr)
@@ -822,16 +827,15 @@ if sys.version_info[0:2] < (3, 4):
             getattr(wrapper, attr).update(getattr(wrapped, attr, {}))
         wrapper.__wrapped__ = wrapped
         return wrapper
-    update_wrapper.__doc__ = functools.update_wrapper.__doc__
+    _update_wrapper.__doc__ = functools.update_wrapper.__doc__
 
     def wraps(wrapped, assigned=functools.WRAPPER_ASSIGNMENTS,
               updated=functools.WRAPPER_UPDATES):
-        return functools.partial(update_wrapper, wrapped=wrapped,
+        return functools.partial(_update_wrapper, wrapped=wrapped,
                                  assigned=assigned, updated=updated)
     wraps.__doc__ = functools.wraps.__doc__
 
 else:
-    update_wrapper = functools.update_wrapper
     wraps = functools.wraps
 
 
@@ -933,7 +937,6 @@ def ensure_text(s, encoding='utf-8', errors='strict'):
         return s
     else:
         raise TypeError("not expecting type '%s'" % type(s))
-
 
 
 def python_2_unicode_compatible(klass):
