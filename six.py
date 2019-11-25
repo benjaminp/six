@@ -28,6 +28,11 @@ import operator
 import sys
 import types
 
+try:
+    from select import error as select_error
+except ImportError:
+    select_error = None
+
 __author__ = "Benjamin Peterson <benjamin@python.org>"
 __version__ = "1.13.0"
 
@@ -43,6 +48,7 @@ if PY3:
     class_types = type,
     text_type = str
     binary_type = bytes
+    os_errors = OSError,
 
     MAXSIZE = sys.maxsize
 else:
@@ -70,6 +76,12 @@ else:
             # 64-bit
             MAXSIZE = int((1 << 63) - 1)
         del X
+
+    os_errors = (
+        (EnvironmentError, select_error)
+        if select_error
+        else EnvironmentError,
+    )
 
 
 def _add_doc(func, doc):
