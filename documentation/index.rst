@@ -257,11 +257,10 @@ functions and methods is the stdlib :mod:`py3:inspect` module.
 
 .. decorator:: wraps(wrapped, assigned=functools.WRAPPER_ASSIGNMENTS, updated=functools.WRAPPER_UPDATES)
 
-   This does exactly the same what the :func:`py3:functools.wraps` decorator
-   does on Python versions after 3.2 by using :func:`update_wrapper`
-   internally. It sets the ``__wrapped__`` attribute on what it decorates and
-   it doesn't raise an error if any of the attributes mentioned in ``assigned``
-   and ``updated`` are missing on ``wrapped`` object.
+   This is Python 3.2's :func:`py3:functools.wraps` decorator.  It sets the
+   ``__wrapped__`` attribute on what it decorates.  It doesn't raise an error if
+   any of the attributes mentioned in ``assigned`` and ``updated`` are missing
+   on ``wrapped`` object.
 
 
 Syntax compatibility
