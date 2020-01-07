@@ -3,6 +3,12 @@ Changelog for six
 
 This file lists the changes in each six version.
 
+Development version
+-------------------
+
+- Issue #250, issue #165, pull request #251: `six.wraps` now ignores missing
+  attributes. This follows the Python 3.2+ standard library behavior.
+
 1.13.0
 ------
 
