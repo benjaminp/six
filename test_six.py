@@ -832,14 +832,33 @@ def test_wraps():
     def f(g, assign, update):
         def w():
             return 42
-        w.glue = {"foo" : "bar"}
+        w.glue = {"foo": "bar"}
+        w.xyzzy = {"qux": "quux"}
         return six.wraps(g, assign, update)(w)
-    k.glue = {"melon" : "egg"}
+    k.glue = {"melon": "egg"}
     k.turnip = 43
-    k = f(k, ["turnip"], ["glue"])
+    k = f(k, ["turnip", "baz"], ["glue", "xyzzy"])
     assert k.__name__ == "w"
     assert k.turnip == 43
-    assert k.glue == {"melon" : "egg", "foo" : "bar"}
+    assert not hasattr(k, "baz")
+    assert k.glue == {"melon": "egg", "foo": "bar"}
+    assert k.xyzzy == {"qux": "quux"}
+
+
+def test_wraps_raises_on_missing_updated_field_on_wrapper():
+    """Ensure six.wraps doesn't ignore missing attrs wrapper.
+
+    Because that's what happens in Py3's functools.update_wrapper.
+    """
+    def wrapped():
+        pass
+
+    def wrapper():
+        pass
+
+    with pytest.raises(AttributeError, match='has no attribute.*xyzzy'):
+        six.wraps(wrapped, [], ['xyzzy'])(wrapper)
+
 
 
 def test_add_metaclass():
