@@ -12,7 +12,7 @@ python:
 - pypy
 - pypy3
 install:
-- pip install --upgrade --force-reinstall "setuptools; python_version != '3.2' and python_version != '3.3'" "setuptools < 30; python_version == '3.2'" "setuptools < 40; python_version == '3.3'"
+- pip install --upgrade --force-reinstall "setuptools; python_version != '3.3'" "setuptools < 40; python_version == '3.3'"
 - pip uninstall --yes six || true
 - pip install --upgrade --force-reinstall --ignore-installed -e .
 - pip install pytest==2.9.2 typing
@@ -26,10 +26,6 @@ script:
 jobs:
   fast_finish: true
   include:
-  - python: 2.6
-    dist: trusty
-  - python: 3.2
-    dist: trusty
   - python: 3.3
     dist: trusty
   - stage: upload new version of python package to PYPI (only for tagged commits)

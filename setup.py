@@ -54,5 +54,5 @@ setup(name="six",
       long_description=six_long_description,
       license="MIT",
       classifiers=six_classifiers,
-      python_requires=">=2.6, !=3.0.*, !=3.1.*",
+      python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*",
       )
