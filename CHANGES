@@ -6,6 +6,8 @@ This file lists the changes in each six version.
 Development version
 -------------------
 
+- Issue #288, pull request #289: Add `six.assertNotRegex`.
+
 - Issue #317: `six.moves._dummy_thread` now points to the `_thread` module on
   Python 3.9+. Python 3.7 and later requires threading and deprecated the
   `_dummy_thread` module.
