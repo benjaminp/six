@@ -1,22 +1,21 @@
 os: linux
-dist: trusty
+dist: xenial
 language: python
 python:
-- 2.6
 - 2.7
-- 3.2
-- 3.3
 - 3.4
 - 3.5
 - 3.6
-- &mainstream_python 3.6
-- pypy2.7-5.8.0
-- pypy3.5-5.8.0
+- 3.7
+- &mainstream_python 3.8
+- nightly
+- pypy
+- pypy3
 install:
-- pip install --upgrade --force-reinstall "setuptools; python_version != '3.2' and python_version != '3.3'" "setuptools < 30; python_version == '3.2'" "setuptools < 40; python_version == '3.3'"
+- pip install --upgrade --force-reinstall "setuptools; python_version != '3.3'" "setuptools < 40; python_version == '3.3'"
 - pip uninstall --yes six || true
 - pip install --upgrade --force-reinstall --ignore-installed -e .
-- pip install pytest
+- pip install "pytest==4.6.9; python_version != '3.3'" "pytest==2.9.2; python_version == '3.3'" typing
 - &py_pkg_list pip list --format=columns || pip list
 script:
 - py.test
@@ -27,10 +26,8 @@ script:
 jobs:
   fast_finish: true
   include:
-  - python: 3.7
-    dist: xenial  # required for Python >= 3.7 (travis-ci/travis-ci#9069)
-  - python: nightly
-    dist: xenial  # required for Python >= 3.7 (travis-ci/travis-ci#9069)
+  - python: 3.3
+    dist: trusty
   - stage: upload new version of python package to PYPI (only for tagged commits)
     python: *mainstream_python
     install: skip

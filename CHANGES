@@ -3,6 +3,31 @@ Changelog for six
 
 This file lists the changes in each six version.
 
+Development version
+-------------------
+
+- Issue #317: `six.moves._dummy_thread` now points to the `_thread` module on
+  Python 3.9+. Python 3.7 and later requires threading and deprecated the
+  `_dummy_thread` module.
+
+- Issue #308, pull request #314: Remove support for Python 2.6 and Python 3.2.
+
+- Issue #250, issue #165, pull request #251: `six.wraps` now ignores missing
+  attributes. This follows the Python 3.2+ standard library behavior.
+
+1.13.0
+------
+
+- Issue #298, pull request #299: Add `six.moves.dbm_ndbm`.
+
+- Issue #155: Add `six.moves.collections_abc`, which aliases the `collections`
+  module on Python 2-3.2 and the `collections.abc` on Python 3.3 and greater.
+
+- Pull request #304: Re-add distutils fallback in `setup.py`.
+
+- Pull request #305: On Python 3.7, `with_metaclass` supports classes using PEP
+  560 features.
+
 1.12.0
 ------
 

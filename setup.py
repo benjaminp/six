@@ -1,4 +1,4 @@
-# Copyright (c) 2010-2018 Benjamin Peterson
+# Copyright (c) 2010-2020 Benjamin Peterson
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,13 @@
 
 from __future__ import with_statement
 
-from setuptools import setup
+# Six is a dependency of setuptools, so using setuptools creates a
+# circular dependency when building a Python stack from source. We
+# therefore allow falling back to distutils to install six.
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
 
 import six
 
@@ -48,5 +54,5 @@ setup(name="six",
       long_description=six_long_description,
       license="MIT",
       classifiers=six_classifiers,
-      python_requires=">=2.6, !=3.0.*, !=3.1.*",
+      python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*",
       )
