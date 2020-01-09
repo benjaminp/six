@@ -938,6 +938,17 @@ def test_assertRegex():
     TestAssertRegex('test').test()
 
 
+def test_assertNotRegex():
+    class TestAssertNotRegex(unittest.TestCase):
+        def test(self):
+            with self.assertRaises(AssertionError):
+                six.assertNotRegex(self, 'test', r'^t')
+
+            six.assertNotRegex(self, 'test', r'^a')
+
+    TestAssertNotRegex('test').test()
+
+
 def test_assertRaisesRegex():
     class TestAssertRaisesRegex(unittest.TestCase):
         def test(self):

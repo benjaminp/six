@@ -510,6 +510,11 @@ Note these functions are only available on Python 2.7 or later.
    Alias for :meth:`~py3:unittest.TestCase.assertRegex` on Python 3 and
    :meth:`~py2:unittest.TestCase.assertRegexpMatches` on Python 2.
 
+.. function:: assertNotRegex()
+
+   Alias for :meth:`~py3:unittest.TestCase.assertNotRegex` on Python 3 and
+   :meth:`~py2:unittest.TestCase.assertNotRegexpMatches` on Python 2.
+
 
 Renamed modules and attributes compatibility
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
