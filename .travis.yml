@@ -18,6 +18,9 @@ install:
 - pip install "pytest==4.6.9; python_version != '3.3'" "pytest==2.9.2; python_version == '3.3'" typing
 - &py_pkg_list pip list --format=columns || pip list
 script:
+- echo Checking code style with black
+- pip install black
+- black --check --line-length 100 --exclude documentation/ .
 - py.test
 - echo Checking whether installation flow is not broken...
 - pip uninstall --yes six || true
