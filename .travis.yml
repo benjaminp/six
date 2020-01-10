@@ -18,7 +18,7 @@ install:
 - pip install "pytest==4.6.9; python_version != '3.3'" "pytest==2.9.2; python_version == '3.3'" typing
 - &py_pkg_list pip list --format=columns || pip list
 script:
-- pip install "black; python_version >= '3.6'"
+- pip3 install "black; python_version>='3.6' and python_version <= '3.8' and platform_python_implementation=='CPython'"
 - if black 2>/dev/null; then black --check --line-length 100 --exclude documentation/ . ; fi
 - py.test
 - echo Checking whether installation flow is not broken...
