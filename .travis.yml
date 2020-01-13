@@ -19,7 +19,7 @@ install:
 - &py_pkg_list pip list --format=columns || pip list
 script:
 - pip install "black; python_version>='3.6' and python_version <= '3.8' and platform_python_implementation=='CPython'"
-- if black 2>/dev/null; then black --check --line-length 100 --exclude documentation/ . ; fi
+- if [ -x "$(command -v black)" ]; black --check --line-length 100 --exclude documentation/ . ;fi ;
 - py.test
 - echo Checking whether installation flow is not broken...
 - pip uninstall --yes six || true
