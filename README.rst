@@ -27,6 +27,3 @@ Online documentation is at https://six.readthedocs.io/.
 
 Bugs can be reported to https://github.com/benjaminp/six.  The code can also
 be found there.
-
-For questions about six or porting in general, email the python-porting mailing
-list: https://mail.python.org/mailman/listinfo/python-porting
