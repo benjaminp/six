@@ -805,7 +805,7 @@ if sys.version_info[:2] < (3, 3):
 
 _add_doc(reraise, """Reraise an exception.""")
 
-if sys.version_info[0:2] < (3, 4):
+if not PY34:
     # This does exactly the same what the :func:`py3:functools.update_wrapper`
     # function does on Python versions after 3.2. It sets the ``__wrapped__``
     # attribute on ``wrapper`` object and it doesn't raise an error if any of
