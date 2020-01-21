@@ -21,7 +21,7 @@ documentation for more information on what is provided.
 
 Six supports Python 2.7 and 3.3+.  It is contained in only one Python
 file, so it can be easily copied into your project. (The copyright and license
-notice must be retained.)
+notice must be retained.) Read the `MIT License <LICENSE>`_
 
 Online documentation is at https://six.readthedocs.io/.
 
