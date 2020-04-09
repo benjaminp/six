@@ -452,7 +452,7 @@ string data in all Python versions.
 .. function:: ensure_text(s, encoding='utf-8', errors='strict')
 
    Coerce *s* to :data:`text_type`. *encoding*, *errors* are the same as
-   :meth:`py3:str.encode`
+   :meth:`py2:str.decode`
 
 
 .. data:: StringIO
