@@ -890,10 +890,10 @@ def ensure_binary(s, encoding='utf-8', errors='strict'):
       - `str` -> encoded to `bytes`
       - `bytes` -> `bytes`
     """
-    if isinstance(s, text_type):
-        return s.encode(encoding, errors)
-    elif isinstance(s, binary_type):
+    if isinstance(s, binary_type):
         return s
+    elif isinstance(s, text_type):
+        return s.encode(encoding, errors)
     else:
         raise TypeError("not expecting type '%s'" % type(s))
 
@@ -909,12 +909,19 @@ def ensure_str(s, encoding='utf-8', errors='strict'):
       - `str` -> `str`
       - `bytes` -> decoded to `str`
     """
-    if not isinstance(s, (text_type, binary_type)):
-        raise TypeError("not expecting type '%s'" % type(s))
+    # Optimization: fast return for the common case. Improves performance
+    # by ~2-2.5x in Python 2 or 1.4-1.7x in Py3 for the case where
+    # s is a str. The uncommon case (unicode in 2, bytes in 3), ends up
+    # being around the same. The case that suffers is a subclass, or when
+    # an exception is thrown. Those are about 15-20% slower.
+    if type(s) is str:
+        return s
     if PY2 and isinstance(s, text_type):
-        s = s.encode(encoding, errors)
+        return s.encode(encoding, errors)
     elif PY3 and isinstance(s, binary_type):
-        s = s.decode(encoding, errors)
+        return s.decode(encoding, errors)
+    elif not isinstance(s, (text_type, binary_type)):
+        raise TypeError("not expecting type '%s'" % type(s))
     return s
 
 
