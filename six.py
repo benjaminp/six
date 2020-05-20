@@ -894,8 +894,7 @@ def ensure_binary(s, encoding='utf-8', errors='strict'):
         return s
     if isinstance(s, text_type):
         return s.encode(encoding, errors)
-    else:
-        raise TypeError("not expecting type '%s'" % type(s))
+    raise TypeError("not expecting type '%s'" % type(s))
 
 
 def ensure_str(s, encoding='utf-8', errors='strict'):
