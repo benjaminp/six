@@ -3,6 +3,11 @@ Changelog for six
 
 This file lists the changes in each six version.
 
+1.15.0
+------
+
+- Pull request #331: Optimize `six.ensure_str` and `six.ensure_binary`.
+
 1.14.0
 ------
 
