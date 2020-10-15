@@ -957,6 +957,44 @@ def python_2_unicode_compatible(klass):
     return klass
 
 
+if PY2:
+    def min(*iterable, key=None, default=None):
+        """
+        min(...)
+            min(iterable, *[, default=obj, key=func]) -> value
+            min(arg1, arg2, *args, *[, key=func]) -> value
+
+            With a single iterable argument, return its smallest item. The
+            default keyword-only argument specifies an object to return if
+            the provided iterable is empty.
+            With two or more arguments, return the smallest argument.
+        """
+        if default is not None and len(iterable) == 1 and len(iterable[0]) == 0:
+            return default
+
+        return __builtins__['min'](*iterable, key=key)
+
+
+    def max(*iterable, key=None, default=None):
+        """
+        max(...)
+            max(iterable, *[, default=obj, key=func]) -> value
+            max(arg1, arg2, *args, *[, key=func]) -> value
+
+            With a single iterable argument, return its biggest item. The
+            default keyword-only argument specifies an object to return if
+            the provided iterable is empty.
+            With two or more arguments, return the largest argument.
+        """
+        if default is not None and len(iterable) == 1 and len(iterable[0]) == 0:
+            return default
+
+        return __builtins__['max'](*iterable, key=key)
+else:
+    min = __builtins__['min']
+    max = __builtins__['max']
+
+
 # Complete the moves implementation.
 # This code is at the end of this module to speed up module loading.
 # Turn this module into a package.
