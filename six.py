@@ -958,7 +958,7 @@ def python_2_unicode_compatible(klass):
 
 
 if PY2:
-    def min(*iterable, key=None, default=None):
+    def min(*iterable, **kwargs):
         """
         min(...)
             min(iterable, *[, default=obj, key=func]) -> value
@@ -969,13 +969,19 @@ if PY2:
             the provided iterable is empty.
             With two or more arguments, return the smallest argument.
         """
+        default = kwargs.pop('default', None)
+        key = kwargs.pop('key', None)
+
+        if kwargs:
+            raise TypeError('min() got an unexpected keyword argument')
+
         if default is not None and len(iterable) == 1 and len(iterable[0]) == 0:
             return default
 
         return __builtins__['min'](*iterable, key=key)
 
 
-    def max(*iterable, key=None, default=None):
+    def max(*iterable, **kwargs):
         """
         max(...)
             max(iterable, *[, default=obj, key=func]) -> value
@@ -986,6 +992,12 @@ if PY2:
             the provided iterable is empty.
             With two or more arguments, return the largest argument.
         """
+        default = kwargs.pop('default', None)
+        key = kwargs.pop('key', None)
+
+        if kwargs:
+            raise TypeError('max() got an unexpected keyword argument')
+
         if default is not None and len(iterable) == 1 and len(iterable[0]) == 0:
             return default
 
