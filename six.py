@@ -978,7 +978,7 @@ if PY2:
         if default is not None and len(iterable) == 1 and len(iterable[0]) == 0:
             return default
 
-        return __builtins__['min'](*iterable, key=key)
+        return moves.builtins.min(*iterable, key=key)
 
 
     def max(*iterable, **kwargs):
@@ -1001,10 +1001,10 @@ if PY2:
         if default is not None and len(iterable) == 1 and len(iterable[0]) == 0:
             return default
 
-        return __builtins__['max'](*iterable, key=key)
+        return moves.builtins.max(*iterable, key=key)
 else:
-    min = __builtins__['min']
-    max = __builtins__['max']
+    min = moves.builtins.min
+    max = moves.builtins.max
 
 
 # Complete the moves implementation.
