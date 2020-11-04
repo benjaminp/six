@@ -499,6 +499,15 @@ else:
         assert isinstance(s, unicode)
         assert s == "hi \xd0\xb9 \xd0\xb9 \\ \\\\ \n".decode("utf8")
 
+    def test_u_ending_with_backslash():
+        s = six.u("hi \u0439 \U00000439 \\")
+        assert isinstance(s, unicode)
+        assert s == "hi \xd0\xb9 \xd0\xb9 \\".decode("utf8")
+
+        s = six.u("hi \u0439 \U00000439 \\\\")
+        assert isinstance(s, unicode)
+        assert s == "hi \xd0\xb9 \xd0\xb9 \\\\".decode("utf8")
+
 
 def test_u_escapes():
     s = six.u("\u1234")
