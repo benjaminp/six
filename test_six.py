@@ -471,6 +471,57 @@ def test_create_unbound_method():
     assert f(x) is x
 
 
+class TestIsBoundMethod:
+    class DummyClass:
+        @staticmethod
+        def static():
+            pass
+
+        @classmethod
+        def class_meth(cls):
+            pass
+
+        def meth(self):
+            pass
+
+    def a_free_function(self):
+        pass
+
+    @pytest.mark.parametrize(
+        "meth",
+        [
+            DummyClass().meth,
+            DummyClass.class_meth,
+            DummyClass().class_meth,
+            (0).bit_length,
+            "".join,
+            "foo".__lt__,
+            (0).__abs__,
+        ]
+    )
+    def test_is_bound_method_true(self, meth):
+        assert six.is_bound_method(meth)
+
+    @pytest.mark.parametrize(
+        "obj",
+        [
+            lambda x: x,
+            a_free_function,
+            DummyClass.meth,
+            DummyClass.static,
+            DummyClass().static,
+            int.bit_length,
+            str.join,
+            str.__lt__,
+        ]
+    )
+    def test_is_bound_method_false(self, obj):
+        assert not six.is_bound_method(obj)
+
+    del DummyClass
+    del a_free_function
+
+
 if six.PY3:
 
     def test_b():
