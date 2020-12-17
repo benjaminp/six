@@ -29,7 +29,7 @@ import sys
 import types
 
 __author__ = "Benjamin Peterson <benjamin@python.org>"
-__version__ = "1.15.0"
+__version__ = "1.16.0"
 
 
 # Useful for very coarse version differentiation.
@@ -296,6 +296,7 @@ _moved_attributes = [
     MovedModule("tkinter_messagebox", "tkMessageBox", "tkinter.messagebox"),
     MovedModule("tkinter_tksimpledialog", "tkSimpleDialog",
                 "tkinter.simpledialog"),
+    MovedModule("unittest_mock", "mock", "unittest.mock"),
     MovedModule("urllib_parse", __name__ + ".moves.urllib_parse", "urllib.parse"),
     MovedModule("urllib_error", __name__ + ".moves.urllib_error", "urllib.error"),
     MovedModule("urllib", __name__ + ".moves.urllib", __name__ + ".moves.urllib"),
