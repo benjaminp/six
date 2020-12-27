@@ -45,6 +45,7 @@ if PY3:
     binary_type = bytes
 
     MAXSIZE = sys.maxsize
+    from json import JSONDecodeError
 else:
     string_types = basestring,
     integer_types = (int, long)
@@ -70,6 +71,7 @@ else:
             # 64-bit
             MAXSIZE = int((1 << 63) - 1)
         del X
+    JSONDecodeError = ValueError
 
 
 def _add_doc(func, doc):

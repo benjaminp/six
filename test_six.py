@@ -1039,3 +1039,11 @@ class EnsureTests:
             assert converted_unicode == self.UNICODE_EMOJI and isinstance(converted_unicode, str)
             # PY3: bytes -> str
             assert converted_binary == self.UNICODE_EMOJI and isinstance(converted_unicode, str)
+
+def test_JSONDecodeError():
+    import json
+    from six import JSONDecodeError
+    try:
+        json.loads('')
+    except JSONDecodeError:
+        pass

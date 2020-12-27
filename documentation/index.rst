@@ -843,6 +843,21 @@ Contains classes from Python 3's :mod:`py3:urllib.response` and Python 2's:
 * :class:`py2:urllib.addinfourl`
 
 
+JSON JSONDecodeError Exception
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+.. currentmodule:: six
+
+The Python3 *json* module raises the JSONDecodeError exception when it can't
+decode the given json input. The Python2 *json* module raises the ValueError
+exception under the same cicumstances.
+
+.. data:: JSONDecodeError
+
+   A JSONDecodeError exception that can be used to catch exceptions raised by
+   both the Python2 and Python3 *json* modules.
+
+
 Advanced - Customizing renames
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
