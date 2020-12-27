@@ -850,7 +850,7 @@ JSON JSONDecodeError Exception
 
 The Python3 *json* module raises the JSONDecodeError exception when it can't
 decode the given json input. The Python2 *json* module raises the ValueError
-exception under the same cicumstances.
+exception under the same circumstances.
 
 .. data:: JSONDecodeError
 
