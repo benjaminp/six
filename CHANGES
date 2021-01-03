@@ -3,6 +3,11 @@ Changelog for six
 
 This file lists the changes in each six version.
 
+1.16.0
+------
+
+- Pull request #345: Add `six.moves.unittest.mock`
+
 1.15.0
 ------
 
