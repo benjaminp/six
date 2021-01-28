@@ -105,7 +105,7 @@ Development version
 
 - Issue #98: Fix `six.moves` race condition in multi-threaded code.
 
-- Pull request #51: Add `six.view(keys|values|itmes)`, which provide dictionary
+- Pull request #51: Add `six.view(keys|values|items)`, which provide dictionary
   views on Python 2.7+.
 
 - Issue #112: `six.moves.reload_module` now uses the importlib module on
