@@ -113,6 +113,12 @@ except ImportError:
     except ImportError:
         have_gdbm = False
 
+have_ndbm = True
+try:
+    import dbm.ndbm
+except ImportError:
+    have_ndbm = False
+
 @pytest.mark.parametrize("item_name",
                           [item.name for item in six._moved_attributes])
 def test_move_items(item_name):
@@ -124,11 +130,12 @@ def test_move_items(item_name):
     except ImportError:
         if item_name == "winreg" and not sys.platform.startswith("win"):
             pytest.skip("Windows only module")
-        if item_name.startswith("tkinter"):
-            if not have_tkinter:
-                pytest.skip("requires tkinter")
+        if item_name.startswith("tkinter") and not have_tkinter:
+            pytest.skip("requires tkinter")
         if item_name.startswith("dbm_gnu") and not have_gdbm:
             pytest.skip("requires gdbm")
+        if item_name == 'dbm_ndbm' and not have_ndbm:
+            pytest.skip("requires ndbm")
         raise
     assert item_name in dir(six.moves)
 
@@ -220,7 +227,7 @@ def test_map():
 
 def test_getoutput():
     from six.moves import getoutput
-    output = getoutput('echo "foo"')
+    output = getoutput('echo foo')
     assert output == 'foo'
 
 
@@ -1039,3 +1046,19 @@ class EnsureTests:
             assert converted_unicode == self.UNICODE_EMOJI and isinstance(converted_unicode, str)
             # PY3: bytes -> str
             assert converted_binary == self.UNICODE_EMOJI and isinstance(converted_unicode, str)
+
+
+    @pytest.mark.parametrize('func_name', ['min', 'max'])
+    def test_min_max(self, func_name):
+        func = six.__builtins__[func_name]
+        six_func = getattr(six, func_name)
+
+        assert func([1,2]) == six_func([1,2])
+        assert func(1, 2) == six_func(1, 2)
+
+        def key(l):
+            return l[1]
+
+        assert func([9, 1], [3, 4], key=key) == six_func([9, 1], [3, 4], key=key)
+
+        assert six_func([], default=12) == 12

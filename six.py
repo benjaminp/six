@@ -973,6 +973,56 @@ def python_2_unicode_compatible(klass):
     return klass
 
 
+if PY2:
+    def min(*iterable, **kwargs):
+        """
+        min(...)
+            min(iterable, *[, default=obj, key=func]) -> value
+            min(arg1, arg2, *args, *[, key=func]) -> value
+
+            With a single iterable argument, return its smallest item. The
+            default keyword-only argument specifies an object to return if
+            the provided iterable is empty.
+            With two or more arguments, return the smallest argument.
+        """
+        default = kwargs.pop('default', None)
+        key = kwargs.pop('key', None)
+
+        if kwargs:
+            raise TypeError('min() got an unexpected keyword argument')
+
+        if default is not None and len(iterable) == 1 and len(iterable[0]) == 0:
+            return default
+
+        return moves.builtins.min(*iterable, key=key)
+
+
+    def max(*iterable, **kwargs):
+        """
+        max(...)
+            max(iterable, *[, default=obj, key=func]) -> value
+            max(arg1, arg2, *args, *[, key=func]) -> value
+
+            With a single iterable argument, return its biggest item. The
+            default keyword-only argument specifies an object to return if
+            the provided iterable is empty.
+            With two or more arguments, return the largest argument.
+        """
+        default = kwargs.pop('default', None)
+        key = kwargs.pop('key', None)
+
+        if kwargs:
+            raise TypeError('max() got an unexpected keyword argument')
+
+        if default is not None and len(iterable) == 1 and len(iterable[0]) == 0:
+            return default
+
+        return moves.builtins.max(*iterable, key=key)
+else:
+    min = moves.builtins.min
+    max = moves.builtins.max
+
+
 # Complete the moves implementation.
 # This code is at the end of this module to speed up module loading.
 # Turn this module into a package.
