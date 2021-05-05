@@ -7,7 +7,8 @@ python:
 - 3.5
 - 3.6
 - 3.7
-- &mainstream_python 3.8
+- 3.8
+- &mainstream_python 3.9
 - nightly
 - pypy
 - pypy3
