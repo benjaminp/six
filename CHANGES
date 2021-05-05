@@ -3,8 +3,8 @@ Changelog for six
 
 This file lists the changes in each six version.
 
-Development version
--------------------
+1.16.0
+------
 
 - Pull request #343, issue #341, pull request #349: Port _SixMetaPathImporter to
   Python 3.10.
