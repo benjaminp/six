@@ -113,6 +113,15 @@ except ImportError:
     except ImportError:
         have_gdbm = False
 
+have_ndbm = True
+try:
+    import dbm
+except ImportError:
+    try:
+        import dbm.ndbm
+    except ImportError:
+        have_ndbm = False
+
 @pytest.mark.parametrize("item_name",
                           [item.name for item in six._moved_attributes])
 def test_move_items(item_name):
@@ -127,8 +136,10 @@ def test_move_items(item_name):
         if item_name.startswith("tkinter"):
             if not have_tkinter:
                 pytest.skip("requires tkinter")
-        if item_name.startswith("dbm_gnu") and not have_gdbm:
+        if item_name == "dbm_gnu" and not have_gdbm:
             pytest.skip("requires gdbm")
+        if item_name == "dbm_ndbm":
+            pytest.skip("requires ndbm")
         raise
     assert item_name in dir(six.moves)
 
