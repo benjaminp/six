@@ -913,6 +913,11 @@ def ensure_binary(s, encoding='utf-8', errors='strict'):
     raise TypeError("not expecting type '%s'" % type(s))
 
 
+def ensure_bytes(s, encoding='utf-8', errors='strict'):
+    """Alias of ensure_binary"""
+    return ensure_binary(s, encoding, errors)
+
+
 def ensure_str(s, encoding='utf-8', errors='strict'):
     """Coerce *s* to `str`.
 
