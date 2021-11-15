@@ -6,6 +6,7 @@ jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         name: [
           "py-27",
@@ -14,12 +15,11 @@ jobs:
 
         include:
           - name: "py-27"
-          python: "2.7"
-          os: ubuntu-latest
-
+            python: "2.7"
+            os: ubuntu-latest
           - name: "py-35"
-          python: "3.5"
-          os: ubuntu-18.04
+            python: "3.5"
+            os: ubuntu-18.04
 
 
     steps:
