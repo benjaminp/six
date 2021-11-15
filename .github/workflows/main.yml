@@ -4,14 +4,27 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        python-versions: [2.7, 3.5] #,3.6, 3.7, 3.8
+        name: [
+          "py-27",
+          "py-35",
+        ]
+
+        include:
+          - name: "py-27"
+          python: "2.7"
+          os: ubuntu-latest
+
+          - name: "py-35"
+          python: "3.5"
+          os: ubuntu-18.04
+
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python ${{ matrix.python }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-versions }}
