@@ -1050,3 +1050,8 @@ class EnsureTests:
             assert converted_unicode == self.UNICODE_EMOJI and isinstance(converted_unicode, str)
             # PY3: bytes -> str
             assert converted_binary == self.UNICODE_EMOJI and isinstance(converted_unicode, str)
+
+
+def test_foo():
+    foo = "FOO"
+    assert foo == "FOO"
