@@ -10,9 +10,8 @@ jobs:
       matrix:
         name: [
           "py-27",
-          "py-35",
           "py-33",
-          "py-39",
+          "py-35",
         ]
 
         include:
@@ -29,8 +28,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    if:  ${{ matrix.container }}
-      - uses: docker://ubuntu/${{ matrix.container }}
+
+    - name: Set up container
+      if: ${{ matrix.container }}
+      uses: docker://ubuntu/${{ matrix.container }}
 
     - name: Set up Python ${{ matrix.python }}
       uses: actions/setup-python@v2
@@ -82,3 +83,5 @@ jobs:
         # https://github.com/pypa/gh-action-pypi-publish
         # https://docs.github.com/en/actions/security-guides/encrypted-secrets
         # https://pypi.org/help/#apitoken
+        # https://github.com/sanitizers/octomachinery/blob/master/.github/workflows/publish-to-test-pypi.yml
+
