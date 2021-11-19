@@ -30,7 +30,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Set up container
-      if: ${{ matrix.container }}
+      if: "matrix.container"
       uses: docker://ubuntu/${{ matrix.container }}
 
     - name: Set up Python ${{ matrix.python }}
