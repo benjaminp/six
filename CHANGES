@@ -3,6 +3,12 @@ Changelog for six
 
 This file lists the changes in each six version.
 
+Unreleased
+----------
+
+- Pull request #365, issue #283: `six.moves.UserDict` now points to
+  `UserDict.IterableUserDict` instead of `UserDict.UserDict` on Python 2.
+
 1.16.0
 ------
 
