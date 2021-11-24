@@ -21,6 +21,7 @@ jobs:
           - name: "py-27"
             python: "2.7"
             os: ubuntu-latest
+            image: ubuntu-latest
           - name: "py-33"
             python: "3.3"
             os: ubuntu-latest
@@ -29,6 +30,7 @@ jobs:
           - name: "py-35"
             python: "3.5"
             os: ubuntu-18.04
+            image: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
