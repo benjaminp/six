@@ -5,6 +5,9 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+
     strategy:
       fail-fast: false
       matrix:
@@ -21,7 +24,8 @@ jobs:
           - name: "py-33"
             python: "3.3"
             os: ubuntu-latest
-            container: ubuntu:14:04
+            container: true
+            image: ubuntu:14:04
           - name: "py-35"
             python: "3.5"
             os: ubuntu-18.04
@@ -31,7 +35,7 @@ jobs:
 
     - name: Set up container
       if: "matrix.container"
-      uses: docker://ubuntu/${{ matrix.container }}
+      uses: docker://ubuntu/${{ matrix.image }}
 
     - name: Set up Python ${{ matrix.python }}
       uses: actions/setup-python@v2
