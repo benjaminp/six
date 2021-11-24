@@ -37,7 +37,7 @@ jobs:
 
     - name: Set up container
       if: "matrix.container"
-      uses: docker://ubuntu/${{ matrix.image }}
+      uses: docker://ubuntu/ubuntu:14:04
 
     - name: Set up Python ${{ matrix.python }}
       uses: actions/setup-python@v2
