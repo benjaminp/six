@@ -42,6 +42,14 @@ jobs:
     - uses: docker://ubuntu:trusty
       if: "matrix.container"
 
+    - uses: actions/cache@v2
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/setup.py') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+
     - name: Set up Python ${{ matrix.python }}
       uses: actions/setup-python@v2
       with:
