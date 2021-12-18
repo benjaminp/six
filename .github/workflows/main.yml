@@ -33,7 +33,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Set up container
-      if: "matrix.container == "true"
+      if: "matrix.container == "true""
       uses: docker://ubuntu:trusty
 
     - name: Set up Python ${{ matrix.python }}
