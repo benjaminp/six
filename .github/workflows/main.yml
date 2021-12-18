@@ -32,7 +32,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: docker://ubuntu:trusty
-      if: ${{ matrix.container }}
+      if: "matrix.container"
 
     - name: Set up Python ${{ matrix.python }}
       uses: actions/setup-python@v2
