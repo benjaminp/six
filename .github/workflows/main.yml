@@ -14,7 +14,14 @@ jobs:
         name: [
           "py-27",
           "py-33",
+          "py-34",
           "py-35",
+          "py-36",
+          "py-37",
+          "py-38",
+          "py-39",
+          "pypy-36",
+          "pypy-27"
         ]
 
         include:
@@ -25,8 +32,24 @@ jobs:
             python: "3.3"
             os: ubuntu-latest
             container: true
+          - name: "py-34"
+            python: "3.4"
+            os: ubuntu-latest
+            container: true
           - name: "py-35"
             python: "3.5"
+            os: ubuntu-latest
+          - name: "py-36"
+            python: "3.6"
+            os: ubuntu-latest
+          - name: "py-37"
+            python: "3.7"
+            os: ubuntu-latest
+          - name: "py-38"
+            python: "3.8"
+            os: ubuntu-latest
+          - name: "py-39"
+            python: "3.9"
             os: ubuntu-latest
           - name: "pypy-36"
             python: "pypy-3.6-v7.3.2"
@@ -35,7 +58,6 @@ jobs:
           - name: "pypy-27"
             python: "pypy-2.7.13-v7.3.2"
             os: ubuntu-latest
-            foo: false
             container: true
 
     steps:
@@ -98,8 +120,4 @@ jobs:
       with:
         user: __token__
         password: ${{ secrets.PYPI_API_TOKEN }}
-        # https://github.com/pypa/gh-action-pypi-publish
-        # https://docs.github.com/en/actions/security-guides/encrypted-secrets
-        # https://pypi.org/help/#apitoken
-        # https://github.com/sanitizers/octomachinery/blob/master/.github/workflows/publish-to-test-pypi.yml
 
