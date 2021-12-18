@@ -32,6 +32,10 @@ jobs:
             python: "pypy-3.6-v7.3.2"
             os: ubuntu-latest
             container: true
+          - name: "pypy-27"
+            python: "pypy-2.7.13-v7.3.2"
+            os: ubuntu-latest
+            container: true
 
     steps:
     - uses: actions/checkout@v2
