@@ -24,17 +24,15 @@ jobs:
           - name: "py-33"
             python: "3.3"
             os: ubuntu-latest
-            container: "true"
+            container: true
           - name: "py-35"
             python: "3.5"
             os: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Set up container
-      if: "matrix.container == 'true'"
-      uses: docker://ubuntu:trusty
+    - uses: docker://ubuntu:trusty
+      if: ${{ matrix.container }}
 
     - name: Set up Python ${{ matrix.python }}
       uses: actions/setup-python@v2
