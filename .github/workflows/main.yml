@@ -37,7 +37,7 @@ jobs:
 
     - name: Set up container
       if: "matrix.container"
-      container: ubuntu:14:04
+      uses: docker://ubuntu:trusty
 
     - name: Set up Python ${{ matrix.python }}
       uses: actions/setup-python@v2
