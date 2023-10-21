@@ -136,6 +136,8 @@ def test_move_items(item_name):
         if item_name.startswith("tkinter"):
             if not have_tkinter:
                 pytest.skip("requires tkinter")
+            if item_name == "tkinter_tix" and sys.version_info >= (3, 13):
+                pytest.skip("tkinter.tix removed from Python 3.13")
         if item_name == "dbm_gnu" and not have_gdbm:
             pytest.skip("requires gdbm")
         if item_name == "dbm_ndbm":
