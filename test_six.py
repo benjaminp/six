@@ -1052,3 +1052,24 @@ class EnsureTests:
             assert converted_unicode == self.UNICODE_EMOJI and isinstance(converted_unicode, str)
             # PY3: bytes -> str
             assert converted_binary == self.UNICODE_EMOJI and isinstance(converted_unicode, str)
+
+
+def test_python_2_boolean_compatible():
+    @six.python_2_boolean_compatible
+    class MyTest(object):
+        def __bool__(self):
+            return True
+
+    my_test = MyTest()
+
+    assert bool(my_test) is True
+
+
+@py.test.mark.skipif("six.PY3")
+def test_python_2_boolean_compatible_no_bool():
+    # This test doesn't apply to python 3.x, since python_2_bool_compatible is
+    # a no-op on python 3.x
+    with py.test.raises(ValueError):
+        @six.python_2_boolean_compatible
+        class MyTest(object):
+            pass

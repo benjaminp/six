@@ -477,6 +477,13 @@ string data in all Python versions.
    that returns the result of ``__unicode__()`` encoded with UTF-8.
 
 
+.. decorator:: python_2_boolean_compatible
+
+   A class decorator that takes a class defining a ``__bool__`` method.  On
+   Python 3, the decorator does nothing.  On Python 2, it aliases the
+   ``__bool__`` method to ``__nonzero__``.
+
+
 unittest assertions
 >>>>>>>>>>>>>>>>>>>
 
