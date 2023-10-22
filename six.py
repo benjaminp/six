@@ -257,7 +257,6 @@ _moved_attributes = [
     MovedAttribute("map", "itertools", "builtins", "imap", "map"),
     MovedAttribute("getcwd", "os", "os", "getcwdu", "getcwd"),
     MovedAttribute("getcwdb", "os", "os", "getcwd", "getcwdb"),
-    MovedAttribute("getoutput", "commands", "subprocess"),
     MovedAttribute("range", "__builtin__", "builtins", "xrange", "range"),
     MovedAttribute("reload_module", "__builtin__", "importlib" if PY34 else "imp", "reload"),
     MovedAttribute("reduce", "__builtin__", "functools"),
@@ -319,6 +318,9 @@ _moved_attributes = [
     MovedModule("xmlrpc_client", "xmlrpclib", "xmlrpc.client"),
     MovedModule("xmlrpc_server", "SimpleXMLRPCServer", "xmlrpc.server"),
 ]
+if not (sys.platform == "win32" and sys.version_info[:3] < (3, 3, 4)):
+    #support for subprocess.getoutput() on Windows was added for Py>=3.3.4
+    _moved_attributes.append(MovedAttribute("getoutput", "commands", "subprocess"))
 # Add windows specific modules.
 if sys.platform == "win32":
     _moved_attributes += [
