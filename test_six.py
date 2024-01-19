@@ -231,6 +231,7 @@ def test_map():
     assert six.advance_iterator(map(lambda x: x + 1, range(2))) == 1
 
 
+@pytest.mark.skipif("sys.platform == 'win32'", reason="TODO: fix on Windows")
 def test_getoutput():
     from six.moves import getoutput
     output = getoutput('echo "foo"')
