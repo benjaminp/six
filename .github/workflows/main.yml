@@ -1,0 +1,123 @@
+name: main
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        name: [
+          "py-27",
+          "py-33",
+          "py-34",
+          "py-35",
+          "py-36",
+          "py-37",
+          "py-38",
+          "py-39",
+          "pypy-36",
+          "pypy-27"
+        ]
+
+        include:
+          - name: "py-27"
+            python: "2.7"
+            os: ubuntu-latest
+          - name: "py-33"
+            python: "3.3"
+            os: ubuntu-latest
+            container: true
+          - name: "py-34"
+            python: "3.4"
+            os: ubuntu-latest
+            container: true
+          - name: "py-35"
+            python: "3.5"
+            os: ubuntu-latest
+          - name: "py-36"
+            python: "3.6"
+            os: ubuntu-latest
+          - name: "py-37"
+            python: "3.7"
+            os: ubuntu-latest
+          - name: "py-38"
+            python: "3.8"
+            os: ubuntu-latest
+          - name: "py-39"
+            python: "3.9"
+            os: ubuntu-latest
+          - name: "pypy-36"
+            python: "pypy-3.6-v7.3.2"
+            os: ubuntu-latest
+            container: true
+          - name: "pypy-27"
+            python: "pypy-2.7.13-v7.3.2"
+            os: ubuntu-latest
+            container: true
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://ubuntu:trusty
+      if: "matrix.container"
+
+    - uses: actions/cache@v2
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/setup.py') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+
+    - name: Set up Python ${{ matrix.python }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-versions }}
+
+    - name: Install dependencies
+      run: |
+        pip install --upgrade --force-reinstall "setuptools; python_version != '3.3'" "setuptools < 40; python_version == '3.3'"
+        pip uninstall --yes six || true
+        pip install --upgrade --force-reinstall --ignore-installed -e .
+        pip install "pytest==4.6.9; python_version != '3.3'" "pytest==2.9.2; python_version == '3.3'" "typing; python_version < '3'"
+        pip list --format=columns || pip list
+
+    - name: Test
+      run: |
+        py.test
+        echo Checking whether installation flow is not broken...
+        pip uninstall --yes six || true
+        pip install --ignore-installed .
+        pip list --format=columns || pip list
+
+  deploy:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+    runs-on: ubuntu-latest
+    needs: [build]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.9"
+
+    - name: Install dependencies
+      run: |
+        pip install wheel
+
+    - name: Build package
+      run: |
+        python setup.py sdist bdist_wheel
+
+    - name: Publish package
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        user: __token__
+        password: ${{ secrets.PYPI_API_TOKEN }}
+
