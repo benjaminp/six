@@ -14,6 +14,10 @@
    :target: https://github.com/benjaminp/six/blob/master/LICENSE
    :alt: MIT License badge
 
+.. image:: https://assets.piptrends.com/get-last-month-downloads-badge/six.svg
+    :target: https://piptrends.com/package/six
+    :alt: six Downloads Last Month by pip Trends
+
 Six is a Python 2 and 3 compatibility library.  It provides utility functions
 for smoothing over the differences between the Python versions with the goal of
 writing Python code that is compatible on both Python versions.  See the
