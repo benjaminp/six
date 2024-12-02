@@ -562,6 +562,9 @@ except NameError:
 
 
 if PY3:
+    def is_bound_method(func):
+        return callable(func) and hasattr(func, _meth_self)
+
     def get_unbound_function(unbound):
         return unbound
 
@@ -572,6 +575,15 @@ if PY3:
 
     Iterator = object
 else:
+    _builtin_bound_method_type = type((0).bit_length)
+    _method_wrapper_type = type((0).__abs__)
+
+    def is_bound_method(func):
+        return (
+            callable(func) and getattr(func, _meth_self, None) is not None
+            or isinstance(func, (_builtin_bound_method_type, _method_wrapper_type))
+        )
+
     def get_unbound_function(unbound):
         return unbound.im_func
 
