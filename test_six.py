@@ -1052,3 +1052,57 @@ class EnsureTests:
             assert converted_unicode == self.UNICODE_EMOJI and isinstance(converted_unicode, str)
             # PY3: bytes -> str
             assert converted_binary == self.UNICODE_EMOJI and isinstance(converted_unicode, str)
+
+
+@py.test.fixture
+def env_var():
+    try:
+        old_six_test = os.environ['_six_test']
+    except KeyError:
+        old_six_test = None
+    else:
+        del os.environ['_six_test']
+
+    yield
+
+    if old_six_test is not None:
+        os.environ['_six_test'] = old_six_test
+
+
+class EnvironTests:
+
+    # grinning face emoji
+    UNICODE_EMOJI = six.u("\U0001F600")
+    BINARY_EMOJI = b"\xf0\x9f\x98\x80"
+
+    def test_set_environ(self, env_var):
+        six.environ['_six_test'] = UNICODE_EMOJI
+
+        assert six.environ['_six_test'] == UNICODE_EMOJI
+        assert six.environb['_six_test'] == BINARY_EMOJI
+        if PY3:
+            assert os.environ == UNICODE_EMOJI
+        else:
+            assert os.environ == BINARY_EMOJI
+
+    def test_set_environb(self, env_var):
+        six.environb['_six_test'] = BINARY_EMOJI
+
+        assert six.environ['_six_test'] == UNICODE_EMOJI
+        assert six.environb['_six_test'] == BINARY_EMOJI
+        if PY3:
+            assert os.environ == UNICODE_EMOJI
+        else:
+            assert os.environ == BINARY_EMOJI
+
+    def test_del_environ(self, env_var):
+        six.environ['_six_test'] = 'testing'
+        assert '_six_test' in os.environ
+        del six.environ['_six_test']
+        assert '_six_test' not in os.environ
+
+    def test_del_environb(self, env_var):
+        six.environb['_six_test'] = 'testing'
+        assert '_six_test' in os.environ
+        del six.environb['_six_test']
+        assert '_six_test' not in os.environ
