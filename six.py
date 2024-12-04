@@ -140,6 +140,9 @@ class _LazyModule(types.ModuleType):
     # Subclasses should override this
     _moved_attributes = []
 
+    def __reduce__(self):
+        return _import_module, (self.__name__,)
+
 
 class MovedAttribute(_LazyDescr):
 
