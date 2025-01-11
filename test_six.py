@@ -996,6 +996,13 @@ def test_python_2_unicode_compatible():
     assert getattr(six.moves.builtins, 'bytes', str)(my_test) == six.b("hello")
 
 
+def test_html_escape():
+    assert six.html_escape('\'<div>"&something;"</div>\'') == \
+        '&#x27;&lt;div&gt;&quot;&amp;something;&quot;&lt;/div&gt;&#x27;'
+    assert six.html_escape('\'<div>"&something;"</div>\'', False) == \
+        '\'&lt;div&gt;"&amp;something;"&lt;/div&gt;\''
+
+
 class EnsureTests:
 
     # grinning face emoji
