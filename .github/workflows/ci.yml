@@ -14,7 +14,6 @@ jobs:
       matrix:
         python-version: [
           "2.7",
-          "3.5",
           "3.6",
           "3.7",
           "3.8",
@@ -34,14 +33,10 @@ jobs:
             os: "windows-latest"
           - python-version: "2.7"
             os: "macos-latest"
-          - python-version: "3.5"
-            os: "macos-latest"
           - python-version: "3.6"
             os: "macos-latest"
           - python-version: "3.7"
             os: "macos-latest"
-          - python-version: "3.5"
-            os: "ubuntu-latest"
           - python-version: "3.6"
             os: "ubuntu-latest"
           - python-version: "3.7"
@@ -54,25 +49,22 @@ jobs:
           - python-version: "3.7"
             os: "macos-13"
           - python-version: "2.7"
-            os: "ubuntu-20.04"
-          - python-version: "3.5"
-            os: "ubuntu-20.04"
+            os: "ubuntu-22.04"
+            use-container: true
           - python-version: "3.6"
-            os: "ubuntu-20.04"
+            os: "ubuntu-22.04"
+            use-container: true
           - python-version: "3.7"
             os: "ubuntu-22.04"
+            use-container: true
     runs-on: ${{ matrix.os }}
+    container:
+      image: ${{ matrix.use-container && format('python:{0}', matrix.python-version) || '' }}
     env:
       TOXENV: py
     steps:
       - uses: actions/checkout@v5
-      - if: ${{ matrix.python-version == '2.7' }}
-        run: |
-          sudo apt-get install python-is-python2
-          curl -sSL https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py
-          python get-pip.py
-        name: Set up Python ${{ matrix.python-version }} on ${{ matrix.os }}
-      - if: ${{ matrix.python-version != '2.7' }}
+      - if: ${{ !matrix.use-container }}
         name: Set up Python ${{ matrix.python-version }} on ${{ matrix.os }}
         uses: actions/setup-python@v6
         with:
