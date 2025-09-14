@@ -61,7 +61,7 @@ jobs:
     env:
       TOXENV: py
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - if: ${{ matrix.python-version == '2.7' }}
         run: |
           sudo apt-get install python-is-python2
@@ -70,7 +70,7 @@ jobs:
         name: Set up Python ${{ matrix.python-version }} on ${{ matrix.os }}
       - if: ${{ matrix.python-version != '2.7' }}
         name: Set up Python ${{ matrix.python-version }} on ${{ matrix.os }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           allow-prereleases: true
