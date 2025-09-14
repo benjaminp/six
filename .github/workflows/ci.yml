@@ -44,6 +44,8 @@ jobs:
             os: "ubuntu-latest"
           - python-version: "3.6"
             os: "ubuntu-latest"
+          - python-version: "3.7"
+            os: "ubuntu-latest"
         include:
           - python-version: "3.5"
             os: "macos-13"
@@ -57,6 +59,8 @@ jobs:
             os: "ubuntu-20.04"
           - python-version: "3.6"
             os: "ubuntu-20.04"
+          - python-version: "3.7"
+            os: "ubuntu-22.04"
     runs-on: ${{ matrix.os }}
     env:
       TOXENV: py
