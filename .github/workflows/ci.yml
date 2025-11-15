@@ -44,11 +44,11 @@ jobs:
             os: "ubuntu-latest"
         include:
           - python-version: "3.5"
-            os: "macos-13"
+            os: "macos-15-intel"
           - python-version: "3.6"
-            os: "macos-13"
+            os: "macos-15-intel"
           - python-version: "3.7"
-            os: "macos-13"
+            os: "macos-15-intel"
           - python-version: "2.7"
             os: "ubuntu-22.04"
             use-container: true
