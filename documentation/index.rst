@@ -83,11 +83,11 @@ Six provides constants that may differ between Python versions.  Ones ending
 
 .. data:: MAXSIZE
 
-   The maximum  size of a  container like :func:`py3:list`  or :func:`py3:dict`.
-   This  is  equivalent  to  :data:`py3:sys.maxsize` in  Python  2.6  and  later
-   (including 3.x).   Note, this is temptingly  similar to, but not  the same as
-   :data:`py2:sys.maxint`  in  Python  2.   There is  no  direct  equivalent  to
-   :data:`py2:sys.maxint` in  Python 3  because its integer  type has  no limits
+   The maximum size of a container like :func:`py3:list` or :func:`py3:dict`.
+   This is equivalent to :data:`py3:sys.maxsize` in Python 2.6 and later
+   (including 3.x). Note, this is temptingly similar to, but not the same as
+   :data:`py2:sys.maxint` in Python 2. There is no direct equivalent to
+   :data:`py2:sys.maxint` in Python 3 because its integer type has no limits
    aside from memory.
 
 
@@ -440,19 +440,19 @@ string data in all Python versions.
 .. function:: ensure_binary(s, encoding='utf-8', errors='strict')
 
    Coerce *s* to :data:`binary_type`. *encoding*, *errors* are the same as
-   :meth:`py3:str.encode`
+   :meth:`py3:str.encode`.
 
 
 .. function:: ensure_str(s, encoding='utf-8', errors='strict')
 
    Coerce *s* to ``str``. *encoding*, *errors* are the same as
-   :meth:`py3:str.encode`
+   :meth:`py3:str.encode`.
 
 
 .. function:: ensure_text(s, encoding='utf-8', errors='strict')
 
    Coerce *s* to :data:`text_type`. *encoding*, *errors* are the same as
-   :meth:`py3:bytes.decode`
+   :meth:`py3:bytes.decode`.
 
 
 .. data:: StringIO
@@ -568,7 +568,7 @@ functionality; its structure mimics the structure of the Python 3
    this problem for some applications by pretending attributes on unimportable
    modules do not exist. This hack does not work in every case, though. If you are
    encountering problems with the lazy modules and don't use any from imports
-   directly from ``six.moves`` modules, you can workaround the issue by removing
+   directly from ``six.moves`` modules, you can work around the issue by removing
    the six proxy modules::
 
      d = [name for name in sys.modules if name.startswith("six.moves.")]
@@ -864,7 +864,7 @@ It is possible to add additional names to the :mod:`six.moves` namespace.
 
 
 Instances of the following classes can be passed to :func:`add_move`.  Neither
-have any public members.
+has any public members.
 
 
 .. class:: MovedModule(name, old_mod, new_mod)
