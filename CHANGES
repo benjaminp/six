@@ -43,7 +43,7 @@ This file lists the changes in each six version.
 - Issue #298, pull request #299: Add `six.moves.dbm_ndbm`.
 
 - Issue #155: Add `six.moves.collections_abc`, which aliases the `collections`
-  module on Python 2-3.2 and the `collections.abc` on Python 3.3 and greater.
+  module on Python 2-3.2 and the `collections.abc` module on Python 3.3 and greater.
 
 - Pull request #304: Re-add distutils fallback in `setup.py`.
 
@@ -275,7 +275,7 @@ This file lists the changes in each six version.
 
 - Issue #23: Allow multiple base classes to be passed to with_metaclass.
 
-- Issue #24: Add six.moves.range alias. This exactly the same as the current
+- Issue #24: Add six.moves.range alias. This is exactly the same as the current
   xrange alias.
 
 - Pull request #5: Create six.moves.urllib, which contains abstractions for a
@@ -318,7 +318,7 @@ This file lists the changes in each six version.
 
 - Add six.next() as an alias for six.advance_iterator().
 
-- Use the builtin next() function for advance_iterator() where is available
+- Use the builtin next() function for advance_iterator() where it is available
   (2.6+), not just Python 3.
 
 - Add the Iterator class for writing portable iterators.
