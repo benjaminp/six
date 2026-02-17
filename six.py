@@ -978,6 +978,18 @@ def python_2_unicode_compatible(klass):
     return klass
 
 
+if sys.version_info[:2] >= (3, 2):
+    import html
+    def html_escape(s, quote=True):
+        return html.escape(s, quote)
+else:
+    import cgi
+    def html_escape(s, quote=True):
+        escaped = cgi.escape(s, quote)
+        if quote:
+            escaped = escaped.replace("'", "&#x27;")
+        return escaped
+
 # Complete the moves implementation.
 # This code is at the end of this module to speed up module loading.
 # Turn this module into a package.
