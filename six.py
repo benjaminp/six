@@ -69,7 +69,6 @@ else:
         else:
             # 64-bit
             MAXSIZE = int((1 << 63) - 1)
-        del X
 
 if PY34:
     from importlib.util import spec_from_loader
