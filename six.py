@@ -978,6 +978,20 @@ def python_2_unicode_compatible(klass):
     return klass
 
 
+if PY2:
+    def hasattr(obj, name):
+        """Return whether the object has an attribute with the given name.
+
+        This is done by calling getattr(obj, name) and catching AttributeError."""
+        try:
+            getattr(obj, name)
+            return True
+        except AttributeError:
+            return False
+else:
+    hasattr = hasattr
+
+
 # Complete the moves implementation.
 # This code is at the end of this module to speed up module loading.
 # Turn this module into a package.
