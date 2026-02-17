@@ -81,6 +81,12 @@ Six provides constants that may differ between Python versions.  Ones ending
    compatibility.
 
 
+.. data:: file_types
+
+   Possible types for files.  This is :func:`py2:file` and :func:`py2:io.IOBase`
+   in Python 2 and just :func:`py3:io.IOBase` in Python 3.
+
+
 .. data:: MAXSIZE
 
    The maximum size of a container like :func:`py3:list` or :func:`py3:dict`.
