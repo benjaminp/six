@@ -25,6 +25,7 @@ from __future__ import absolute_import
 import functools
 import itertools
 import operator
+import os
 import sys
 import types
 
@@ -642,6 +643,88 @@ _add_doc(iteritems,
          "Return an iterator over the (key, value) pairs of a dictionary.")
 _add_doc(iterlists,
          "Return an iterator over the (key, [values]) pairs of a dictionary.")
+
+
+if PY3:
+    environ = os.environ
+    if sys.version_info >= (3, 2):
+        # We can simply reuse what Python 3.2+ provides
+        supports_bytes_environ = os.supports_bytes_environ
+        if supports_bytes_environ:
+            environb = os.environb
+    else:
+        # There is no os.environb on Python 3.0 and 3.1
+        supports_bytes_environ = False
+else:
+    # Python 2's environ is bytes-oriented
+    supports_bytes_environ = True
+    environb = os.environ
+    if sys.version_info >= (2, 6):
+        # Python 2.6 and Python 2.7 have MutableMapping
+        from collections import MutableMapping as DictBaseClass
+    else:
+        # Python 2.5 and below do not have MutableMapping
+        from UserDict import DictMixin as DictBaseClass
+
+    class _TextEnviron(DictBaseClass):
+        """
+        Utility class to return text strings from the environment instead of byte strings
+
+        Mimics the behaviour of os.environ on Python3
+        """
+        # Mimic Python3's os.environ by using sys.getfilesystemencoding()
+        def __init__(self, env=None, encoding=sys.getfilesystemencoding()):
+            if env is None:
+                env = os.environ
+            self._raw_environ = env
+            self._value_cache = {}
+            self.encoding = encoding
+
+        def __delitem__(self, key):
+            del self._raw_environ[key]
+
+        def __getitem__(self, key):
+            # Note: For undecodable strings, Python3 will use surrogateescape.  We don't have that
+            # on Python2 so we throw a ValueError instead
+            value = self._raw_environ[key]
+
+            # Cache keys off of the undecoded values to handle any environment variables which
+            # change during a run
+            if value not in self._value_cache:
+                try:
+                    self._value_cache[value] = ensure_text(value, encoding=self.encoding)
+                except UnicodeError:
+                    raise ValueError('environ string for %s is undecodable in the'
+                                     ' filesystemencoding. Use six.environb and manually convert'
+                                     ' the value to text instead' % value)
+            return self._value_cache[value]
+
+        def __setitem__(self, key, value):
+            if not isinstance(value, text_type):
+                raise TypeError("str expected, not %s" % type(value).__name__)
+
+            try:
+                self._raw_environ[key] = ensure_binary(value, encoding=self.encoding)
+            except UnicodeError:
+                raise ValueError('The value, %s, is unencodable in the filesystemencoding.'
+                                 ' Use six.environb and manually convert the value to bytes'
+                                 ' instead' % value)
+
+        def __iter__(self):
+            return self._raw_environ.__iter__()
+
+        def __len__(self):
+            return len(self._raw_environ)
+
+        # Needed for the DictMixin-based subclass but not for MutableMapping-based subclass
+        if sys.version_info < (2, 6):
+            def keys(self):
+                return self._raw_environ.keys()
+
+            def copy(self):
+                return self._raw_environ.copy()
+
+    environ = _TextEnviron()
 
 
 if PY3:

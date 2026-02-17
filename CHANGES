@@ -59,6 +59,10 @@ This file lists the changes in each six version.
 - Pull request #204: Add `six.ensure_binary`, `six.ensure_text`, and
   `six.ensure_str`.
 
+- Add `six.supports_bytes_environ`, `six.environ`, and `six.environb` (when
+  `six.supports_bytes_environ` is True) which operate similar to the
+  Python-3.2+ `os.supports_bytes_environ`,  `os.environ`, and `os.environb`.
+
 1.11.0
 ------
 
