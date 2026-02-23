@@ -43,7 +43,7 @@ Package contents
 Constants
 >>>>>>>>>
 
-Six provides constants that may differ between Python versions.  Ones ending
+Six provides constants that may differ between Python versions.  Those ending
 ``_types`` are mostly useful as the second argument to ``isinstance`` or
 ``issubclass``.
 
