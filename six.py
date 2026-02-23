@@ -785,13 +785,13 @@ if print_ is None:
             if isinstance(sep, unicode):
                 want_unicode = True
             elif not isinstance(sep, str):
-                raise TypeError("sep must be None or a string")
+                raise TypeError("sep must be None or a string, not {0!r}".format(type(sep)))
         end = kwargs.pop("end", None)
         if end is not None:
             if isinstance(end, unicode):
                 want_unicode = True
             elif not isinstance(end, str):
-                raise TypeError("end must be None or a string")
+                raise TypeError("end must be None or a string, not {0!r}".format(type(end)))
         if kwargs:
             raise TypeError("invalid keyword arguments to print()")
         if not want_unicode:
