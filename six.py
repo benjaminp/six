@@ -218,7 +218,7 @@ class _SixMetaPathImporter(object):
 
     def is_package(self, fullname):
         """
-        Return true, if the named module is a package.
+        Return true if the named module is a package.
 
         We need this method to get correct spec objects with
         Python 3.4 (see PEP451)
