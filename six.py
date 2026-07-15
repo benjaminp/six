@@ -259,7 +259,7 @@ _moved_attributes = [
     MovedAttribute("getcwdb", "os", "os", "getcwd", "getcwdb"),
     MovedAttribute("getoutput", "commands", "subprocess"),
     MovedAttribute("range", "__builtin__", "builtins", "xrange", "range"),
-    MovedAttribute("reload_module", "__builtin__", "importlib" if PY34 else "imp", "reload"),
+    MovedAttribute("reload_module", "imp", "importlib" if PY34 else "imp", "reload"),
     MovedAttribute("reduce", "__builtin__", "functools"),
     MovedAttribute("shlex_quote", "pipes", "shlex", "quote"),
     MovedAttribute("StringIO", "StringIO", "io"),
