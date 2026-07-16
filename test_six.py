@@ -91,15 +91,7 @@ def test_lazy():
         html_name = "html.parser"
     else:
         html_name = "HTMLParser"
-    # test_lazy needs a clean process where html.parser/HTMLParser is not yet
-    # imported, so it can prove six.moves.html_parser loads it lazily.
-    # six itself never imports Django. In polluted site-packages, ambient
-    # pytest plugins may import Django at collection time when it is installed
-    # (observed path: hypothesis.internal.compat -> django.test -> ... ->
-    # django.utils.html -> html.parser; see issue #335 with hypothesis in the
-    # pytest plugins list). Then the pre-condition is already false.
-    if html_name in sys.modules:
-        pytest.skip("%s already imported" % html_name)
+    assert html_name not in sys.modules
     mod = six.moves.html_parser
     assert sys.modules[html_name] is mod
     assert "htmlparser" not in six._MovedItems.__dict__
