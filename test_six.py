@@ -91,7 +91,10 @@ def test_lazy():
         html_name = "html.parser"
     else:
         html_name = "HTMLParser"
-    assert html_name not in sys.modules
+    # Django and other packages may import html.parser at import time, which
+    # makes the pre-condition of this lazy-load test impossible to satisfy.
+    if html_name in sys.modules:
+        pytest.skip("%s already imported (e.g. by django)" % html_name)
     mod = six.moves.html_parser
     assert sys.modules[html_name] is mod
     assert "htmlparser" not in six._MovedItems.__dict__
