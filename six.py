@@ -960,6 +960,21 @@ def ensure_text(s, encoding='utf-8', errors='strict'):
         raise TypeError("not expecting type '%s'" % type(s))
 
 
+
+def shlex_join(split_command):
+    """Return a shell-escaped string from *split_command*.
+
+    Portable wrapper around :func:`shlex.join` (Python 3.8+) with a
+    fallback for older interpreters (issue #386).
+    """
+    try:
+        from shlex import join as _shlex_join
+    except ImportError:
+        from shlex import quote as _shlex_quote
+        def _shlex_join(split_command):
+            return " ".join(_shlex_quote(arg) for arg in split_command)
+    return _shlex_join(split_command)
+
 def python_2_unicode_compatible(klass):
     """
     A class decorator that defines __unicode__ and __str__ methods under Python 2.
