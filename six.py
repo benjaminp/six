@@ -561,6 +561,10 @@ except NameError:
         return any("__call__" in klass.__dict__ for klass in type(obj).__mro__)
 
 
+def is_bound_method(obj):
+    return callable(obj) and isinstance(obj, types.MethodType)
+
+
 if PY3:
     def get_unbound_function(unbound):
         return unbound
