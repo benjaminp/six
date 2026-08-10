@@ -459,6 +459,26 @@ def test_callable():
     assert not six.callable("string")
 
 
+def test_is_bound_method():
+    class X(object):
+        def method(self):
+            pass
+
+        @classmethod
+        def class_method(cls):
+            pass
+
+    def plain_function():
+        pass
+
+    assert six.is_bound_method(X().method) is True
+    assert six.is_bound_method(X.class_method) is True
+    assert six.is_bound_method(X.method) is False
+    assert six.is_bound_method(plain_function) is False
+    assert six.is_bound_method(test_is_bound_method) is False
+    assert six.is_bound_method(len) is False
+
+
 def test_create_bound_method():
     class X(object):
         pass
