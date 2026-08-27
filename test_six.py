@@ -1,4 +1,4 @@
-# Copyright (c) 2010-2020 Benjamin Peterson
+# Copyright (c) 2010-2024 Benjamin Peterson
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -113,6 +113,15 @@ except ImportError:
     except ImportError:
         have_gdbm = False
 
+have_ndbm = True
+try:
+    import dbm
+except ImportError:
+    try:
+        import dbm.ndbm
+    except ImportError:
+        have_ndbm = False
+
 @pytest.mark.parametrize("item_name",
                           [item.name for item in six._moved_attributes])
 def test_move_items(item_name):
@@ -127,8 +136,12 @@ def test_move_items(item_name):
         if item_name.startswith("tkinter"):
             if not have_tkinter:
                 pytest.skip("requires tkinter")
-        if item_name.startswith("dbm_gnu") and not have_gdbm:
+            if item_name == "tkinter_tix" and sys.version_info >= (3, 13):
+                pytest.skip("tkinter.tix removed from Python 3.13")
+        if item_name == "dbm_gnu" and not have_gdbm:
             pytest.skip("requires gdbm")
+        if item_name == "dbm_ndbm":
+            pytest.skip("requires ndbm")
         raise
     assert item_name in dir(six.moves)
 
@@ -220,8 +233,8 @@ def test_map():
 
 def test_getoutput():
     from six.moves import getoutput
-    output = getoutput('echo "foo"')
-    assert output == 'foo'
+    output = getoutput('dir' if sys.platform.startswith('win') else 'echo foo')
+    assert output != ''
 
 
 def test_zip():

@@ -1,4 +1,4 @@
-# Copyright (c) 2010-2020 Benjamin Peterson
+# Copyright (c) 2010-2024 Benjamin Peterson
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@ import sys
 import types
 
 __author__ = "Benjamin Peterson <benjamin@python.org>"
-__version__ = "1.15.0"
+__version__ = "1.17.0"
 
 
 # Useful for very coarse version differentiation.
@@ -72,6 +72,11 @@ else:
             MAXSIZE = int((1 << 63) - 1)
         del X
     JSONDecodeError = ValueError
+
+if PY34:
+    from importlib.util import spec_from_loader
+else:
+    spec_from_loader = None
 
 
 def _add_doc(func, doc):
@@ -188,6 +193,11 @@ class _SixMetaPathImporter(object):
             return self
         return None
 
+    def find_spec(self, fullname, path, target=None):
+        if fullname in self.known_modules:
+            return spec_from_loader(fullname, self)
+        return None
+
     def __get_module(self, fullname):
         try:
             return self.known_modules[fullname]
@@ -210,7 +220,7 @@ class _SixMetaPathImporter(object):
 
     def is_package(self, fullname):
         """
-        Return true, if the named module is a package.
+        Return true if the named module is a package.
 
         We need this method to get correct spec objects with
         Python 3.4 (see PEP451)
@@ -224,6 +234,12 @@ class _SixMetaPathImporter(object):
         self.__get_module(fullname)  # eventually raises ImportError
         return None
     get_source = get_code  # same as get_code
+
+    def create_module(self, spec):
+        return self.load_module(spec.name)
+
+    def exec_module(self, module):
+        pass
 
 _importer = _SixMetaPathImporter(__name__)
 
@@ -249,7 +265,7 @@ _moved_attributes = [
     MovedAttribute("reduce", "__builtin__", "functools"),
     MovedAttribute("shlex_quote", "pipes", "shlex", "quote"),
     MovedAttribute("StringIO", "StringIO", "io"),
-    MovedAttribute("UserDict", "UserDict", "collections"),
+    MovedAttribute("UserDict", "UserDict", "collections", "IterableUserDict", "UserDict"),
     MovedAttribute("UserList", "UserList", "collections"),
     MovedAttribute("UserString", "UserString", "collections"),
     MovedAttribute("xrange", "__builtin__", "builtins", "xrange", "range"),
@@ -421,12 +437,17 @@ _urllib_request_moved_attributes = [
     MovedAttribute("HTTPErrorProcessor", "urllib2", "urllib.request"),
     MovedAttribute("urlretrieve", "urllib", "urllib.request"),
     MovedAttribute("urlcleanup", "urllib", "urllib.request"),
-    MovedAttribute("URLopener", "urllib", "urllib.request"),
-    MovedAttribute("FancyURLopener", "urllib", "urllib.request"),
     MovedAttribute("proxy_bypass", "urllib", "urllib.request"),
     MovedAttribute("parse_http_list", "urllib2", "urllib.request"),
     MovedAttribute("parse_keqv_list", "urllib2", "urllib.request"),
 ]
+if sys.version_info[:2] < (3, 14):
+    _urllib_request_moved_attributes.extend(
+        [
+            MovedAttribute("URLopener", "urllib", "urllib.request"),
+            MovedAttribute("FancyURLopener", "urllib", "urllib.request"),
+        ]
+    )
 for attr in _urllib_request_moved_attributes:
     setattr(Module_six_moves_urllib_request, attr.name, attr)
 del attr
