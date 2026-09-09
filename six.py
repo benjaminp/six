@@ -901,7 +901,7 @@ def add_metaclass(metaclass):
 
 
 def ensure_binary(s, encoding='utf-8', errors='strict'):
-    """Coerce **s** to six.binary_type.
+    """Coerce *s* to six.binary_type.
 
     For Python 2:
       - `unicode` -> encoded to `str`
@@ -910,6 +910,13 @@ def ensure_binary(s, encoding='utf-8', errors='strict'):
     For Python 3:
       - `str` -> encoded to `bytes`
       - `bytes` -> `bytes`
+
+    Note on reading binary sysfs attributes:
+    When reading attributes from Linux sysfs (e.g., under /sys/class/),
+    the content is often raw binary data or lacks a standard text encoding.
+    It is recommended to open such files in binary mode ('rb') and pass
+    the resulting bytes directly to this function, rather than attempting
+    to decode them as text first, to avoid UnicodeDecodeError.
     """
     if isinstance(s, binary_type):
         return s
