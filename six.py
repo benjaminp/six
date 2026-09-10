@@ -270,6 +270,8 @@ _moved_attributes = [
     MovedAttribute("zip", "itertools", "builtins", "izip", "zip"),
     MovedAttribute("zip_longest", "itertools", "itertools", "izip_longest", "zip_longest"),
     MovedModule("builtins", "__builtin__"),
+    # Note: SafeConfigParser is deprecated since Python 3.2 and removed in 3.12.
+    # Users should migrate to ConfigParser directly.
     MovedModule("configparser", "ConfigParser"),
     MovedModule("collections_abc", "collections", "collections.abc" if sys.version_info >= (3, 3) else "collections"),
     MovedModule("copyreg", "copy_reg"),
