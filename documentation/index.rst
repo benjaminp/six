@@ -415,8 +415,11 @@ string data in all Python versions.
 
 .. function:: int2byte(i)
 
-   Converts *i* to a byte.  *i* must be in ``range(0, 256)``.  This is
-   equivalent to :func:`py2:chr` in Python 2 and ``bytes((i,))`` in Python 3.
+   Converts *i* to a byte.  *i* must be in ``range(0, 256)``.  For valid
+   arguments, this is equivalent to :func:`py2:chr` in Python 2 and
+   ``bytes((i,))`` in Python 3.  For invalid arguments, the exception types
+   and messages are not part of the compatibility guarantee; on Python 3,
+   the current implementation raises :exc:`struct.error`.
 
 
 .. function:: byte2int(bs)
