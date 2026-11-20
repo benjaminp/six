@@ -20,6 +20,8 @@
 
 from __future__ import with_statement
 
+import re
+
 # Six is a dependency of setuptools, so using setuptools creates a
 # circular dependency when building a Python stack from source. We
 # therefore allow falling back to distutils to install six.
@@ -28,7 +30,9 @@ try:
 except ImportError:
     from distutils.core import setup
 
-import six
+with open("six.py", "r") as fp:
+    six_version = re.search(r"""^__version__ = ['"]([^'"]+)['"]""",
+                            fp.read(), re.MULTILINE).group(1)
 
 six_classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -44,7 +48,7 @@ with open("README.rst", "r") as fp:
     six_long_description = fp.read()
 
 setup(name="six",
-      version=six.__version__,
+      version=six_version,
       author="Benjamin Peterson",
       author_email="benjamin@python.org",
       url="https://github.com/benjaminp/six",
