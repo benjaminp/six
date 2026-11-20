@@ -3,6 +3,11 @@ Changelog for six
 
 This file lists the changes in each six version.
 
+Unreleased
+----------
+
+- Issue #219: Handle name-mangled private slots in `six.add_metaclass`.
+
 1.17.0
 ------
 

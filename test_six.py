@@ -909,6 +909,46 @@ def test_add_metaclass():
     assert type(MySlotsWeakref) is Meta
 
 
+@pytest.mark.parametrize("name, private_slot", [
+    ("Example", "_Example__value"),
+    ("_Example", "_Example__value"),
+    ("__Example", "_Example__value"),
+    ("___", "__value"),
+])
+@pytest.mark.parametrize("slots", ["__value", ("__value",)])
+def test_add_metaclass_private_slots(name, private_slot, slots):
+    class Meta(type):
+        pass
+
+    original = type(name, (object,), {"__slots__": slots})
+    decorated = six.add_metaclass(Meta)(original)
+    instance = decorated()
+    setattr(instance, private_slot, 42)
+    assert getattr(instance, private_slot) == 42
+    assert type(decorated) is Meta
+    assert decorated.__slots__ == slots
+    assert getattr(decorated, private_slot).__objclass__ is decorated
+    with pytest.raises(AttributeError):
+        instance.extra = 1
+
+
+def test_add_metaclass_private_slots_used_by_methods():
+    class Meta(type):
+        pass
+
+    @six.add_metaclass(Meta)
+    class Example(object):
+        __slots__ = ("__value", "__value_", "__value__")
+
+        def values(self):
+            self.__value = 1
+            self.__value_ = 2
+            self.__value__ = 3
+            return self.__value, self.__value_, self.__value__
+
+    assert Example().values() == (1, 2, 3)
+
+
 @pytest.mark.skipif("sys.version_info[:2] < (3, 3)")
 def test_add_metaclass_nested():
     # Regression test for https://github.com/benjaminp/six/issues/259

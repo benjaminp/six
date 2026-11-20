@@ -891,6 +891,10 @@ def add_metaclass(metaclass):
             if isinstance(slots, str):
                 slots = [slots]
             for slots_var in slots:
+                if slots_var.startswith('__') and not slots_var.endswith('__'):
+                    class_name = cls.__name__.lstrip('_')
+                    if class_name:
+                        slots_var = '_' + class_name + slots_var
                 orig_vars.pop(slots_var)
         orig_vars.pop('__dict__', None)
         orig_vars.pop('__weakref__', None)
